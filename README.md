@@ -12,7 +12,11 @@ EC-Advance-2021-Team2 "TIM" 서비스 Front 팀입니다.
 ## Derectory structure
 
 src
+
 ├─ api/ : API 통신을 할 때 사용할 로직이 있습니다.
+
 ├─ components/ : View를 담당하는 컴포넌트입니다.
+
 ├─ containters/
+
 └─
