@@ -17,6 +17,14 @@ src
 
 ├─ components/ : View를 담당하는 컴포넌트입니다.
 
-├─ containters/
+├─ containters/ : Presenter를 담당하는 컴포넌트입니다.
 
-└─
+├─ lib/ : 코드의 중복을 막아주는 유틸 함수가 있습니다.
+
+├─ modules/ : model을 담당하는 컴포넌트입니다.
+
+├─ pages/
+
+├─ App.js
+
+└─ index.js
