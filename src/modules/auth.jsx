@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { takeEvery } from 'redux-saga/effects';
 import * as authAPI from '../api/auth';
 import { createRequestSaga } from '../lib/utils';
+import { produce } from 'immer';
 
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
@@ -62,7 +63,10 @@ const initialState = {
 
 const auth = handleActions(
   {
-    [CHANGE_FIELD]: (state, { payload: { form, key, value } }) => ({}),
+    [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
+      produce(state, (draft) => {
+        draft[form][key] = value;
+      }),
     [LOGIN_SUCCESS]: (state, { payload: email, password }) => ({
       ...state,
       login: {
