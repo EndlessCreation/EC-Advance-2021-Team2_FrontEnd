@@ -1,11 +1,17 @@
+import { Route } from 'react-router-dom';
 import './App.css';
-function App() {
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 
+const App = () => {
   return (
-    <div className="App">
-      <h1>hello</h1>
-    </div>
-  );
+    <>
+      <Route component={HomePage} path='/' exact />
+      <Route component={LoginPage} path='/login' />
+      <Route component={SignupPage} path='/signup' />
+    </>
+  )
 }
 
 export default App;
