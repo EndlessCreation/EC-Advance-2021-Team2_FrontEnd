@@ -26,7 +26,6 @@ export const login = async ({ account, password }) => {
       password,
     },
   });
-  console.log(response.data);
   return response.data;
 };
 
@@ -37,6 +36,14 @@ export const logout = async () => {
   });
   return null;
 };
+
+// export const check = async () => {
+//   const response = await axios({
+//     method: "get",
+//     url: "/users/check",
+//   });
+//   return response.data;
+// };
 
 export const checkEmail = async (email) => {
   const response = await axios({

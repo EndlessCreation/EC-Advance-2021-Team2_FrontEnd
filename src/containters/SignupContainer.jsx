@@ -104,8 +104,6 @@ const SignupContainer = () => {
 
   useEffect(() => {
     if (authError) {
-      // console.log('Error!');
-      // console.log(authError.response.status);
       console.log(authError);
       setError('Sign Up Failure!');
       return;

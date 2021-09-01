@@ -139,17 +139,10 @@ const SignupComponent = ({
         </div>
         <input
           name="phone_number"
-          placeholder="phone_number"
+          placeholder="ex) 01012345678"
           type="text"
           onChange={onChange}
           value={form.phone_number}
-        />
-        <input
-          name="birth"
-          placeholder="birth"
-          type="text"
-          onChange={onChange}
-          value={form.birth}
         />
         <hr />
         <button>Sign Up</button>

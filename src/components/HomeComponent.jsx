@@ -4,7 +4,15 @@ import { Link } from 'react-router-dom';
 const HomeComponent = () => {
   return (
     <div>
-      <Link to="/login">Login</Link>
+      <h1>home</h1>
+      <ul>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/Signup">Sign up</Link>
+        </li>
+      </ul>
     </div>
   );
 };
