@@ -1,5 +1,5 @@
 import React from 'react';
-import SignupContainer from '../containters/SignupContainer';
+import SignupContainer from '../containters/auth/SignupContainer';
 
 const Signup = () => {
   return <SignupContainer />;

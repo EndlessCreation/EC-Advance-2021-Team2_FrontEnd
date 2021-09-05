@@ -11,7 +11,6 @@ export const signup = async ({ email, name, nickname, password, account, phone_n
       password,
       account,
       phone_number,
-      birth
     },
   });
   return response.data;
@@ -37,13 +36,16 @@ export const logout = async () => {
   return null;
 };
 
-// export const check = async () => {
-//   const response = await axios({
-//     method: "get",
-//     url: "/users/check",
-//   });
-//   return response.data;
-// };
+export const check = async (id) => {
+  const response = await axios({
+    method: "post",
+    url: "/users/get_user",
+    data: {
+      id
+    }
+  });
+  return response.data;
+};
 
 export const checkEmail = async (email) => {
   const response = await axios({
