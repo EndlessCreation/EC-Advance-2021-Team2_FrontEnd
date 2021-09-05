@@ -27,7 +27,6 @@ const LoginComponent = ({ form, onChange, onSubmit, onLoggout, error }) => {
       <footer>
         <Link to="/signup">회원가입</Link>
       </footer>
-      <button onClick={onLoggout}>로그아웃</button>
     </div>
   );
 };

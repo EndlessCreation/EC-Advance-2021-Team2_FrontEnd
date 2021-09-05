@@ -1,18 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import HeaderContainer from '../containters/common/HeaderContainer';
 
-const HomeComponent = () => {
+const HomeComponent = ({ user, onLogout }) => {
   return (
     <div>
-      <h1>home</h1>
-      <ul>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/Signup">Sign up</Link>
-        </li>
-      </ul>
+      <HeaderContainer />
+      <p>hello</p>
     </div>
   );
 };

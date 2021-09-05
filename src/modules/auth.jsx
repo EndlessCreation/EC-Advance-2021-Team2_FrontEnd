@@ -9,13 +9,13 @@ const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE] =
   createActionType('auth/SIGNUP');
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createActionType('auth/LOGIN');
-const LOGOUT = 'auth/LOGOUT';
 const [CHECK_EMAIL, CHECK_EMAIL_SUCCESS, CHECK_EMAIL_FAILURE] =
   createActionType('auth/CHECK_EMAIL');
 const [CHECK_NICKNAME, CHECK_NICKNAME_SUCCESS, CHECK_NICKNAME_FAILURE] =
   createActionType('auth/CHECK_NICKNAME');
 const [CHECK_ACCOUNT, CHECK_ACCOUNT_SUCCESS, CHECK_ACCOUNT_FAILURE] =
   createActionType('auth/CHECK_ACCOUNT');
+const INIT_AUTH = 'auth/INIT_AUTH';
 
 export const changeField = createAction(
   CHANGE_FIELD,
@@ -28,31 +28,29 @@ export const changeField = createAction(
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
 export const signup = createAction(
   SIGNUP,
-  ({ email, name, nickname, password, account, phone_number, birth }) => ({
+  ({ email, name, nickname, password, account, phone_number }) => ({
     email,
     name,
     nickname,
     password,
     account,
     phone_number,
-    birth,
   }),
 );
 export const login = createAction(LOGIN, ({ account, password }) => ({
   account,
   password,
 }));
-export const logout = createAction(LOGOUT);
 export const checkEmail = createAction(CHECK_EMAIL, (email) => email);
 export const checkNickname = createAction(
   CHECK_NICKNAME,
   (nickname) => nickname,
 );
 export const checkAccount = createAction(CHECK_ACCOUNT, (account) => account);
+export const initAuth = createAction(INIT_AUTH);
 
 const signupSaga = createRequestSaga(SIGNUP, authAPI.signup);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
-const logoutSaga = createRequestSaga(LOGOUT, authAPI.logout);
 const checkEmailSaga = createRequestSaga(CHECK_EMAIL, authAPI.checkEmail);
 const checkNicknameSaga = createRequestSaga(
   CHECK_NICKNAME,
@@ -63,7 +61,6 @@ const checkAccoutSaga = createRequestSaga(CHECK_ACCOUNT, authAPI.checkAccount);
 export function* authSaga() {
   yield takeLatest(SIGNUP, signupSaga);
   yield takeLatest(LOGIN, loginSaga);
-  yield takeLatest(LOGOUT, logoutSaga);
   yield takeLatest(CHECK_EMAIL, checkEmailSaga);
   yield takeLatest(CHECK_NICKNAME, checkNicknameSaga);
   yield takeLatest(CHECK_ACCOUNT, checkAccoutSaga);
@@ -78,7 +75,6 @@ const initialState = {
     passwordConfirm: '',
     account: '',
     phone_number: '',
-    birth: '',
   },
   login: {
     account: '',
@@ -116,7 +112,6 @@ const auth = handleActions(
       authError: null,
       auth,
     }),
-    // 문제
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
@@ -133,6 +128,7 @@ const auth = handleActions(
       ...state,
       accountChecked,
     }),
+    [INIT_AUTH]: () => initialState,
   },
   initialState,
 );

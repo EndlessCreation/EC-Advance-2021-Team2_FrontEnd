@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import LoginComponent from '../components/LoginComponent';
-import { changeField, initializeForm, login, logout } from '../modules/auth';
-
+import LoginComponent from '../../components/LoginComponent';
+import { changeField, initAuth, login } from '../../modules/auth';
+import { check } from '../../modules/user';
 const LoginContainer = () => {
   const history = useHistory();
   const [error, setError] = useState('');
@@ -14,6 +14,7 @@ const LoginContainer = () => {
     auth: auth.auth,
     authError: auth.authError,
   }));
+  const { user } = useSelector(({ user }) => ({ user: user.user }));
   const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
@@ -29,11 +30,10 @@ const LoginContainer = () => {
     const { account, password } = form;
     dispatch(login({ account, password }));
   };
-  const onLoggout = () => {
-    dispatch(logout());
-  };
   useEffect(() => {
-    dispatch(initializeForm('login'));
+    return () => {
+      dispatch(initAuth());
+    };
   }, [dispatch]);
   useEffect(() => {
     if (authError) {
@@ -43,16 +43,21 @@ const LoginContainer = () => {
     }
     if (auth) {
       console.log('로그인 성공');
-      // console.log(auth);
+      console.log(auth);
+      dispatch(check(auth.id));
+    }
+  }, [authError, auth, dispatch]);
+  useEffect(() => {
+    if (user) {
+      console.log(user);
       history.push('/');
     }
-  }, [authError, auth, history]);
+  }, [user, history]);
   return (
     <LoginComponent
       form={form}
       onChange={onChange}
       onSubmit={onSubmit}
-      onLoggout={onLoggout}
       error={error}
     />
   );

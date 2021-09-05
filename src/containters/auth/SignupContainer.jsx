@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import SignupComponent from '../components/SignupComponent';
+import { withRouter, useHistory } from 'react-router-dom';
+import SignupComponent from '../../components/SignupComponent';
 import {
   changeField,
   checkAccount,
   checkEmail,
   checkNickname,
-  initializeForm,
+  initAuth,
   signup,
-} from '../modules/auth';
+} from '../../modules/auth';
 
 const SignupContainer = () => {
+  const history = useHistory();
   const [error, setError] = useState('');
   const dispatch = useDispatch();
   const {
@@ -40,7 +41,6 @@ const SignupContainer = () => {
     );
   };
   const onCheckEmail = (e) => {
-    // console.log(form.email);
     dispatch(checkEmail(form.email));
   };
 
@@ -62,7 +62,6 @@ const SignupContainer = () => {
       passwordConfirm,
       account,
       phone_number,
-      birth,
     } = form;
     if (
       [
@@ -73,7 +72,6 @@ const SignupContainer = () => {
         passwordConfirm,
         account,
         phone_number,
-        birth,
       ].includes('')
     ) {
       setError('빈 칸을 모두 입력하세요.');
@@ -93,26 +91,27 @@ const SignupContainer = () => {
         nickname,
         account,
         phone_number,
-        birth,
       }),
     );
   };
-
   useEffect(() => {
-    dispatch(initializeForm('signup'));
+    return () => {
+      dispatch(initAuth());
+    };
   }, [dispatch]);
 
   useEffect(() => {
     if (authError) {
       console.log(authError);
-      setError('Sign Up Failure!');
+      setError('중복 체크를 해주세요.');
       return;
     }
     if (auth) {
       console.log('Success!');
       console.log(auth);
+      history.push('/');
     }
-  }, [auth, authError]);
+  }, [auth, authError, history]);
 
   return (
     <SignupComponent
