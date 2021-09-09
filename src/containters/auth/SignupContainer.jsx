@@ -94,11 +94,11 @@ const SignupContainer = () => {
       }),
     );
   };
-  useEffect(() => {
-    return () => {
-      dispatch(initAuth());
-    };
-  }, [dispatch]);
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(initAuth());
+  //   };
+  // }, [dispatch]);
 
   useEffect(() => {
     if (authError) {

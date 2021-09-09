@@ -30,15 +30,17 @@ const LoginContainer = () => {
     const { account, password } = form;
     dispatch(login({ account, password }));
   };
-  useEffect(() => {
-    return () => {
-      dispatch(initAuth());
-    };
-  }, [dispatch]);
+
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(initAuth());
+  //   };
+  // }, [dispatch]);
+
   useEffect(() => {
     if (authError) {
       console.log(authError);
-      setError('로그인 실패');
+      setError('로그인에 실패하였습니다.');
       return;
     }
     if (auth) {

@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './AuthForm.module.css';
+import styled from 'styled-components';
+import {
+  ErrorMessage,
+  FormWrapper,
+  Input,
+  InputName,
+} from '../styles/utilStyle';
 
 const DuplicateError = ({ error, value, click }) => {
-  if (!click) return null;
-  if (!value) return null; // 값이 없거나, 클릭아 안됬을 때
+  if (!click || !value) return null;
   return (
-    <span>{error === false ? '이미 사용중 입니다.' : '사용 가능합니다.'}</span>
+    <ErrorMessage>
+      {error === false ? '이미 사용중 입니다.' : '사용 가능합니다.'}
+    </ErrorMessage>
   );
 };
 
@@ -68,33 +75,23 @@ const SignupComponent = ({
     setNicknameClick(true);
   };
   return (
-    <div className={styles.wrapper}>
-      <h3>Sign Up</h3>
-      <form onSubmit={onSubmit}>
-        <input
-          name="name"
-          placeholder="name"
-          type="text"
-          onChange={onChange}
-          value={form.name}
-        />
-        <div>
-          <input
-            name="email"
-            placeholder="example@domain.com"
-            type="email"
+    <SignupFormWrapper>
+      <h1>Sign Up</h1>
+      <SignupForm onSubmit={onSubmit}>
+        <InputWrapper>
+          <InputName>이름</InputName>
+          <Input
+            name="name"
+            placeholder="name"
+            type="text"
             onChange={onChange}
-            value={form.email}
+            value={form.name}
           />
-          <button onClick={handleCheckEmail}>check</button>
-          <DuplicateError
-            error={emailChecked}
-            value={form.email}
-            click={emailClick}
-          />
-        </div>
-        <div>
-          <input
+        </InputWrapper>
+
+        <InputWrapper>
+          <InputName>아이디</InputName>
+          <Input
             name="account"
             placeholder="account"
             type="text"
@@ -107,23 +104,10 @@ const SignupComponent = ({
             value={form.account}
             click={accoutClick}
           />
-        </div>
-        <input
-          name="password"
-          placeholder="password"
-          type="password"
-          onChange={onChange}
-          value={form.password}
-        />
-        <input
-          name="passwordConfirm"
-          placeholder="passwordConfirm"
-          type="password"
-          onChange={onChange}
-          value={form.passwordConfirm}
-        />
-        <div>
-          <input
+        </InputWrapper>
+        <InputWrapper>
+          <InputName>아이디</InputName>
+          <Input
             name="nickname"
             placeholder="nickname"
             type="text"
@@ -136,23 +120,79 @@ const SignupComponent = ({
             value={form.nickname}
             click={nicknameClick}
           />
-        </div>
-        <input
-          name="phone_number"
-          placeholder="ex) 01012345678"
-          type="text"
-          onChange={onChange}
-          value={form.phone_number}
-        />
-        <hr />
+        </InputWrapper>
+        <InputWrapper>
+          <InputName>아이디</InputName>
+          <Input
+            name="password"
+            placeholder="password"
+            type="password"
+            onChange={onChange}
+            value={form.password}
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <InputName>아이디</InputName>
+          <Input
+            name="passwordConfirm"
+            placeholder="passwordConfirm"
+            type="password"
+            onChange={onChange}
+            value={form.passwordConfirm}
+          />
+        </InputWrapper>
+
+        <InputWrapper>
+          <InputName>이메일</InputName>
+          <Input
+            name="email"
+            placeholder="example@domain.com"
+            type="email"
+            onChange={onChange}
+            value={form.email}
+          />
+          <CheckButton onClick={handleCheckEmail}>check</CheckButton>
+          <DuplicateError
+            error={emailChecked}
+            value={form.email}
+            click={emailClick}
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <InputName>이메일</InputName>
+          <Input
+            name="phone_number"
+            placeholder="ex) 01012345678"
+            type="text"
+            onChange={onChange}
+            value={form.phone_number}
+          />
+        </InputWrapper>
+
         <button>Sign Up</button>
-      </form>
-      {error && <span>{error}</span>}
-      <footer>
+      </SignupForm>
+      <div>{error && <ErrorMessage>{error}</ErrorMessage>}</div>
+      {/* <footer>
         <Link to="/login">로그인</Link>
-      </footer>
-    </div>
+      </footer> */}
+    </SignupFormWrapper>
   );
 };
 
+const SignupFormWrapper = styled(FormWrapper)`
+  grid-template-rows: 1fr 5fr repeat(3, 1fr);
+`;
+const SignupForm = styled.form`
+  display: grid;
+  width: 70%;
+  height: 80%;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(7, 1fr) 0.5fr;
+  justify-items: center;
+`;
+const InputWrapper = styled.div`
+  display: grid;
+  height: 100px;
+`;
+const CheckButton = styled.button``;
 export default SignupComponent;

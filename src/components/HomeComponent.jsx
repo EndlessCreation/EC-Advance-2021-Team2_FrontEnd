@@ -1,7 +1,7 @@
 import React from 'react';
 import HeaderContainer from '../containters/common/HeaderContainer';
 
-const HomeComponent = ({ user, onLogout }) => {
+const HomeComponent = () => {
   return (
     <div>
       <HeaderContainer />
