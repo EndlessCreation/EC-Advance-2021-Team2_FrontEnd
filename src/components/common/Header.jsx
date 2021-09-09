@@ -23,7 +23,6 @@ const Header = ({ user, onLogout }) => {
           <div>
             <Link to="/login">로그인</Link>
             <Link to="/signup">회원가입</Link>
-            <button onClick={onLogout}>로그아웃</button>
           </div>
         )}
       </div>

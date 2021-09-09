@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-//body
 
 // Login and Signup
 export const PageWrapper = styled.section`
@@ -8,9 +7,6 @@ export const PageWrapper = styled.section`
   width: 100vw;
   justify-content: center;
   align-items: center;
-  /* @media ${(props) => props.theme.mobile} {
-    background-color: red;
-  } */
 `;
 
 export const FormWrapper = styled.div`
@@ -48,8 +44,7 @@ export const InputName = styled.h4`
 `;
 
 export const Input = styled.input`
-  font-size: 18px;
-  padding: 10px;
+  padding: 5px;
   margin: 10px;
   border: none;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);

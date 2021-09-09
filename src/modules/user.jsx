@@ -3,12 +3,10 @@ import { createAction, handleActions } from 'redux-actions';
 import { createActionType, createRequestSaga } from '../lib/utils';
 import { takeLatest } from '@redux-saga/core/effects';
 
-const TEMP_SET_USER = 'user/TEMP_SET_USER';
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createActionType('user/CHECK');
 const LOGOUT = 'auth/LOGOUT';
 
-export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
-export const check = createAction(CHECK, (id) => id);
+export const check = createAction(CHECK);
 export const logout = createAction(LOGOUT);
 
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
@@ -26,10 +24,6 @@ const initialState = {
 
 export const user = handleActions(
   {
-    [TEMP_SET_USER]: (state, { payload: user }) => ({
-      ...state,
-      user,
-    }),
     [CHECK_SUCCESS]: (state, { payload: user }) => ({
       ...state,
       user,

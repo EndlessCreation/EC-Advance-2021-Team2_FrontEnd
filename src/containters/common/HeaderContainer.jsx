@@ -10,7 +10,7 @@ const HeaderContainer = () => {
   const dispatch = useDispatch();
   const onLogout = () => {
     dispatch(logout());
-    dispatch(initAuth());
+    // dispatch(initAuth());
   };
   return <Header user={user} onLogout={onLogout} />;
 };

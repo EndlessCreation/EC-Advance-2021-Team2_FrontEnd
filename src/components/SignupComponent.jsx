@@ -2,19 +2,14 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  ErrorMessage,
-  FormWrapper,
-  Input,
-  InputName,
-} from '../styles/utilStyle';
+import { ErrorMessage, FormWrapper, Input } from '../styles/utilStyle';
 
 const DuplicateError = ({ error, value, click }) => {
   if (!click || !value) return null;
   return (
-    <ErrorMessage>
-      {error === false ? '이미 사용중 입니다.' : '사용 가능합니다.'}
-    </ErrorMessage>
+    <CheckMessage error={error}>
+      {error === false ? '🚫 이미 사용중 입니다.' : '✅ 사용 가능합니다.'}
+    </CheckMessage>
   );
 };
 
@@ -80,7 +75,7 @@ const SignupComponent = ({
       <SignupForm onSubmit={onSubmit}>
         <InputWrapper>
           <InputName>이름</InputName>
-          <Input
+          <SignupInput
             name="name"
             placeholder="name"
             type="text"
@@ -88,17 +83,16 @@ const SignupComponent = ({
             value={form.name}
           />
         </InputWrapper>
-
         <InputWrapper>
           <InputName>아이디</InputName>
-          <Input
+          <SignupInput
             name="account"
             placeholder="account"
             type="text"
             onChange={onChange}
             value={form.account}
           />
-          <button onClick={handleCheckAccount}>Check</button>
+          <CheckButton onClick={handleCheckAccount}>Check</CheckButton>
           <DuplicateError
             error={accountChecked}
             value={form.account}
@@ -106,15 +100,15 @@ const SignupComponent = ({
           />
         </InputWrapper>
         <InputWrapper>
-          <InputName>아이디</InputName>
-          <Input
+          <InputName>닉네임</InputName>
+          <SignupInput
             name="nickname"
             placeholder="nickname"
             type="text"
             onChange={onChange}
             value={form.nickname}
           />
-          <button onClick={handleCheckNickname}>Check</button>
+          <CheckButton onClick={handleCheckNickname}>Check</CheckButton>
           <DuplicateError
             error={nicknameChecked}
             value={form.nickname}
@@ -122,8 +116,8 @@ const SignupComponent = ({
           />
         </InputWrapper>
         <InputWrapper>
-          <InputName>아이디</InputName>
-          <Input
+          <InputName>비밀번호</InputName>
+          <SignupInput
             name="password"
             placeholder="password"
             type="password"
@@ -132,8 +126,8 @@ const SignupComponent = ({
           />
         </InputWrapper>
         <InputWrapper>
-          <InputName>아이디</InputName>
-          <Input
+          <InputName>비밀번호 확인</InputName>
+          <SignupInput
             name="passwordConfirm"
             placeholder="passwordConfirm"
             type="password"
@@ -144,7 +138,7 @@ const SignupComponent = ({
 
         <InputWrapper>
           <InputName>이메일</InputName>
-          <Input
+          <SignupInput
             name="email"
             placeholder="example@domain.com"
             type="email"
@@ -159,16 +153,15 @@ const SignupComponent = ({
           />
         </InputWrapper>
         <InputWrapper>
-          <InputName>이메일</InputName>
-          <Input
+          <InputName>휴대폰 번호</InputName>
+          <SignupInput
             name="phone_number"
-            placeholder="ex) 01012345678"
+            placeholder="01012345678 (' - ' 제외)"
             type="text"
             onChange={onChange}
             value={form.phone_number}
           />
         </InputWrapper>
-
         <button>Sign Up</button>
       </SignupForm>
       <div>{error && <ErrorMessage>{error}</ErrorMessage>}</div>
@@ -180,19 +173,48 @@ const SignupComponent = ({
 };
 
 const SignupFormWrapper = styled(FormWrapper)`
-  grid-template-rows: 1fr 5fr repeat(3, 1fr);
+  grid-template-rows: 1fr 4fr 1fr;
 `;
 const SignupForm = styled.form`
   display: grid;
   width: 70%;
-  height: 80%;
+  height: 90%;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(7, 1fr) 0.5fr;
-  justify-items: center;
+  overflow: scroll;
 `;
 const InputWrapper = styled.div`
   display: grid;
   height: 100px;
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
 `;
-const CheckButton = styled.button``;
+const InputName = styled.h4`
+  margin: 0 10px;
+  grid-row: 1/2;
+  grid-column: 1/-1;
+`;
+const SignupInput = styled(Input)`
+  grid-row: 2/4;
+  grid-column: 1/4;
+`;
+const CheckButton = styled.button`
+  margin: 10px;
+  font-size: 1rem;
+  border: 1px solid black;
+  border-radius: 3px 3px;
+  background-color: #ffffff;
+  grid-row: 2/4;
+  grid-column: 4/-1;
+  &:hover {
+    color: #ffffff;
+    background-color: #000000;
+  }
+`;
+const CheckMessage = styled.span`
+  margin: 0 10px;
+  font-size: 0.75rem;
+  color: ${(props) => props.error === false && 'red'};
+  grid-row: 4/-1;
+  grid-column: 1/-1;
+`;
 export default SignupComponent;
