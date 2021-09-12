@@ -36,13 +36,10 @@ export const logout = async () => {
   return null;
 };
 
-export const check = async (id) => {
+export const check = async () => {
   const response = await axios({
-    method: "post",
+    method: "get",
     url: "/users/get_user",
-    data: {
-      id
-    }
   });
   return response.data;
 };

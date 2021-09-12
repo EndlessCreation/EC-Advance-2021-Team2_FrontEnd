@@ -9,11 +9,24 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from '@redux-saga/core';
+import { check } from './modules/user';
 
 const logger = createLogger();
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware, logger)))
+
+function loadUser() {
+  try {
+    store.dispatch(check());
+    const { user: { user } } = store.getState();
+    if (!user) return;
+  } catch (e) {
+    console.log("check Failure")
+  }
+
+}
 sagaMiddleware.run(rootSaga);
+loadUser();
 
 ReactDOM.render(
   <Provider store={store}>

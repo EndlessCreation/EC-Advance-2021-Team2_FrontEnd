@@ -16,7 +16,6 @@ const [CHECK_NICKNAME, CHECK_NICKNAME_SUCCESS, CHECK_NICKNAME_FAILURE] =
 const [CHECK_ACCOUNT, CHECK_ACCOUNT_SUCCESS, CHECK_ACCOUNT_FAILURE] =
   createActionType('auth/CHECK_ACCOUNT');
 const INIT_AUTH = 'auth/INIT_AUTH';
-
 export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
