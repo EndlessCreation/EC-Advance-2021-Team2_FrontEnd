@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter, useHistory } from 'react-router-dom';
-import SignupComponent from '../../components/SignupComponent';
+import SignupComponent from '../../components/auth/SignupComponent';
 import {
   changeField,
   checkAccount,

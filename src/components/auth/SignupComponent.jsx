@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ErrorMessage, FormWrapper, Input } from '../styles/utilStyle';
+import { ErrorMessage, FormWrapper, Input } from '../../styles/utilStyle';
 
 const DuplicateError = ({ error, value, click }) => {
   if (!click || !value) return null;

@@ -7,7 +7,7 @@ import {
   Input,
   InputName,
   InputWrapper,
-} from '../styles/utilStyle';
+} from '../../styles/utilStyle';
 
 const LoginComponent = ({ form, onChange, onSubmit, error }) => {
   return (

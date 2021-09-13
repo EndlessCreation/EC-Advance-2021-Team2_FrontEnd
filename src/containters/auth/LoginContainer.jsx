@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import LoginComponent from '../../components/LoginComponent';
+import LoginComponent from '../../components/auth/LoginComponent';
 import { changeField, initAuth, login } from '../../modules/auth';
 import { check } from '../../modules/user';
 const LoginContainer = () => {

@@ -3,6 +3,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import './App.css';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import PostPage from './pages/PostPage';
 import SignupPage from './pages/SignupPage';
 import theme from './styles/theme';
 
@@ -19,6 +20,7 @@ const App = () => {
       <Route component={HomePage} path='/' exact />
       <Route component={LoginPage} path='/login' />
       <Route component={SignupPage} path='/signup' />
+      <Route component={PostPage} path='/post' />
     </ThemeProvider>
   )
 }
