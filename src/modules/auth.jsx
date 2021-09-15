@@ -1,48 +1,69 @@
 import { createAction, handleActions } from 'redux-actions';
-import { takeEvery } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import * as authAPI from '../api/auth';
-import { createRequestSaga } from '../lib/utils';
+import { createRequestSaga, createActionType } from '../lib/utils';
 import { produce } from 'immer';
 
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
-
-const LOGIN = 'auth/LOGIN';
-const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
-const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
-
-const LOGOUT = 'auth/LOGOUT';
-const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
-const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
-
-const SIGNUP = 'auth/SIGNUP';
-const SIGNUP_SUCCESS = 'auth/SIGNUP_SUCCESS';
-const SIGNUP_FAILURE = 'auth/SIGNUP_FAILURE';
+const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE] =
+  createActionType('auth/SIGNUP');
+const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createActionType('auth/LOGIN');
+const [CHECK_EMAIL, CHECK_EMAIL_SUCCESS, CHECK_EMAIL_FAILURE] =
+  createActionType('auth/CHECK_EMAIL');
+const [CHECK_NICKNAME, CHECK_NICKNAME_SUCCESS, CHECK_NICKNAME_FAILURE] =
+  createActionType('auth/CHECK_NICKNAME');
+const [CHECK_ACCOUNT, CHECK_ACCOUNT_SUCCESS, CHECK_ACCOUNT_FAILURE] =
+  createActionType('auth/CHECK_ACCOUNT');
+const INIT_AUTH = 'auth/INIT_AUTH';
 
 export const changeField = createAction(
   CHANGE_FIELD,
-  ({ form, key, value }) => ({ form, key, value }),
+  ({ form, key, value }) => ({
+    form,
+    key,
+    value,
+  }),
 );
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
-export const login = createAction(LOGIN, (email, password) => ({
-  email,
+export const signup = createAction(
+  SIGNUP,
+  ({ email, name, nickname, password, account, phone_number }) => ({
+    email,
+    name,
+    nickname,
+    password,
+    account,
+    phone_number,
+  }),
+);
+export const login = createAction(LOGIN, ({ account, password }) => ({
+  account,
   password,
 }));
-export const logout = createAction(LOGOUT);
-export const signup = createAction(SIGNUP, ({ name, email, password }) => ({
-  name,
-  email,
-  password,
-}));
+export const checkEmail = createAction(CHECK_EMAIL, (email) => email);
+export const checkNickname = createAction(
+  CHECK_NICKNAME,
+  (nickname) => nickname,
+);
+export const checkAccount = createAction(CHECK_ACCOUNT, (account) => account);
+export const initAuth = createAction(INIT_AUTH);
 
-const loginSaga = createRequestSaga(LOGIN, authAPI.login);
-const logoutSaga = createRequestSaga(LOGOUT, authAPI.logout);
 const signupSaga = createRequestSaga(SIGNUP, authAPI.signup);
+const loginSaga = createRequestSaga(LOGIN, authAPI.login);
+const checkEmailSaga = createRequestSaga(CHECK_EMAIL, authAPI.checkEmail);
+const checkNicknameSaga = createRequestSaga(
+  CHECK_NICKNAME,
+  authAPI.checkNickname,
+);
+const checkAccoutSaga = createRequestSaga(CHECK_ACCOUNT, authAPI.checkAccount);
 
 export function* authSaga() {
-  yield takeEvery(LOGIN, loginSaga);
-  yield takeEvery(LOGOUT, logoutSaga);
-  yield takeEvery(SIGNUP, signupSaga);
+  yield takeLatest(SIGNUP, signupSaga);
+  yield takeLatest(LOGIN, loginSaga);
+  yield takeLatest(CHECK_EMAIL, checkEmailSaga);
+  yield takeLatest(CHECK_NICKNAME, checkNicknameSaga);
+  yield takeLatest(CHECK_ACCOUNT, checkAccoutSaga);
 }
 
 const initialState = {
@@ -52,13 +73,18 @@ const initialState = {
     nickname: '',
     password: '',
     passwordConfirm: '',
-    phonenumber: '',
     account: '',
+    phone_number: '',
   },
   login: {
-    email: '',
+    account: '',
     password: '',
   },
+  emailChecked: null,
+  nicknameChecked: null,
+  accountChecked: null,
+  auth: null,
+  authError: null,
 };
 
 const auth = handleActions(
@@ -67,20 +93,42 @@ const auth = handleActions(
       produce(state, (draft) => {
         draft[form][key] = value;
       }),
-    [LOGIN_SUCCESS]: (state, { payload: email, password }) => ({
+    [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
-      login: {
-        ...state.login,
-        email,
-        password,
-      },
+      [form]: initialState[form],
+      authError: null,
     }),
-    [SIGNUP_SUCCESS]: (state, { payload: name, email, password }) => ({
+    [SIGNUP_SUCCESS]: (state, { payload: auth }) => ({
       ...state,
-      signup: {
-        ...state.signup,
-      },
+      authError: null,
+      auth,
     }),
+    [SIGNUP_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      authError: null,
+      auth,
+    }),
+    [LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    [CHECK_EMAIL_SUCCESS]: (state, { payload: emailChecked }) => ({
+      ...state,
+      emailChecked,
+    }),
+    [CHECK_NICKNAME_SUCCESS]: (state, { payload: nicknameChecked }) => ({
+      ...state,
+      nicknameChecked,
+    }),
+    [CHECK_ACCOUNT_SUCCESS]: (state, { payload: accountChecked }) => ({
+      ...state,
+      accountChecked,
+    }),
+    [INIT_AUTH]: () => initialState,
   },
   initialState,
 );
