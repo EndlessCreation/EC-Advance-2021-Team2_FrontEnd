@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const signup = async ({ email, name, nickname, password, account, phone_number, birth }) => {
   const response = await axios({
@@ -38,11 +38,62 @@ export const logout = async () => {
 
 export const check = async (id) => {
   const response = await axios({
-    method: "post",
-    url: "/users/get_user",
+    method: 'post',
+    url: 'users/signup', // url 수정 예정
     data: {
-      id
-    }
+      email,
+      name,
+      password,
+    },
+  });
+  return response.data;
+};
+
+export const findId = async ({ name, email }) => {
+  const response = await axios({
+    method: 'post',
+    url: 'users/find/email', // url 수정 예정 email->id 변경 필요
+    data: {
+      name,
+      email,
+    },
+  });
+  return response.data;
+};
+
+export const findPassword = async ({ account, email }) => {
+  const response = await axios({
+    method: 'post',
+    url: 'users/find/password', // url 수정 예정
+    data: {
+      account,
+      email,
+    },
+  });
+  return response.data;
+};
+
+export const sendEmail = async ({account, email, phone_number}) =>{
+  const response = await axios({
+    method: 'post',
+    url: 'users/find/password',
+    data: {
+      account,
+      email,
+      phone_number,
+    },
+  });
+  return response.data;
+}
+
+export const updatePassword = async ({ id, password }) => {
+  const response = await axios({
+    method: 'post',
+    url: 'users/find/changepw', // url 수정 예정
+    data: {
+      id,
+      password,
+    },
   });
   return response.data;
 };

@@ -4,7 +4,7 @@ import styles from './AuthForm.module.css';
 
 const textMap = {
   login: '로그인',
-  signup: '회원가입',
+  signup: '회원가입'
 };
 
 const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
