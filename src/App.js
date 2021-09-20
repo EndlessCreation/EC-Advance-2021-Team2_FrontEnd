@@ -18,13 +18,13 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Route component={HomePage} path='/' exact />
-      <Route component={LoginPage} path='/login' />
-      <Route component={SignupPage} path='/signup' />
-      <Route component={FindIdPage} path='/findId' />
-      <Route component={FindPasswordPage} path='/findPassword' />
+      <Route component={HomePage} path="/" exact />
+      <Route component={LoginPage} path="/login" />
+      <Route component={SignupPage} path="/signup" />
+      <Route component={FindIdPage} path="/findId" />
+      <Route component={FindPasswordPage} path="/findPassword" />
     </ThemeProvider>
-  )
-}
+  );
+};
 
 export default App;

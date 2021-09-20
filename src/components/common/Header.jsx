@@ -2,16 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Wrapper = styled.header`
-  /* position: fixed; */
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  display: flex;
-  width: 100%;
-  height: 4rem;
-  justify-content: space-around;
-  align-items: center;
-`;
-
 const Header = ({ user, onLogout }) => {
   return (
     <Wrapper>
@@ -29,5 +19,13 @@ const Header = ({ user, onLogout }) => {
     </Wrapper>
   );
 };
+const Wrapper = styled.header`
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  width: 100%;
+  height: 4rem;
+  justify-content: space-around;
+  align-items: center;
+`;
 
 export default Header;
