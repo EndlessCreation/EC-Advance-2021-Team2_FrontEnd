@@ -3,9 +3,10 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoginComponent from '../../components/auth/LoginComponent';
-import { changeField, initAuth, login } from '../../modules/auth';
+import { changeField, initializeForm, login } from '../../modules/auth';
 import { check } from '../../modules/user';
-const LoginContainer = () => {
+
+const LoginContainer = ({ OAuthComponent }) => {
   const history = useHistory();
   const [error, setError] = useState('');
   const dispatch = useDispatch();
@@ -31,29 +32,24 @@ const LoginContainer = () => {
     dispatch(login({ account, password }));
   };
 
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(initAuth());
-  //   };
-  // }, [dispatch]);
-
   useEffect(() => {
     if (authError) {
       console.log(authError);
-      setError('로그인에 실패하였습니다.');
+      setError('다시 시도해주세요.');
       return;
     }
     if (auth) {
       console.log('로그인 성공');
-      console.log(auth);
-      dispatch(check(auth.id));
+      dispatch(check());
     }
+    return () => {
+      dispatch(initializeForm('login'));
+      setError('');
+    };
   }, [authError, auth, dispatch]);
+
   useEffect(() => {
-    if (user) {
-      console.log(user);
-      history.push('/');
-    }
+    if (user) history.push('/');
   }, [user, history]);
   return (
     <LoginComponent
@@ -61,6 +57,7 @@ const LoginContainer = () => {
       onChange={onChange}
       onSubmit={onSubmit}
       error={error}
+      OAuthComponent={OAuthComponent}
     />
   );
 };

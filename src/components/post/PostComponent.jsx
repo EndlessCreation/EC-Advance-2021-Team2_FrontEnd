@@ -7,12 +7,10 @@ const PostItem = ({ post, onEditPost, onDeletePost }) => {
     content,
     image: { path },
   } = post;
-  console.log(__dirname);
   return (
     <li>
       <h3>{content}</h3>
       <img src={path} alt={path} />
-      {/* <ImgBox path={path} /> */}
       <button onClick={onEditPost}>Edit</button>
       <button onClick={onDeletePost}>Delete</button>
     </li>
@@ -20,7 +18,6 @@ const PostItem = ({ post, onEditPost, onDeletePost }) => {
 };
 
 const PostComponent = ({ posts, onEditPost, onDeletePost }) => {
-  // posts가 없는 경우 : 1. 아예 없는 경우 2. 로딩 중인 경우
   if (!posts) return <div>Loading</div>;
   if (posts.length === 0) return <div>TIM을 채워주세요~</div>;
   return (
