@@ -5,6 +5,7 @@ import FindIdPage from './pages/FindIdPage';
 import FindPasswordPage from './pages/FindPasswordPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import GridViewPage from './pages/postview/GridViewPage';
 import SignupPage from './pages/SignupPage';
 import theme from './styles/theme';
 
@@ -23,6 +24,7 @@ const App = () => {
       <Route component={SignupPage} path="/signup" />
       <Route component={FindIdPage} path="/findId" />
       <Route component={FindPasswordPage} path="/findPassword" />
+      <Route component={GridViewPage} path="/gridview" />
     </ThemeProvider>
   );
 };
