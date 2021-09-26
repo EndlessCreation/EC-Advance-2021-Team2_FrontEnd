@@ -5,13 +5,12 @@ import FindIdPage from './pages/FindIdPage';
 import FindPasswordPage from './pages/FindPasswordPage';
 import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
-import PostPage from './pages/PostPage';
 import SignupPage from './pages/SignupPage';
 import theme from './styles/theme';
 
 const GlobalStyle = createGlobalStyle`
   body {
-    /* background-color: #fafcf9; */
+    background-color: #fafcf9;
   }
 `;
 
@@ -24,7 +23,6 @@ const App = () => {
       <Route component={SignupPage} path="/signup" />
       <Route component={FindIdPage} path="/findId" />
       <Route component={FindPasswordPage} path="/findPassword" />
-      <Route component={PostPage} path="/post" />
     </ThemeProvider>
   );
 };
