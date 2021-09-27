@@ -26,7 +26,6 @@ const SignupContainer = () => {
     accountChecked,
     auth,
     authError,
-    user,
   } = useSelector(({ auth, user }) => ({
     form: auth.signup,
     emailChecked: auth.emailChecked,

@@ -20,6 +20,7 @@ const PageWrapper = styled.section`
   height: 100vh;
   width: 100vw;
   font-family: Roboto;
+  background: #fafcf9;
   @media ${(props) => props.theme.mobile} {
     padding: 0;
   }

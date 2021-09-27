@@ -8,6 +8,7 @@ export const PageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   font-family: Roboto;
+  background: #fafcf9;
   @media ${(props) => props.theme.mobile} {
     padding: 0;
     align-items: normal;
