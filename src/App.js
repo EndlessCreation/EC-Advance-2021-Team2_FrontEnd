@@ -3,7 +3,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import './App.css';
 import FindIdPage from './pages/FindIdPage';
 import FindPasswordPage from './pages/FindPasswordPage';
-import HomePage from './pages/HomePage';
+import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import GridViewPage from './pages/postview/GridViewPage';
 import SignupPage from './pages/SignupPage';
@@ -19,7 +19,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Route component={HomePage} path="/" exact />
+      <Route component={MainPage} path="/" exact />
       <Route component={LoginPage} path="/login" />
       <Route component={SignupPage} path="/signup" />
       <Route component={FindIdPage} path="/findId" />

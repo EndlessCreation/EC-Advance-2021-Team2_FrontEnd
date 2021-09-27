@@ -149,7 +149,6 @@ const SignupComponent = ({
 const SignupWrapper = styled.div`
   height: 950px;
   width: 450px;
-  box-sizing: border-box;
   padding: 50px 30px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
@@ -157,6 +156,7 @@ const SignupWrapper = styled.div`
   @media ${(props) => props.theme.mobile} {
     background-color: ${(props) => props.theme.bgColor};
     box-shadow: none;
+    box-sizing: border-box;
     height: 100%;
     width: 100%;
   }
