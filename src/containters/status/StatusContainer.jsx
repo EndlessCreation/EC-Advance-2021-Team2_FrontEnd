@@ -77,7 +77,6 @@ const StatusContainer = ({ children }) => {
       if (state === 0) {
         return;
       }
-
       setState(state - 1);
     }
   };
