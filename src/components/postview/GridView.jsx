@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { IoIosArrowDown } from 'react-icons/io';
+import { Link } from 'react-router-dom';
+import { TIM_Color } from '../../styles/color';
+import KeywordPage from '../../pages/KeywordPage';
 
 const GridView = ({ user }) => {
   return (
@@ -10,11 +13,14 @@ const GridView = ({ user }) => {
           {posts.map((post) => (
             <GridItem key={post.id}>
               <header>{`# ${post.tag}`}</header>
-              <ul>
+              <KeywordWrapper>
                 {post.keyword.map((keyword) => (
-                  <li key={keyword.id}>{`@ ${keyword.keyword_name}`}</li>
+                  <KeywordItem
+                    key={keyword.id}
+                    to={KeywordPage}
+                  >{`@ ${keyword.keyword_name}`}</KeywordItem>
                 ))}
-              </ul>
+              </KeywordWrapper>
               <div>
                 <IoIosArrowDown size="20" />
               </div>
@@ -62,29 +68,33 @@ const GridItem = styled.li`
     color: #ffffff;
     border-radius: 20px 20px 0 0;
   }
-  & > ul {
-    height: 200px;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(50px, 1fr));
-    grid-gap: 5px;
-    align-items: center;
-    padding: 0 10px;
-    margin: 0;
-    & > li {
-      justify-self: center;
-      list-style-type: none;
-      margin: 0;
-      padding: 10px;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-      border-radius: 10px;
-      font-size: 16px;
-    }
-  }
+
   & > div {
     display: flex;
     justify-content: center;
     align-items: center;
   }
+`;
+
+const KeywordWrapper = styled.ul`
+  height: 200px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(50px, 1fr));
+  grid-gap: 5px;
+  align-items: center;
+  padding: 0 10px;
+  margin: 0;
+`;
+const KeywordItem = styled(Link)`
+  justify-self: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  font-size: 16px;
+  text-decoration: none;
+  color: ${TIM_Color('font', 1)};
 `;
 const posts = [
   {
