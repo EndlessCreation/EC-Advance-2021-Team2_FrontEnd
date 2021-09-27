@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage';
 import GridViewPage from './pages/postview/GridViewPage';
 import SignupPage from './pages/SignupPage';
 import theme from './styles/theme';
+import KeywordPage from './pages/KeywordPage';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -20,7 +21,8 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Route component={MainPage} path="/" exact />
-      <Route component={LoginPage} path="/login" />
+      <Route component={LoginPage} path="/Login" />
+      <Route component={KeywordPage} path="/Keyword" />
       <Route component={SignupPage} path="/signup" />
       <Route component={FindIdPage} path="/findId" />
       <Route component={FindPasswordPage} path="/findPassword" />

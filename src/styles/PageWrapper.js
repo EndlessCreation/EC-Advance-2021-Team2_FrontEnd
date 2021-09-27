@@ -68,3 +68,9 @@ export const StatusPageWrapper = styled.div`
 export const GridViewPageWrapper = styled.div`
   height: 100vh;
 `;
+export const KeywordPageWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: ${TIM_Color('background', 1)};
+`;
