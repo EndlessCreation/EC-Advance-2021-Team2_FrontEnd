@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { TIM_Color } from './color';
 
 // src/pages 폴더에 있는 각 페이지에 대한 Wrapper입니다.
 
@@ -47,7 +48,21 @@ export const FindPageWrapper = styled.div`
 `;
 
 export const MainPageWrapper = styled.div`
+  /* position: relative; */
+  border: 1px solid;
+  width: 100vw;
   height: 100vh;
+  overflow: hidden;
+  background-color: ${TIM_Color('background', 1)};
+`;
+export const StatusPageWrapper = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `;
 
 export const GridViewPageWrapper = styled.div`

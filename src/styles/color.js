@@ -95,7 +95,6 @@ const colorData = {
 
 export const TIM_Color = (type, choice) => {
   const color = colorData[`${type}`][`${choice}`];
-  console.log(color);
   if (!color) {
     return '#FFFFFF';
   } else {
