@@ -1,29 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import SignupContainer from '../containters/auth/SignupContainer';
 import AuthHeaderContainer from '../containters/common/AuthHeaderContainer';
+import { SignupPageWrapper } from '../styles/PageWrapper';
 
 const Signup = () => {
   return (
-    <PageWrapper>
+    <SignupPageWrapper>
       <AuthHeaderContainer />
       <SignupContainer />
-    </PageWrapper>
+    </SignupPageWrapper>
   );
 };
-const PageWrapper = styled.div`
-  position: relative;
-  display: flex;
-  height: 120vh;
-  width: 100vw;
-  padding: 80px 0;
-  justify-content: center;
-  align-items: center;
-  font-family: Roboto;
-  background: #fafcf9;
-  @media ${(props) => props.theme.mobile} {
-    padding: 0;
-    align-items: normal;
-  }
-`;
+
 export default Signup;

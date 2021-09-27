@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
-import { FaRegBell } from 'react-icons/fa';
+import { FaHome, FaRegBell } from 'react-icons/fa';
 
-const Header = ({ user, onLogout }) => {
+const Header = ({ user, onLogout, pathname }) => {
+  const [scroll, setScroll] = useState(window.scrollY);
+  const handleScroll = () => setScroll(window.scrollY);
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+  }, []);
   return (
-    <StyledHeader>
+    <StyledHeader scroll={scroll}>
       {user ? (
         <LoginWrapper>
-          <StyledLink to="/">
-            <AiOutlineUnorderedList size="30" />
-          </StyledLink>
+          {pathname === '/' ? (
+            <StyledLink to="/gridview">
+              <AiOutlineUnorderedList size="30" />
+            </StyledLink>
+          ) : (
+            <StyledLink to="/">
+              <FaHome size="30" />
+            </StyledLink>
+          )}
           <SearchInput type="text" />
           <NavWrapper>
             <ul>
@@ -56,10 +67,13 @@ const Header = ({ user, onLogout }) => {
   );
 };
 const StyledHeader = styled.header`
-  /* box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2); */
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 60px;
+  z-index: 99;
   background: white;
+  box-shadow: ${(props) => props.scroll > 20 && '0 4px 4px rgb(0, 0, 0, 0.2)'};
 `;
 const LoginWrapper = styled.div`
   display: flex;
