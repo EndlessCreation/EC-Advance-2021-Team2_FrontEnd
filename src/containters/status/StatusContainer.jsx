@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import StatusButton from '../../components/Status/StatusButton';
 import { StatusPageWrapper } from '../../styles/PageWrapper';
 import Status from '../../components/Status';
+import { useSelector } from 'react-redux';
 
 const dummydata = {
   title: 'log',
@@ -66,6 +67,7 @@ const dummydata = {
 };
 const StatusContainer = ({ children }) => {
   const [state, setState] = useState(0);
+  const { user } = useSelector(({ user }) => ({ user: user.user }));
 
   const onStateChange = (check) => {
     if (check === true) {
@@ -80,7 +82,7 @@ const StatusContainer = ({ children }) => {
       setState(state - 1);
     }
   };
-
+  if (!user) return null;
   return (
     <StatusPageWrapper>
       <Status data={dummydata} state={state}></Status>

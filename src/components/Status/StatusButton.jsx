@@ -21,11 +21,7 @@ const StyledStatusButton = styled.button`
   border: none;
   border-radius: 100px 0 0 100px;
   background-color: #5da433; //Tim color 리팩토링 필요
-  ${(props) =>
-    props.right &&
-    css`
-      transform: rotate(180deg);
-    `};
+  transform: ${(props) => props.right && 'rotate(180deg)'};
   & + & {
     margin-left: 10px;
   }
