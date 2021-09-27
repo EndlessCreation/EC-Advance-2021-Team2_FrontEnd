@@ -28,7 +28,7 @@ const Star = ({ starred }) => {
 const Contents = (props) => {
   return (
     <StyledContentsWrapper>
-      <StyledText>{'로글고르고로고로로롤로롤로로로롤로'}</StyledText>
+      <StyledText>{props.contents}</StyledText>
       <Star starred={props.Starred} />
       <StyledDate>{'09.26'}</StyledDate>
     </StyledContentsWrapper>

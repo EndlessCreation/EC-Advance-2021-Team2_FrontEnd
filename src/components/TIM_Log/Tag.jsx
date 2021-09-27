@@ -14,8 +14,8 @@ const StyledTag = styled.div`
 `;
 
 const Tag = ({ tag_bg, tag_text, children }) => {
-  const { color, type } = tag_bg;
-  const bg = TIM_Color(color, type);
+  const { color } = tag_bg;
+  const bg = TIM_Color(color, 1);
 
   return (
     <>

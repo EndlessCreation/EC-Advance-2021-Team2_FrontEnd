@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TIM_Color } from '../../../styles/color';
+import { TIM_Color } from '../../styles/color';
 
 const StyledStatusTab = styled.div`
   border-radius: 20px;
@@ -9,13 +9,14 @@ const StyledStatusTab = styled.div`
   height: 70px;
   position: absolute;
   left: 20px;
-  top: -15px;
+  top: -80px;
   font-size: 32px;
   font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 45px;
+  margin-top: 70px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
 `;
 

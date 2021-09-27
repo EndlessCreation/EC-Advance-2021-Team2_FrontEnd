@@ -5,8 +5,8 @@ import styled from 'styled-components';
 const StyledBannerWrap = styled.div`
   width: 1152px;
   height: 400px;
+  margin-top: 150px;
   box-sizing: border-box;
-  border: 1px solid #585858;
   border-radius: 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
   background-color: #505050;
@@ -17,6 +17,7 @@ const StyledBannerWrap = styled.div`
 `;
 const Whitemark = styled.div`
   position: absolute;
+  border-radius: 20px;
   background-color: rgba(200, 200, 200, 0.3);
   margin: auto;
   width: 1152px;

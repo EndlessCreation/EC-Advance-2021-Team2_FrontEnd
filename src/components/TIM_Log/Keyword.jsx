@@ -12,8 +12,8 @@ const StyledKeyword = styled.div`
 `;
 
 const Keyword = ({ keyword_bg, keyword_text }) => {
-  const { color, type } = keyword_bg;
-  const bg = TIM_Color(color, type);
+  const { color } = keyword_bg;
+  const bg = TIM_Color(color, '2');
   return (
     <>
       <StyledKeyword bg={bg}>@{keyword_text}</StyledKeyword>

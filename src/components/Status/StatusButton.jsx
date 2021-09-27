@@ -7,6 +7,8 @@ const StyledWrapper = styled.div`
   height: 75px;
   border-radius: 100px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  margin-top: 70px;
+
   display: flex;
 `;
 
@@ -39,9 +41,14 @@ const StyledIcon = styled.div`
   transform: translate(0px, 1.5px);
 `;
 
-const Button = ({ right }) => {
+const Button = ({ right, onStateChange }) => {
   return (
-    <StyledStatusButton right={right} onClick={() => console.log('버튼클릭')}>
+    <StyledStatusButton
+      right={right}
+      onClick={() => {
+        onStateChange(right);
+      }}
+    >
       <StyledIcon>
         <MdNavigateBefore size={24} />
       </StyledIcon>
@@ -49,11 +56,11 @@ const Button = ({ right }) => {
   );
 };
 
-const StatusButton = (props) => {
+const StatusButton = ({ onStateChange }) => {
   return (
     <StyledWrapper>
-      <Button />
-      <Button right={true} />
+      <Button onStateChange={onStateChange} />
+      <Button right={true} onStateChange={onStateChange} />
     </StyledWrapper>
   );
 };
