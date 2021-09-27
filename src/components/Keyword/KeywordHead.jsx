@@ -9,7 +9,9 @@ const StyledKeywordHead = styled.div`
   left: 0px;
   width: 150px;
   height: 60px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px;
   font-size: 24px;
   font-weight: bold;

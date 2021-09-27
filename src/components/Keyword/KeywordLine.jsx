@@ -4,9 +4,21 @@ import KeywordHead from './KeywordHead';
 import KeywordTail from './KeywordTail';
 
 const StyledKeywordLineWrap = styled.div`
+  position: relative;
+  display: inline-block;
   height: 100%;
   width: 150px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  & + & {
+    margin-left: 66px;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StyledKeywordTailWrap = styled.div`

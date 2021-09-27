@@ -1,180 +1,50 @@
 import React from 'react';
+import styled from 'styled-components';
 import Filter from './Filter';
 import KeywordLine from './KeywordLine';
+import TagMark from './TagMark';
 
-const dummyData = [
-  {
-    id: 6,
-    content: '로그 로그로그로ㄹ로',
-    createAt: '2021-09-25T16:01:14.883Z',
-    updateAt: '2021-09-25T16:33:13.331Z',
-    isFavorite: false,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 7,
-    image: null,
-  },
-  {
-    id: 5,
-    content: '로그 로그로그로',
-    createAt: '2021-09-22T15:59:13.469Z',
-    updateAt: '2021-09-22T16:32:11.958Z',
-    isFavorite: false,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 1,
-    image: null,
-  },
-  {
-    id: 4,
-    content: 'ㅇㄹㅁㄴㅇㄹㄴ',
-    createAt: '2021-09-22T15:59:05.358Z',
-    updateAt: '2021-09-22T16:31:48.502Z',
-    isFavorite: false,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 3,
-    image: null,
-  },
-  {
-    id: 3,
-    content: 'fiasdfasdfdsfasf',
-    createAt: '2021-09-22T15:59:03.120Z',
-    updateAt: '2021-09-22T16:31:39.793Z',
-    isFavorite: false,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 3,
-    image: null,
-  },
-  {
-    id: 2,
-    content: 'fiasdfasdfdsfasf',
-    createAt: '2021-09-22T15:59:00.468Z',
-    updateAt: '2021-09-22T16:30:35.824Z',
-    isFavorite: false,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 1,
-    image: null,
-  },
-  {
-    id: 6,
-    content: '로그 로그로그로ㄹ로',
-    createAt: '2021-09-22T16:01:14.883Z',
-    updateAt: '2021-09-22T16:33:13.331Z',
-    isFavorite: true,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 7,
-    image: null,
-  },
-  {
-    id: 5,
-    content: '로그 로그로그로',
-    createAt: '2021-09-22T15:59:13.469Z',
-    updateAt: '2021-09-22T16:32:11.958Z',
-    isFavorite: false,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 1,
-    image: null,
-  },
-  {
-    id: 4,
-    content: 'ㅇㄹㅁㄴㅇㄹㄴ',
-    createAt: '2021-09-22T15:59:05.358Z',
-    updateAt: '2021-09-22T16:31:48.502Z',
-    isFavorite: false,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 3,
-    image: null,
-  },
-  {
-    id: 3,
-    content: 'fiasdfasdfdsfasf',
-    createAt: '2021-09-22T15:59:03.120Z',
-    updateAt: '2021-09-22T16:31:39.793Z',
-    isFavorite: false,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 3,
-    image: null,
-  },
-  {
-    id: 2,
-    content: 'fiasdfasdfdsfasf',
-    createAt: '2021-09-22T15:59:00.468Z',
-    updateAt: '2021-09-22T16:30:35.824Z',
-    isFavorite: true,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 1,
-    image: null,
-  },
-  {
-    id: 6,
-    content: '로그 로그로그로ㄹ로',
-    createAt: '2021-09-22T16:01:14.883Z',
-    updateAt: '2021-09-22T16:33:13.331Z',
-    isFavorite: true,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 7,
-    image: null,
-  },
-  {
-    id: 5,
-    content: '로그 로그로그로',
-    createAt: '2021-09-22T15:59:13.469Z',
-    updateAt: '2021-09-22T16:32:11.958Z',
-    isFavorite: false,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 1,
-    image: null,
-  },
-  {
-    id: 4,
-    content: 'ㅇㄹㅁㄴㅇㄹㄴ',
-    createAt: '2021-09-22T15:59:05.358Z',
-    updateAt: '2021-09-22T16:31:48.502Z',
-    isFavorite: false,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 3,
-    image: null,
-  },
-  {
-    id: 3,
-    content: 'fiasdfasdfdsfasf',
-    createAt: '2021-09-23T15:59:03.120Z',
-    updateAt: '2021-09-23T16:31:39.793Z',
-    isFavorite: false,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 3,
-    image: null,
-  },
-  {
-    id: 2,
-    content: 'fiasdfasdfdsfasf',
-    createAt: '2021-09-24T15:59:00.468Z',
-    updateAt: '2021-09-24T16:30:35.824Z',
-    isFavorite: true,
-    user_id: 1,
-    tag_id: 1,
-    keyword_id: 1,
-    image: null,
-  },
-];
+const StyledKeywordStatus = styled.div`
+  display: flex;
+  margin: 35px 66px;
+  justify-content: space-between;
+  align-items: center;
+`;
+const StyledKeywordList = styled.div`
+  position: relative;
+  height: 100%;
+  padding: 48px 60px;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background-color: #ffffff;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
-const Keyword = (props) => {
+const Keyword = ({ timlist }) => {
+  const [tag, keyword] = ['태그태그', '키워드'];
   return (
     <>
-      {/* <Filter /> */}
-      <KeywordLine timlist={dummyData} />
+      <StyledKeywordStatus>
+        <TagMark tag={tag} />
+        <Filter />
+      </StyledKeywordStatus>
+      <StyledKeywordList>
+        <KeywordLine keyword={keyword} timlist={timlist} />
+        <KeywordLine keyword={keyword} timlist={timlist} />
+        <KeywordLine keyword={keyword} timlist={timlist} />
+        <KeywordLine keyword={keyword} timlist={timlist} />
+        <KeywordLine keyword={keyword} timlist={timlist} />
+        <KeywordLine keyword={keyword} timlist={timlist} />
+        <KeywordLine keyword={keyword} timlist={timlist} />
+        <KeywordLine keyword={keyword} timlist={timlist} />
+        <KeywordLine keyword={keyword} timlist={timlist} />
+        <KeywordLine keyword={keyword} timlist={timlist} />
+      </StyledKeywordList>
     </>
   );
 };
