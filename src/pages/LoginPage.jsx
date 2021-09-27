@@ -1,28 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
 import LoginContainer from '../containters/auth/LoginContainer';
 import OAuthContainer from '../containters/auth/OAuthContainer';
 import AuthHeaderContainer from '../containters/common/AuthHeaderContainer';
+import { LoginPageWrapper } from '../styles/PageWrapper';
 
 const LoginPage = () => {
   return (
-    <PageWrapper>
+    <LoginPageWrapper>
       <AuthHeaderContainer />
       <LoginContainer OAuthComponent={OAuthContainer} />
-    </PageWrapper>
+    </LoginPageWrapper>
   );
 };
-const PageWrapper = styled.section`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  font-family: Roboto;
-  background: #fafcf9;
-  @media ${(props) => props.theme.mobile} {
-    padding: 0;
-  }
-`;
+
 export default LoginPage;

@@ -14,7 +14,6 @@ const MainInputContainer = () => {
   const [keyword, setKeyword] = useState('');
   const hashWrapperRef = useRef();
   const inputRef = useRef();
-
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();

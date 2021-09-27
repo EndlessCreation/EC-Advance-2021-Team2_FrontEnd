@@ -1,19 +1,7 @@
 import styled from 'styled-components';
 
 // Login and Signup
-export const PageWrapper = styled.div`
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
-  font-family: Roboto;
-  background: #fafcf9;
-  @media ${(props) => props.theme.mobile} {
-    padding: 0;
-    align-items: normal;
-  }
-`;
+
 export const Input = styled.input`
   width: 100%;
   height: 40px;

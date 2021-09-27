@@ -1,12 +1,12 @@
 import React from 'react';
 import FindIdContainer from '../containters/auth/FindIdContainer';
-import { PageWrapper } from '../styles/utilStyle';
+import { FindPageWrapper } from '../styles/PageWrapper';
 
 const FindIdPage = () => {
   return (
-    <PageWrapper>
+    <FindPageWrapper>
       <FindIdContainer />
-    </PageWrapper>
+    </FindPageWrapper>
   );
 };
 
