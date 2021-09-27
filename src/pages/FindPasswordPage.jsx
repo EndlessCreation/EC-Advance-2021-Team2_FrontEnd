@@ -1,12 +1,12 @@
 import React from 'react';
 import FindPasswordContainer from '../containters/auth/FindPasswordContainer';
-import { PageWrapper } from '../styles/utilStyle';
+import { FindPageWrapper } from '../styles/PageWrapper';
 
 const FindPasswordPage = () => {
   return (
-    <PageWrapper>
+    <FindPageWrapper>
       <FindPasswordContainer />
-    </PageWrapper>
+    </FindPageWrapper>
   );
 };
 
