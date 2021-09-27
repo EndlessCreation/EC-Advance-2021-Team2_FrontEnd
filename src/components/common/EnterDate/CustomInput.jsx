@@ -10,8 +10,6 @@ const StyledCustomInput = styled.button`
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 0.2px;
-  /* padding: 0px; */
-  /* align-items: center; */
   &:focus {
     box-shadow: 0px 0px 3px 1px #e7fadb;
     background-color: #d6fbc1;
