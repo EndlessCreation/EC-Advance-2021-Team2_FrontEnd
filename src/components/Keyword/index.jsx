@@ -24,11 +24,17 @@ const StyledKeywordList = styled.div`
     display: none;
   }
 `;
+const HeaderMargin = styled.div`
+  position: relative;
+  width: 100%;
+  height: 60px;
+`;
 
 const Keyword = ({ timlist }) => {
   const [tag, keyword] = ['태그태그', '키워드'];
   return (
     <>
+      <HeaderMargin />
       <StyledKeywordStatus>
         <TagMark tag={tag} />
         <Filter />

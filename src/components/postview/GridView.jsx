@@ -17,7 +17,7 @@ const GridView = ({ user }) => {
                 {post.keyword.map((keyword) => (
                   <KeywordItem
                     key={keyword.id}
-                    to={KeywordPage}
+                    to="/keyword"
                   >{`@ ${keyword.keyword_name}`}</KeywordItem>
                 ))}
               </KeywordWrapper>

@@ -28,13 +28,16 @@ const DatePickerCloseIconStyles = createGlobalStyle`
     font-size: 15px;
     content: "×";
     }
+    
 }
-
+.react-datepicker-popper{
+      z-index:2;
+    }
 `;
 
 const EnterDate = ({ props, placeholder }) => {
   console.log(placeholder);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const onChange = (dates) => {
     const [start, end] = dates;
