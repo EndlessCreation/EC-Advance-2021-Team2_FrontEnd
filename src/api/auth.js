@@ -7,7 +7,6 @@ export const signup = async ({
   password,
   account,
   phone_number,
-  birth,
 }) => {
   const response = await axios({
     method: 'post',
