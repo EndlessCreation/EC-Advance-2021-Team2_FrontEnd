@@ -8,6 +8,7 @@ const StyledLogWrapper = styled.div`
   box-sizing: border-box;
   border-radius: 10px;
   border: 1px solid #878787;
+  background-color: #ffffff;
   font-size: 20px;
   display: flex;
   & + & {

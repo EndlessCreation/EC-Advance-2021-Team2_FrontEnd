@@ -15,6 +15,7 @@ const StyledWrapper = styled.div`
   margin-top: 150px;
   display: flex;
   flex-direction: column;
+  background-color: #fdfdfd;
   justify-content: end;
   padding: 80px 40px 15px 40px;
 `;
