@@ -1,12 +1,11 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
-import { TIM_Color } from '../../../styles/color';
 import { FaFilter } from 'react-icons/fa';
 
 const StyledCustomInput = styled.button`
   border: none;
   padding: 0 6px;
-  background-color: ${TIM_Color('brand', '5')};
+  background-color: ${(props) => props.theme.brand[5]};
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 0.2px;

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
-import { TIM_Color } from './color';
 
 // Login and Signup
-
 export const Input = styled.input`
   width: 100%;
   height: 40px;
@@ -20,5 +18,5 @@ export const Input = styled.input`
 export const TIMPageWrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: ${TIM_Color('background', 1)};
+  background-color: ${(props) => props.theme.bgColor};
 `;

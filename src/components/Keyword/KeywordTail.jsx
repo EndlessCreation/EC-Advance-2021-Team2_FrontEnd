@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MdImage, MdImageBorder, MdStar, MdStarBorder } from 'react-icons/md';
-import { TIM_Color } from '../../styles/color';
+import { MdImage, MdStar, MdStarBorder } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+
 const StyledTimwrap = styled.div`
   position: relative;
   width: 75px;
@@ -11,7 +11,7 @@ const StyledTimwrap = styled.div`
   border: 1px #a6a6a6;
   overflow: hidden;
   border-radius: 5px;
-  background-color: ${(props) => props.color || TIM_Color('grey', 4)};
+  background-color: ${(props) => props.theme.grey[4]};
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
 `;
 
@@ -29,10 +29,10 @@ const StyledTailwrapforClick = styled.div`
   text-decoration: none;
   &:hover {
     cursor: pointer;
-    background-color: ${(props) => props.color || TIM_Color('grey', 3)};
+    background-color: ${(props) => props.theme.grey[3]};
   }
   &:active {
-    background-color: ${(props) => props.color || TIM_Color('grey', 3)};
+    background-color: ${(props) => props.theme.grey[3]};
   }
 `;
 
@@ -60,10 +60,10 @@ const StyledIconButton = styled.button`
   width: 30px;
   height: 20px;
   &:hover {
-    background-color: ${(props) => props.color || TIM_Color('grey', 3)};
+    background-color: ${(props) => props.theme.grey[3]};
   }
   &:active {
-    background-color: ${(props) => props.color || TIM_Color('grey', 3)};
+    background-color: ${(props) => props.theme.grey[3]};
   }
 `;
 
@@ -87,12 +87,12 @@ const Icons = ({ image, isFavorite }) => {
 };
 
 const KeywordTail = ({ tim }) => {
-  const { id, createAt, color, image, isFavorite } = tim;
+  const { id, createAt, image, isFavorite } = tim;
 
   const date = createAt.toString().slice(5, 10);
 
   return (
-    <StyledTimwrap color={color}>
+    <StyledTimwrap>
       <Link to="/tim">
         <StyledTailwrapforClick>
           <StyledDate>{date}</StyledDate>
