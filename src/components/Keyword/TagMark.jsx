@@ -5,7 +5,8 @@ import { TIM_Color } from '../../styles/color';
 const StyledTagMark = styled.button`
   height: 80px;
   display: flex;
-  background-color: ${TIM_Color('indigo', 1)};
+  background-color: ${(props) =>
+    props.bgColor ? props.theme.indigo[4] : ('indigo', 1)};
   align-items: center;
   padding: 0px 28px;
   border: none;
@@ -14,10 +15,13 @@ const StyledTagMark = styled.button`
   font-size: 28px;
   font-weight: bold;
   color: ${TIM_Color('font', 'white')};
+  & + & {
+    margin-left: 30px;
+  }
 `;
 
-const TagMark = ({ tag }) => {
-  return <StyledTagMark>@{tag}</StyledTagMark>;
+const TagMark = ({ tag, bgColor }) => {
+  return <StyledTagMark bgColor={bgColor}>{tag}</StyledTagMark>;
 };
 
 export default TagMark;

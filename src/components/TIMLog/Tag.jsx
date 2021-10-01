@@ -13,13 +13,14 @@ const StyledTag = styled.div`
   font-weight: bold;
 `;
 
-const Tag = ({ tag_bg, tag_text, children }) => {
-  const { color } = tag_bg;
-  const bg = TIM_Color(color, 1);
+const Tag = ({ tag_color, tag }) => {
+  // const { color } = tag_color;
+  // console.log(tag_color, tag);
+  const bg = TIM_Color(tag_color, '1');
 
   return (
     <>
-      <StyledTag bg={bg}>#{tag_text}</StyledTag>
+      <StyledTag bg={bg}>#{tag}</StyledTag>
     </>
   );
 };

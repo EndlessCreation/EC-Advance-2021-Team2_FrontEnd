@@ -11,11 +11,8 @@ const StyledLogWrapper = styled.div`
   font-size: 20px;
   display: flex;
   & + & {
-    margin-top: 10px;
+    margin-bottom: 10px;
   }
-  /* @media screen and (max-width: 1023px) {
-    width: 700px;
-  } */
 `;
 
 const LogWrapper = ({ children }) => {

@@ -11,12 +11,12 @@ const StyledKeyword = styled.div`
   margin-left: 3px;
 `;
 
-const Keyword = ({ keyword_bg, keyword_text }) => {
-  const { color } = keyword_bg;
-  const bg = TIM_Color(color, '2');
+const Keyword = ({ keyword_color, keyword }) => {
+  // const { color } = keyword_color;
+  const bg = TIM_Color(keyword_color, '2');
   return (
     <>
-      <StyledKeyword bg={bg}>@{keyword_text}</StyledKeyword>
+      <StyledKeyword bg={bg}>@{keyword}</StyledKeyword>
     </>
   );
 };
