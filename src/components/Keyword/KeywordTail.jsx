@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { MdImage, MdImageBorder, MdStar, MdStarBorder } from 'react-icons/md';
 import { TIM_Color } from '../../styles/color';
+import { Link } from 'react-router-dom';
 const StyledTimwrap = styled.div`
   position: relative;
   width: 75px;
@@ -24,6 +25,8 @@ const StyledTailwrapforClick = styled.div`
   z-index: 0;
   width: 100%;
   height: 100%;
+  color: black;
+  text-decoration: none;
   &:hover {
     cursor: pointer;
     background-color: ${(props) => props.color || TIM_Color('grey', 3)};
@@ -90,9 +93,11 @@ const KeywordTail = ({ tim }) => {
 
   return (
     <StyledTimwrap color={color}>
-      <StyledTailwrapforClick onClick={() => alert('123')}>
-        <StyledDate>{date}</StyledDate>
-      </StyledTailwrapforClick>
+      <Link to="/tim">
+        <StyledTailwrapforClick>
+          <StyledDate>{date}</StyledDate>
+        </StyledTailwrapforClick>
+      </Link>
       <Icons image={image} isFavorite={isFavorite} />
     </StyledTimwrap>
   );

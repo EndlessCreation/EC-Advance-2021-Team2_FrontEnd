@@ -36,7 +36,7 @@ const Keyword = ({ timlist }) => {
     <>
       <HeaderMargin />
       <StyledKeywordStatus>
-        <TagMark tag={tag} />
+        <TagMark tag={tag} bgColor={['indigo', 1]} />
         <Filter />
       </StyledKeywordStatus>
       <StyledKeywordList>
