@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { TIM_Color } from '../styles/color';
+import React from 'react';
 import TIM_Log from '../components/TIM_Log';
 
 const TIM_LogContainer = ({ data }) => {

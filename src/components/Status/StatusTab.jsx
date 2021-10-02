@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TIM_Color } from '../../styles/color';
 
 const StyledStatusTab = styled.div`
   border-radius: 20px;
-  background-color: ${TIM_Color('brand', 3)};
-  color: ${TIM_Color('font', 'white')};
+  background-color: ${(props) => props.theme.brand[3]};
+  color: ${(props) => props.theme.font['white']};
   height: 70px;
   position: absolute;
   left: 20px;

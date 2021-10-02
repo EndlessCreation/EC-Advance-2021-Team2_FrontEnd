@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { createGlobalStyle } from 'styled-components';
-import { TIM_Color } from '../../../styles/color';
 import CustomInput from './CustomInput';
 
 const DatePickerCloseIconStyles = createGlobalStyle`
@@ -14,7 +13,7 @@ const DatePickerCloseIconStyles = createGlobalStyle`
     align-items: center;
     &::after{
     cursor: pointer;
-    background-color:${TIM_Color('brand', '4')};
+    background-color: ${(props) => props.theme.brand[4]};
     color: #fff;
     border-radius:0;
     height: 20px;

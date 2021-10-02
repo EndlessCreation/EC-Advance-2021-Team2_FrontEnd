@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MdEdit } from 'react-icons/md';
-import { TIM_Color } from '../../styles/color';
-import { StyledKeywordStatus } from '../Keyword';
 import TagMark from '../Keyword/TagMark';
 
 const StyledTIMWrapper = styled.div`
@@ -13,7 +11,7 @@ const StyledTIMWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-image: ${(props) => `url(${props.image})`};
-  background-color: ${(props) => TIM_Color(props.bgColor, 2)};
+  background-color: ${(props) => props.theme.bgColor};
   background-size: cover;
   background-repeat: no-repeat;
   transform: ${(props) => props.size === 'small' && 'scale(0.535)'};
@@ -45,7 +43,6 @@ const StyledEdtiButton = styled.div`
   font-size: 32px;
   top: 35px;
   right: 40px;
-  /* background-color: none; */
 `;
 
 const EditButon = ({ onEdit }) => {

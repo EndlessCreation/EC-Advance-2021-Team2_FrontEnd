@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { IoIosArrowDown } from 'react-icons/io';
 import { Link } from 'react-router-dom';
-import { TIM_Color } from '../../styles/color';
-import KeywordPage from '../../pages/KeywordPage';
 
 const GridView = ({ user }) => {
   return (
@@ -94,7 +92,7 @@ const KeywordItem = styled(Link)`
   border-radius: 10px;
   font-size: 16px;
   text-decoration: none;
-  color: ${TIM_Color('font', 1)};
+  color: ${(props) => props.theme.font[1]};
 `;
 const posts = [
   {

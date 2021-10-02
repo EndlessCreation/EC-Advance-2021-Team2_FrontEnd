@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TIM_Color } from '../../styles/color';
 
 const StyledTag = styled.div`
-  background-color: ${(props) => props.bg};
-  color: ${TIM_Color('font', 'white')};
+  background-color: ${(props) => props.theme.grey[1]};
+  color: ${(props) => props.theme.font['white']};
   font-size: 20px;
   text-align: center;
   align-items: center;
@@ -14,12 +13,9 @@ const StyledTag = styled.div`
 `;
 
 const Tag = ({ tag_bg, tag_text, children }) => {
-  const { color } = tag_bg;
-  const bg = TIM_Color(color, 1);
-
   return (
     <>
-      <StyledTag bg={bg}>#{tag_text}</StyledTag>
+      <StyledTag>#{tag_text}</StyledTag>
     </>
   );
 };

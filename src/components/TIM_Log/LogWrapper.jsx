@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TIM_Color } from '../../styles/color';
 
 const StyledLogWrapper = styled.div`
   width: 1000px;

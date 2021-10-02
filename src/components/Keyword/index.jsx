@@ -36,20 +36,20 @@ const Keyword = ({ timlist }) => {
     <>
       <HeaderMargin />
       <StyledKeywordStatus>
-        <TagMark tag={tag} bgColor={['indigo', 1]} />
+        <TagMark tag={tag} />
         <Filter />
       </StyledKeywordStatus>
       <StyledKeywordList>
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
+        {/* <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} />
+        <KeywordLine keyword={keyword} timlist={timlist} /> */}
       </StyledKeywordList>
     </>
   );

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TIM_Color } from '../../styles/color';
 import { ReactComponent as FullStar } from '../../lib/assets//TIM_Log/fullStar.svg';
 import { ReactComponent as EmptyStar } from '../../lib/assets/TIM_Log/emptyStar.svg';
 
