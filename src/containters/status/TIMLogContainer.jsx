@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { getRecentPostView, getFavorPostView } from '../../api/post';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRecentPost, getFavoritePost } from '../../api/post';
+import { favoritePost } from '../../modules/post';
 import TIMLog from '../../components/TIMLog';
+import { reloadAction } from '../../modules/reload';
 
 const TIMLogContainer = ({ type }) => {
   const [timData, setTimData] = useState(null);
+  const reloaded = useSelector(({ reload }) => reload);
+  const dispatch = useDispatch();
 
-  const fetch = async () => {
+  const LogContainerfetch = async () => {
+    // console.log('fetch 실행?');
     try {
       if (type === 'log') {
-        const data = await getRecentPostView();
+        const data = await getRecentPost();
         setTimData(data);
         return;
       } else if (type === 'favorite') {
-        const data = await getFavorPostView();
+        const data = await getFavoritePost();
         setTimData(data);
         return;
       } else {
@@ -21,17 +27,36 @@ const TIMLogContainer = ({ type }) => {
     } catch (err) {}
   };
 
+  const onFavorite = (post_id) => {
+    dispatch(favoritePost(post_id));
+    dispatch(reloadAction('timLog'));
+  };
+
   useEffect(() => {
-    fetch();
+    // console.log('마운트 시 fetch');
+    LogContainerfetch();
   }, []);
 
+  //데이터 실시간 갱신 시에 리프레시 해주는 코드
+  useEffect(() => {
+    if (reloaded) {
+      // console.log('reload');
+      // console.log(reloaded);
+
+      if (reloaded.timLog === true) {
+        LogContainerfetch();
+      }
+    }
+  }, [reloaded]);
+
   if (timData === null) {
-    // console.log('데이터 없는경우 ');
+    console.log('데이터 없는경우 ');
     return <div></div>;
   }
   if (timData) {
-    // console.log('데이터 다 받아버린경우');
+    // console.log('랜더링 ing');
     // console.log(timData);
+
     return timData.map((tim) => {
       let {
         id,
@@ -46,6 +71,7 @@ const TIMLogContainer = ({ type }) => {
         keyword: '',
         keyword_color: 'gray',
       };
+
       return (
         <TIMLog
           id={id}
@@ -56,6 +82,7 @@ const TIMLogContainer = ({ type }) => {
           tag_color={tag_color}
           keyword={keyword}
           keyword_color={keyword_color}
+          onFavorite={onFavorite}
         />
       );
     });

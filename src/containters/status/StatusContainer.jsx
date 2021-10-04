@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import StatusButton from '../../components/Status/StatusButton';
-import { StatusPageWrapper } from '../../styles/PageWrapper';
 import Status from '../../components/Status';
 import { useSelector } from 'react-redux';
 

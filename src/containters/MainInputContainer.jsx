@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import HomeComponent from '../components/MainInput';
 import { useDispatch } from 'react-redux';
 import { createPost } from '../modules/post';
+import { reloadAction } from '../modules/reload';
 
 const MainInputContainer = () => {
   const { user } = useSelector(({ user }) => ({
@@ -25,6 +26,8 @@ const MainInputContainer = () => {
     formData.append('keyword', keyword);
 
     dispatch(createPost(formData));
+    dispatch(reloadAction('timLog'));
+
     inputRef.current.value = '';
     setImage(null);
     setTag('');

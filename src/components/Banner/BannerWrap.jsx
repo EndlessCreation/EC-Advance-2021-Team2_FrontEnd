@@ -26,9 +26,9 @@ const Whitemark = styled.div`
   display: flex;
 `;
 
-const BannerWrap = ({ children, image }) => {
+const BannerWrap = ({ children, image, onBannerReload }) => {
   return (
-    <StyledBannerWrap image={image}>
+    <StyledBannerWrap image={image} onClick={() => onBannerReload()}>
       <Whitemark>{children}</Whitemark>
     </StyledBannerWrap>
   );
