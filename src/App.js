@@ -28,7 +28,7 @@ const App = () => {
       <Route component={SignupPage} path="/signup" />
       <Route component={FindIdPage} path="/findId" />
       <Route component={FindPasswordPage} path="/findPassword" />
-      <Route component={GridViewPage} path="/gridview" />
+      <Route component={GridViewPage} path="/tag" />
     </ThemeProvider>
   );
 };

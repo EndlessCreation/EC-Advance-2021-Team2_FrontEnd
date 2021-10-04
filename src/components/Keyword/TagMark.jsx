@@ -18,8 +18,8 @@ const StyledTagMark = styled.button`
   }
 `;
 
-const TagMark = ({ tag }) => {
-  return <StyledTagMark>{tag}</StyledTagMark>;
+const TagMark = ({ tagName }) => {
+  return <StyledTagMark>{tagName}</StyledTagMark>;
 };
 
 export default TagMark;

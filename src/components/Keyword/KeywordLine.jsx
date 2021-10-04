@@ -1,9 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import KeywordHead from './KeywordHead';
 import KeywordTail from './KeywordTail';
 
-const StyledKeywordLineWrap = styled.div`
+const KeywordLine = ({ keywordName, postList }) => {
+  return (
+    <KeywordLineWrap>
+      <KeywordHead>{keywordName}</KeywordHead>
+      <KeywordTailWrap>
+        {postList.map((post) => (
+          <KeywordTail post={post} />
+        ))}
+      </KeywordTailWrap>
+    </KeywordLineWrap>
+  );
+};
+const KeywordLineWrap = styled.div`
   position: relative;
   display: inline-block;
   height: 100%;
@@ -20,7 +31,7 @@ const StyledKeywordLineWrap = styled.div`
   }
 `;
 
-const StyledKeywordTailWrap = styled.div`
+const KeywordTailWrap = styled.div`
   display: flex;
   box-sizing: border-box;
   margin-top: 15px;
@@ -28,17 +39,22 @@ const StyledKeywordTailWrap = styled.div`
   position: static;
   align-items: center;
 `;
-const KeywordLine = ({ keyword, timlist }) => {
-  return (
-    <StyledKeywordLineWrap>
-      <KeywordHead keyword={keyword} />
-      <StyledKeywordTailWrap>
-        {timlist.map((tim) => (
-          <KeywordTail tim={tim} />
-        ))}
-      </StyledKeywordTailWrap>
-    </StyledKeywordLineWrap>
-  );
-};
+const KeywordHead = styled.div`
+  position: sticky;
+  z-index: 1;
+  top: 0px;
+  left: 0px;
+  width: 150px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+  background-color: ${(props) => props.theme.grey[4]};
+  margin-bottom: 32px;
+`;
 
 export default KeywordLine;

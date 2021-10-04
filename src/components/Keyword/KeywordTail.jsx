@@ -3,6 +3,26 @@ import styled from 'styled-components';
 import { MdImage, MdStar, MdStarBorder } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
+const KeywordTail = ({ post }) => {
+  const { id, createAt, image, isFavorite } = post;
+  const date = createAt.toString().slice(5, 10);
+
+  return (
+    <StyledTimwrap>
+      <Link to="/tim">
+        <StyledTailwrapforClick>
+          <StyledDate>{date}</StyledDate>
+        </StyledTailwrapforClick>
+      </Link>
+      <StyledIconsWrap>
+        <StyledIconButton>{image && <MdImage />}</StyledIconButton>
+        <StyledIconButton>
+          {isFavorite ? <MdStar /> : <MdStarBorder />}
+        </StyledIconButton>
+      </StyledIconsWrap>
+    </StyledTimwrap>
+  );
+};
 const StyledTimwrap = styled.div`
   position: relative;
   width: 75px;
@@ -67,39 +87,22 @@ const StyledIconButton = styled.button`
   }
 `;
 
-const ImageIcon = ({ image }) => (
-  <StyledIconButton>{image && <MdImage />}</StyledIconButton>
-);
+// const ImageIcon = ({ image }) => (
+//   <StyledIconButton>{image && <MdImage />}</StyledIconButton>
+// );
 
-const StarIcon = ({ isFavorite }) => (
-  <StyledIconButton>
-    {isFavorite ? <MdStar /> : <MdStarBorder />}
-  </StyledIconButton>
-);
+// const StarIcon = ({ isFavorite }) => (
+//   <StyledIconButton>
+//     {isFavorite ? <MdStar /> : <MdStarBorder />}
+//   </StyledIconButton>
+// );
 
-const Icons = ({ image, isFavorite }) => {
-  return (
-    <StyledIconsWrap>
-      <ImageIcon image={image} />
-      <StarIcon isFavorite={isFavorite} />
-    </StyledIconsWrap>
-  );
-};
-
-const KeywordTail = ({ tim }) => {
-  const { id, createAt, image, isFavorite } = tim;
-
-  const date = createAt.toString().slice(5, 10);
-
-  return (
-    <StyledTimwrap>
-      <Link to="/tim">
-        <StyledTailwrapforClick>
-          <StyledDate>{date}</StyledDate>
-        </StyledTailwrapforClick>
-      </Link>
-      <Icons image={image} isFavorite={isFavorite} />
-    </StyledTimwrap>
-  );
-};
+// const Icons = ({ image, isFavorite }) => {
+//   return (
+//     <StyledIconsWrap>
+//       <ImageIcon image={image} />
+//       <StarIcon isFavorite={isFavorite} />
+//     </StyledIconsWrap>
+//   );
+// };
 export default KeywordTail;
