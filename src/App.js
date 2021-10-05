@@ -23,8 +23,8 @@ const App = () => {
       <GlobalStyle />
       <Route component={MainPage} path="/" exact />
       <Route component={LoginPage} path="/login" />
-      <Route component={KeywordPage} path="/keyword" />
-      <Route component={TIMPage} path="/tim" />
+      <Route component={KeywordPage} path="/keyword/:tagId/:keywordId" />
+      <Route component={TIMPage} path="/tim/:tagId/:keywordId" />
       <Route component={SignupPage} path="/signup" />
       <Route component={FindIdPage} path="/findId" />
       <Route component={FindPasswordPage} path="/findPassword" />

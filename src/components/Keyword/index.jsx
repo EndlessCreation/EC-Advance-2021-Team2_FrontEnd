@@ -4,20 +4,27 @@ import Filter from './Filter';
 import KeywordLine from './KeywordLine';
 import TagMark from './TagMark';
 
-const Keyword = ({ user, tagName, keyword, postInKeyword }) => {
+const Keyword = ({ user, postInTag }) => {
   if (!user) return null;
-  if (!keyword || !postInKeyword) return <div>loading...</div>;
-  const { keyword_name: keywordName, post: postList } = postInKeyword;
+  if (!postInTag) return <div>loading...</div>;
+  const { tag, keyword: keywordList } = postInTag;
 
   return (
     <>
       <HeaderMargin />
       <KeywordStatus>
-        <TagMark tagName={tagName} />
+        <TagMark tagName={tag} />
         <Filter />
       </KeywordStatus>
       <KeywordList>
-        <KeywordLine keywordName={keywordName} postList={postList} />
+        {keywordList.map((keyword) => (
+          <KeywordLine
+            key={keyword.id}
+            tagName={tag}
+            keywordName={keyword.keyword_name}
+            postList={keyword.post}
+          />
+        ))}
       </KeywordList>
     </>
   );

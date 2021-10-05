@@ -2,7 +2,7 @@ import React from 'react';
 import HeaderContainer from '../containters/common/HeaderContainer';
 import MainInputContainer from '../containters/MainInputContainer';
 import TIMContainer from '../containters/TIMContainer';
-import { TIMPageWrapper } from '../styles/utilStyle';
+import { TIMPageWrapper } from '../styles/PageWrapper';
 
 const TIMPage = () => {
   return (
@@ -10,8 +10,8 @@ const TIMPage = () => {
       <TIMPageWrapper>
         <HeaderContainer />
         <TIMContainer />
+        <MainInputContainer />
       </TIMPageWrapper>
-      <MainInputContainer />
     </>
   );
 };

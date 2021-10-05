@@ -16,14 +16,7 @@ const GridView = ({ user, tags }) => {
                 {tag.keyword.map((keyword) => (
                   <KeywordItem
                     key={keyword.id}
-                    to={{
-                      pathname: '/keyword',
-                      state: {
-                        tagName: tag.tag,
-                        tagId: tag.id,
-                        keywordId: keyword.id,
-                      },
-                    }}
+                    to={`/keyword/${tag.id}/${keyword.id}`}
                   >{`@ ${keyword.keyword_name}`}</KeywordItem>
                 ))}
               </KeywordWrapper>

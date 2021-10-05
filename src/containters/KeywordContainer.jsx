@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 import Keyword from '../components/Keyword';
-import { getPostInKeyword } from '../modules/post';
-import { getKeywordInTag } from '../modules/tagkeyword';
+import { getPostInTag } from '../modules/post';
 import { check } from '../modules/user';
 
 const dummyData = [
@@ -174,37 +173,18 @@ const dummyData = [
   },
 ];
 
-const KeywordContainer = () => {
-  const { user, keyword, postInKeyword } = useSelector(
-    ({ user, tagkeyword, post }) => ({
-      user: user.user,
-      keyword: tagkeyword.keyword,
-      postInKeyword: post.postInKeyword,
-    }),
-  );
+const KeywordContainer = ({ match }) => {
+  const { user, postInTag } = useSelector(({ user, post }) => ({
+    user: user.user,
+    postInTag: post.postInTag,
+  }));
   const dispatch = useDispatch();
-  const {
-    state: { tagName, tagId, keywordId },
-  } = useLocation();
-  console.log(tagId, keywordId);
-  useEffect(() => {
-    dispatch(check());
-  }, [dispatch]);
+  const { tagId } = match.params;
 
   useEffect(() => {
-    dispatch(getKeywordInTag(tagId));
-    dispatch(getPostInKeyword(keywordId));
-  }, [dispatch, tagId, keywordId]);
-
-  return (
-    <Keyword
-      user={user}
-      tagName={tagName}
-      postInKeyword={postInKeyword}
-      keyword={keyword}
-      // timlist={dummyData}
-    />
-  );
+    dispatch(getPostInTag(tagId));
+  }, [dispatch, tagId]);
+  return <Keyword user={user} postInTag={postInTag} />;
 };
 
 export default withRouter(KeywordContainer);

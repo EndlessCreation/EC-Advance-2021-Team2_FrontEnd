@@ -9,7 +9,7 @@ const KeywordPage = (props) => {
     <KeywordPageWrapper>
       <HeaderContainer />
       <KeywordContainer />
-      {/* <MainInputContainer /> */}
+      <MainInputContainer />
     </KeywordPageWrapper>
   );
 };
