@@ -56,6 +56,7 @@ export const getRecentPost = async () => {
 };
 
 // 전체 포스트 불러오기
+// 모든 게시물 보기
 export const getPostView = async () => {
   const response = await axios({
     method: 'get',
@@ -77,6 +78,23 @@ export const getBanner = async () => {
   const response = await axios({
     method: 'get',
     url: '/banner',
+  });
+  return response.data;
+};
+
+// 키워드(keywordId) 내 게시물 보기
+export const getPostInKeyword = async (keywordId) => {
+  const response = await axios({
+    method: 'get',
+    url: `/postview/keyword/${keywordId}`,
+  });
+  return response.data;
+};
+// 태그(tagId) 내의 키워드와 포스트 불러오기
+export const getPostInTag = async (tagId) => {
+  const response = await axios({
+    method: 'get',
+    url: `/postview/tag/${tagId}`,
   });
   return response.data;
 };

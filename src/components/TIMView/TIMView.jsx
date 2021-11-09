@@ -1,9 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MdEdit } from 'react-icons/md';
-import TagMark from '../Keyword/TagMark';
 
-const StyledTIMWrapper = styled.div`
+// keyword 안에 있는 tim 나열
+// 선택한 tim 을 가장 앞에 두도록
+// 원형 스크롤로 구현할 예정
+const TIMView = ({ user, tagName, postInKeyword, onEdit }) => {
+  if (!user || !postInKeyword) return null;
+  const { post: postList, keyword_name } = postInKeyword;
+  return (
+    <>
+      <HeaderMargin />
+      <ListStatus>
+        <Mark>{tagName}</Mark>
+        <Mark>{keyword_name}</Mark>
+      </ListStatus>
+      <TIMViewWrapper>
+        {postList.map((post) => (
+          <TIM key={post.id} post={post} />
+        ))}
+      </TIMViewWrapper>
+    </>
+  );
+};
+const TIM = ({ post, onEdit }) => {
+  const { image, createAt, content, isFavorite } = post;
+  const slicedDate = createAt.toString().slice(0, 10);
+  return (
+    <>
+      <TIMWrapper image={image}>
+        <Whitemark>
+          <Date>{slicedDate}</Date>
+          <EdtiButton onClick={onEdit}>
+            <MdEdit />
+          </EdtiButton>
+          <Contents>{content}</Contents>
+        </Whitemark>
+      </TIMWrapper>
+    </>
+  );
+};
+const TIMWrapper = styled.div`
   position: relative;
   width: 560px;
   height: 520px;
@@ -31,57 +68,48 @@ const Whitemark = styled.div`
   box-sizing: border-box;
 `;
 
-const StyledDate = styled.div`
+const Date = styled.div`
   position: absolute;
   font-size: 32px;
   top: 35px;
   left: 40px;
 `;
 
-const StyledEdtiButton = styled.div`
+const EdtiButton = styled.div`
   position: absolute;
   font-size: 32px;
   top: 35px;
   right: 40px;
 `;
 
-const EditButon = ({ onEdit }) => {
-  return (
-    <StyledEdtiButton onClick={() => console.log('에딧버튼클릭')}>
-      <MdEdit />
-    </StyledEdtiButton>
-  );
-};
-
-const StyledContents = styled.div`
+const Contents = styled.div`
   font-size: 32px;
   font-weight: bold;
   text-align: center;
   margin: auto;
 `;
 
-export const StyledListStatus = styled.div`
+const ListStatus = styled.div`
   display: flex;
   margin: 35px 66px;
   align-items: flex-start;
 `;
-const TIM = ({ data, onEdit, size }) => {
-  console.log(data);
-  const { image, bgColor, date, content } = data;
-  const slicedDate = date.toString().slice(0, 10);
-  return (
-    <>
-      <StyledTIMWrapper image={image} bgColor={bgColor} size={size}>
-        <Whitemark>
-          <StyledDate>{slicedDate}</StyledDate>
-          <EditButon onEdit={onEdit} />
-          <StyledContents>{content}</StyledContents>
-        </Whitemark>
-      </StyledTIMWrapper>
-    </>
-  );
-};
-
+const Mark = styled.button`
+  height: 80px;
+  display: flex;
+  background-color: ${(props) => props.theme.indigo[1]};
+  align-items: center;
+  padding: 0px 28px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  font-size: 28px;
+  font-weight: bold;
+  color: ${(props) => props.theme.font['white']};
+  & + & {
+    margin-left: 30px;
+  }
+`;
 const HeaderMargin = styled.div`
   position: relative;
   width: 100%;
@@ -99,21 +127,4 @@ const TIMViewWrapper = styled.div`
   padding-bottom: 100px;
   background-color: #ffffff;
 `;
-
-const TIMView = ({ data, onEdit }) => {
-  return (
-    <>
-      <HeaderMargin />
-      <StyledListStatus>
-        <TagMark tag={'#태그'} bgColor={['indigo', '1']} />
-        <TagMark tag={'@키워드'} bgColor={['violet', '2']} />
-      </StyledListStatus>
-      <TIMViewWrapper>
-        <TIM data={data[0]} onEdit={onEdit} size={'small'} />
-        <TIM data={data[1]} onEdit={onEdit} />
-        <TIM data={data[2]} onEdit={onEdit} size={'small'} />
-      </TIMViewWrapper>
-    </>
-  );
-};
 export default TIMView;

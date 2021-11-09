@@ -47,7 +47,7 @@ export const logout = async () => {
 export const check = async () => {
   const response = await axios({
     method: 'get',
-    url: 'users/get_user', // url 수정 예정
+    url: '/users/get_user', // url 수정 예정
   });
   return response.data;
 };
@@ -55,7 +55,7 @@ export const check = async () => {
 export const findId = async ({ name, email }) => {
   const response = await axios({
     method: 'post',
-    url: 'users/find/email', // url 수정 예정 email->id 변경 필요
+    url: '/users/find/email', // url 수정 예정 email->id 변경 필요
     data: {
       name,
       email,
@@ -67,7 +67,7 @@ export const findId = async ({ name, email }) => {
 export const findPassword = async ({ account, email }) => {
   const response = await axios({
     method: 'post',
-    url: 'users/find/password', // url 수정 예정
+    url: '/users/find/password', // url 수정 예정
     data: {
       account,
       email,
@@ -79,7 +79,7 @@ export const findPassword = async ({ account, email }) => {
 export const sendEmail = async ({ account, email, phone_number }) => {
   const response = await axios({
     method: 'post',
-    url: 'users/find/password',
+    url: '/users/find/password',
     data: {
       account,
       email,
@@ -92,7 +92,7 @@ export const sendEmail = async ({ account, email, phone_number }) => {
 export const updatePassword = async ({ id, password }) => {
   const response = await axios({
     method: 'post',
-    url: 'users/find/changepw', // url 수정 예정
+    url: '/users/find/changepw', // url 수정 예정
     data: {
       id,
       password,
