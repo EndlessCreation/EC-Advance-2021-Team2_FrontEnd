@@ -10,9 +10,7 @@ const StyledLogWrapper = styled.div`
   background-color: #ffffff;
   font-size: 20px;
   display: flex;
-  & + & {
-    margin-bottom: 10px;
-  }
+  margin-bottom: 10px;
 `;
 
 const LogWrapper = ({ children }) => {

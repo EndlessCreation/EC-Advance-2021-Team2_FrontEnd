@@ -12,21 +12,10 @@ const StyledTag = styled.div`
   font-weight: bold;
 `;
 
-<<<<<<< HEAD:src/components/TIM_Log/Tag.jsx
 const Tag = ({ tag_bg, tag_text, children }) => {
   return (
     <>
       <StyledTag>#{tag_text}</StyledTag>
-=======
-const Tag = ({ tag_color, tag }) => {
-  // const { color } = tag_color;
-  // console.log(tag_color, tag);
-  const bg = TIM_Color(tag_color, '1');
-
-  return (
-    <>
-      <StyledTag bg={bg}>#{tag}</StyledTag>
->>>>>>> 2c9503be246056898995cb98a83382f273b9164d:src/components/TIMLog/Tag.jsx
     </>
   );
 };

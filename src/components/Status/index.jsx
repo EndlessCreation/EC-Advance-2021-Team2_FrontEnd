@@ -17,12 +17,8 @@ const StyledWrapper = styled.div`
   overflow: visible;
   margin-top: 150px;
   display: flex;
-<<<<<<< HEAD
   flex-direction: column;
   background-color: #fdfdfd;
-=======
-  flex-direction: column-reverse;
->>>>>>> 2c9503be246056898995cb98a83382f273b9164d
   justify-content: end;
   padding: 80px 40px 15px 40px;
 `;

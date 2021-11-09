@@ -50,7 +50,7 @@ export const getFavoritePost = async () => {
 export const getRecentPost = async () => {
   const response = await axios({
     method: 'get',
-    url: `/postview/recent/1`,
+    url: `/postview/recent/`,
   });
   return response.data;
 };
@@ -68,7 +68,15 @@ export const getPostView = async () => {
 export const getOnePostView = async (post_id) => {
   const response = await axios({
     method: 'get',
-    url: `/postview/one/${post_id}`,
+  });
+  return response.data;
+};
+
+// 배너 가져오기
+export const getBanner = async () => {
+  const response = await axios({
+    method: 'get',
+    url: '/banner',
   });
   return response.data;
 };
