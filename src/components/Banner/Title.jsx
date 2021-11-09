@@ -21,10 +21,10 @@ const StyledTitle = styled.div`
 //   display: flex;
 // `;
 
-const Title = ({ log, children }) => {
+const Title = ({ content, children }) => {
   return (
     // <Whitemark>
-    <StyledTitle>{log}</StyledTitle>
+    <StyledTitle>{content}</StyledTitle>
     // </Whitemark>
   );
 };
