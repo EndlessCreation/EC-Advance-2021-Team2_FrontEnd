@@ -3,7 +3,30 @@ import styled from 'styled-components';
 import { MdImage, MdStar, MdStarBorder } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
-const StyledTimwrap = styled.div`
+const KeywordTail = ({ tagName, post }) => {
+  const { createAt, image, isFavorite, tag_id, keyword_id } = post;
+  const date = createAt.toString().slice(5, 10);
+
+  return (
+    <Timwrap>
+      <Link
+        to={{
+          pathname: `/tim/${tag_id}/${keyword_id}`,
+          state: { tagName },
+        }}
+      >
+        <TailwrapforClick>
+          <Date>{date}</Date>
+        </TailwrapforClick>
+      </Link>
+      <IconsWrap>
+        <IconButton>{image && <MdImage />}</IconButton>
+        <IconButton>{isFavorite ? <MdStar /> : <MdStarBorder />}</IconButton>
+      </IconsWrap>
+    </Timwrap>
+  );
+};
+const Timwrap = styled.div`
   position: relative;
   width: 75px;
   height: 55px;
@@ -15,7 +38,7 @@ const StyledTimwrap = styled.div`
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
 `;
 
-const StyledTailwrapforClick = styled.div`
+const TailwrapforClick = styled.div`
   display: flex;
   position: absolute;
   justify-content: center;
@@ -36,7 +59,7 @@ const StyledTailwrapforClick = styled.div`
   }
 `;
 
-const StyledDate = styled.div`
+const Date = styled.div`
   position: absolute;
   z-index: 0;
   top: 10px;
@@ -44,14 +67,14 @@ const StyledDate = styled.div`
   font-weight: bold;
 `;
 
-const StyledIconsWrap = styled.div`
+const IconsWrap = styled.div`
   position: relative;
   margin-top: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-const StyledIconButton = styled.button`
+const IconButton = styled.button`
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -66,40 +89,4 @@ const StyledIconButton = styled.button`
     background-color: ${(props) => props.theme.grey[3]};
   }
 `;
-
-const ImageIcon = ({ image }) => (
-  <StyledIconButton>{image && <MdImage />}</StyledIconButton>
-);
-
-const StarIcon = ({ isFavorite }) => (
-  <StyledIconButton>
-    {isFavorite ? <MdStar /> : <MdStarBorder />}
-  </StyledIconButton>
-);
-
-const Icons = ({ image, isFavorite }) => {
-  return (
-    <StyledIconsWrap>
-      <ImageIcon image={image} />
-      <StarIcon isFavorite={isFavorite} />
-    </StyledIconsWrap>
-  );
-};
-
-const KeywordTail = ({ tim }) => {
-  const { id, createAt, image, isFavorite } = tim;
-
-  const date = createAt.toString().slice(5, 10);
-
-  return (
-    <StyledTimwrap>
-      <Link to="/tim">
-        <StyledTailwrapforClick>
-          <StyledDate>{date}</StyledDate>
-        </StyledTailwrapforClick>
-      </Link>
-      <Icons image={image} isFavorite={isFavorite} />
-    </StyledTimwrap>
-  );
-};
 export default KeywordTail;

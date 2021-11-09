@@ -64,11 +64,19 @@ export const StatusPageWrapper = styled.div`
 `;
 
 export const GridViewPageWrapper = styled.div`
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
 `;
 export const KeywordPageWrapper = styled.div`
   width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  /* position: fixed; */
+  background-color: ${(props) => props.theme.bgColor};
+`;
+
+export const TIMPageWrapper = styled.div`
+  width: 100vw;
   height: 100vh;
-  position: fixed;
   background-color: ${(props) => props.theme.bgColor};
 `;

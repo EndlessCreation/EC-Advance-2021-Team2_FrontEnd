@@ -4,13 +4,39 @@ import Filter from './Filter';
 import KeywordLine from './KeywordLine';
 import TagMark from './TagMark';
 
-const StyledKeywordStatus = styled.div`
+const Keyword = ({ user, postInTag }) => {
+  if (!user) return null;
+  if (!postInTag) return <div>loading...</div>;
+  const { tag, keyword: keywordList } = postInTag;
+
+  return (
+    <>
+      <HeaderMargin />
+      <KeywordStatus>
+        <TagMark tagName={tag} />
+        <Filter />
+      </KeywordStatus>
+      <KeywordList>
+        {keywordList.map((keyword) => (
+          <KeywordLine
+            key={keyword.id}
+            tagName={tag}
+            keywordName={keyword.keyword_name}
+            postList={keyword.post}
+          />
+        ))}
+      </KeywordList>
+    </>
+  );
+};
+
+const KeywordStatus = styled.div`
   display: flex;
   margin: 35px 66px;
   justify-content: space-between;
   align-items: center;
 `;
-const StyledKeywordList = styled.div`
+const KeywordList = styled.div`
   position: relative;
   height: 100%;
   padding: 48px 60px;
@@ -29,30 +55,5 @@ const HeaderMargin = styled.div`
   width: 100%;
   height: 60px;
 `;
-
-const Keyword = ({ timlist }) => {
-  const [tag, keyword] = ['태그태그', '키워드'];
-  return (
-    <>
-      <HeaderMargin />
-      <StyledKeywordStatus>
-        <TagMark tag={tag} />
-        <Filter />
-      </StyledKeywordStatus>
-      <StyledKeywordList>
-        <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} />
-        {/* <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} /> */}
-      </StyledKeywordList>
-    </>
-  );
-};
 
 export default Keyword;

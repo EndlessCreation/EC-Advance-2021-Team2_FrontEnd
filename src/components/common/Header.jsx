@@ -15,7 +15,7 @@ const Header = ({ user, onLogout, pathname }) => {
       {user ? (
         <LoginWrapper>
           {pathname === '/' ? (
-            <StyledLink to="/gridview">
+            <StyledLink to="/tag">
               <AiOutlineUnorderedList size="30" />
             </StyledLink>
           ) : (

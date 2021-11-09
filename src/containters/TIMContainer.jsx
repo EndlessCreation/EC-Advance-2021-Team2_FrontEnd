@@ -1,5 +1,9 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router';
 import { TIMView } from '../components/TIMView';
+import { getPostInKeyword } from '../modules/post';
 
 const dummyData = [
   {
@@ -23,12 +27,34 @@ const dummyData = [
   },
 ];
 
-const TIMContainer = (props) => {
-  const onEdit = () => {
+// 특정 키워드(keywordId) 안에 있는 tim 불러와야 함
+const TIMContainer = ({ match, location }) => {
+  const { user, postInKeyword } = useSelector(({ user, post }) => ({
+    user: user.user,
+    postInKeyword: post.postInKeyword,
+  }));
+  const dispatch = useDispatch();
+  const { keywordId } = match.params;
+  const {
+    state: { tagName },
+  } = location;
+
+  useEffect(() => {
+    dispatch(getPostInKeyword(keywordId));
+  }, [dispatch, keywordId]);
+
+  const onEdit = (e) => {
     console.log('수정버튼 클릭');
   };
 
-  return <TIMView data={dummyData} onEdit={onEdit} />;
+  return (
+    <TIMView
+      user={user}
+      tagName={tagName}
+      postInKeyword={postInKeyword}
+      onEdit={onEdit}
+    />
+  );
 };
 
-export default TIMContainer;
+export default withRouter(TIMContainer);
