@@ -1,12 +1,25 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import GridView from '../../components/postview/GridView';
+import { getTag } from '../../modules/tagkeyword';
+import { check } from '../../modules/user';
 
 const GridViewContainer = () => {
-  const { user } = useSelector(({ user }) => ({
+  const { user, tags } = useSelector(({ user, tagkeyword }) => ({
     user: user.user,
+    tags: tagkeyword.tags,
   }));
-  return <GridView user={user} />;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTag());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(check());
+  }, [dispatch]);
+
+  return <GridView user={user} tags={tags} />;
 };
 
 export default GridViewContainer;

@@ -3,19 +3,20 @@ import styled from 'styled-components';
 import { IoIosArrowDown } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
-const GridView = ({ user }) => {
+const GridView = ({ user, tags }) => {
+  if (!tags) return <div>loading...</div>;
   return (
     <Wrapper>
       {user && (
         <Grid>
-          {posts.map((post) => (
-            <GridItem key={post.id}>
-              <header>{`# ${post.tag}`}</header>
+          {tags.map((tag) => (
+            <GridItem key={tag.id}>
+              <header>{`# ${tag.tag}`}</header>
               <KeywordWrapper>
-                {post.keyword.map((keyword) => (
+                {tag.keyword.map((keyword) => (
                   <KeywordItem
                     key={keyword.id}
-                    to="/keyword"
+                    to={`/keyword/${tag.id}/${keyword.id}`}
                   >{`@ ${keyword.keyword_name}`}</KeywordItem>
                 ))}
               </KeywordWrapper>
@@ -26,6 +27,7 @@ const GridView = ({ user }) => {
           ))}
         </Grid>
       )}
+      {/* <Route component={KeywordPage} path="/keyword/:tagId/:keywordId" /> */}
     </Wrapper>
   );
 };
@@ -94,132 +96,5 @@ const KeywordItem = styled(Link)`
   text-decoration: none;
   color: ${(props) => props.theme.font[1]};
 `;
-const posts = [
-  {
-    id: 1,
-    tag: 'tag1',
-    tagColor: 'tag1Color',
-    keyword: [
-      {
-        id: 1,
-        keyword_name: 'keyword1',
-      },
-      {
-        id: 2,
-        keyword_name: 'keyword2',
-      },
-      {
-        id: 3,
-        keyword_name: 'keyword3',
-      },
-      {
-        id: 4,
-        keyword_name: 'keyword4',
-      },
-      {
-        id: 5,
-        keyword_name: 'keyword5',
-      },
-      {
-        id: 6,
-        keyword_name: 'keyword6',
-      },
-    ],
-  },
-  {
-    id: 2,
-    tag: 'tag2',
-    tagColor: 'tag2Color',
-    keyword: [
-      {
-        id: 4,
-        keyword_name: 'keyword4',
-      },
-      {
-        id: 5,
-        keyword_name: 'keyword5',
-      },
-      {
-        id: 6,
-        keyword_name: 'keyword6',
-      },
-    ],
-  },
-  {
-    id: 3,
-    tag: 'tag3',
-    tagColor: 'tag3Color',
-    keyword: [
-      {
-        id: 7,
-        keyword_name: 'keyword7',
-      },
-      {
-        id: 8,
-        keyword_name: 'keyword8',
-      },
-      {
-        id: 9,
-        keyword_name: 'keyword9',
-      },
-    ],
-  },
-  {
-    id: 4,
-    tag: 'tag4',
-    tagColor: 'tag1Color',
-    keyword: [
-      {
-        id: 1,
-        keyword_name: 'keyword1',
-      },
-      {
-        id: 2,
-        keyword_name: 'keyword2',
-      },
-      {
-        id: 3,
-        keyword_name: 'keyword3',
-      },
-    ],
-  },
-  {
-    id: 5,
-    tag: 'tag5',
-    tagColor: 'tag2Color',
-    keyword: [
-      {
-        id: 4,
-        keyword_name: 'keyword4',
-      },
-      {
-        id: 5,
-        keyword_name: 'keyword5',
-      },
-      {
-        id: 6,
-        keyword_name: 'keyword6',
-      },
-    ],
-  },
-  {
-    id: 6,
-    tag: 'tag6',
-    tagColor: 'tag3Color',
-    keyword: [
-      {
-        id: 7,
-        keyword_name: 'keyword7',
-      },
-      {
-        id: 8,
-        keyword_name: 'keyword8',
-      },
-      {
-        id: 9,
-        keyword_name: 'keyword9',
-      },
-    ],
-  },
-];
+
 export default GridView;
