@@ -43,13 +43,13 @@ const Keyword = ({ timlist }) => {
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
+        {/* <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
         <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} />
-        <KeywordLine keyword={keyword} timlist={timlist} />
+        <KeywordLine keyword={keyword} timlist={timlist} /> */}
       </StyledKeywordList>
     </>
   );

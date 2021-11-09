@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 // Login and Signup
-
 export const Input = styled.input`
   width: 100%;
   height: 40px;
@@ -14,4 +13,10 @@ export const Input = styled.input`
   font-family: Roboto;
   font-size: 1rem;
   line-height: 1.25rem;
+`;
+
+export const TIMPageWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: ${(props) => props.theme.bgColor};
 `;
