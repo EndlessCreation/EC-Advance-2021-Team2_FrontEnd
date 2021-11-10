@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const StyledTagMark = styled.button`
   height: 80px;
   display: flex;
-  background-color: ${(props) => props.theme.indigo[1]};
+  background-color: ${({ tagColor, theme }) => theme.component[tagColor][1]};
   align-items: center;
   padding: 0px 28px;
   border: none;
@@ -18,8 +18,9 @@ const StyledTagMark = styled.button`
   }
 `;
 
-const TagMark = ({ tagName }) => {
-  return <StyledTagMark>{tagName}</StyledTagMark>;
+const TagMark = ({ tagName, tagColor }) => {
+  console.log(tagName, tagColor);
+  return <StyledTagMark tagColor={tagColor}>{tagName}</StyledTagMark>;
 };
 
 export default TagMark;

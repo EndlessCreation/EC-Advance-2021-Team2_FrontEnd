@@ -10,6 +10,9 @@ const GridViewContainer = () => {
     user: user.user,
     tags: tagkeyword.tags,
   }));
+
+  const tagItems = {};
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTag());

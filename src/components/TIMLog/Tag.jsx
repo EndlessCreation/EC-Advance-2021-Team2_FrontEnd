@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledTag = styled.div`
-  background-color: ${(props) => {
-    return props.theme.component[props.tagColor][1];
+  background-color: ${({ theme, tagColor }) => {
+    return theme.component[tagColor][1];
   }};
   color: ${(props) => props.theme.font['white']};
   font-size: 20px;

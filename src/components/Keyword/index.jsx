@@ -7,19 +7,22 @@ import TagMark from './TagMark';
 const Keyword = ({ user, postInTag }) => {
   if (!user) return null;
   if (!postInTag) return <div>loading...</div>;
-  const { tag, keyword: keywordList } = postInTag;
-
+  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+  console.log(postInTag);
+  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+  const { tag, tag_color, keyword: keywordList } = postInTag;
   return (
     <>
       <HeaderMargin />
       <KeywordStatus>
-        <TagMark tagName={tag} />
+        <TagMark tagName={tag} tagColor={tag_color} />
         <Filter />
       </KeywordStatus>
       <KeywordList>
         {keywordList.map((keyword) => (
           <KeywordLine
             key={keyword.id}
+            keywordColor={keyword.keyword_color}
             tagName={tag}
             keywordName={keyword.keyword_name}
             postList={keyword.post}

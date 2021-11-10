@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import KeywordTail from './KeywordTail';
 
-const KeywordLine = ({ tagName, keywordName, postList }) => {
+const KeywordLine = ({ tagName, keywordName, postList, keywordColor }) => {
   return (
     <KeywordLineWrap>
-      <KeywordHead>{keywordName}</KeywordHead>
+      <KeywordHead keywordColor={keywordColor}>{keywordName}</KeywordHead>
       <KeywordTailWrap>
         {postList.map((post) => (
           <KeywordTail key={post.id} post={post} tagName={tagName} />
@@ -28,7 +28,8 @@ const KeywordHead = styled.div`
   font-size: 24px;
   font-weight: bold;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-  background-color: ${(props) => props.theme.grey[4]};
+  background-color: ${({ keywordColor, theme }) =>
+    theme.component[keywordColor][4]};
   margin-bottom: 32px;
 `;
 const KeywordLineWrap = styled.div`
