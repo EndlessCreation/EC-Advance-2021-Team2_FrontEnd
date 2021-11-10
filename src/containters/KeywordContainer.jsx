@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import Keyword from '../components/Keyword';
-import { getPostInTag } from '../modules/post';
-import { check } from '../modules/user';
+import { filterPostInTag, getPostInTag } from '../modules/post';
 
 const dummyData = [
   {
@@ -174,17 +173,42 @@ const dummyData = [
 ];
 
 const KeywordContainer = ({ match }) => {
-  const { user, postInTag } = useSelector(({ user, post }) => ({
+  const { user, postInTag } = useSelector(({ user, post, loading }) => ({
     user: user.user,
     postInTag: post.postInTag,
+    loading: loading,
   }));
   const dispatch = useDispatch();
   const { tagId } = match.params;
 
   useEffect(() => {
     dispatch(getPostInTag(tagId));
-  }, [dispatch, tagId]);
-  return <Keyword user={user} postInTag={postInTag} />;
+  }, []);
+
+  const onFilteringDate = (startDate, endDate) => {
+    // console.log(startDate, endDate);
+    const startDateToISO = new Date(startDate).toISOString();
+    const endDateToISO = new Date(endDate).toISOString();
+    console.log(startDateToISO, endDateToISO);
+
+    dispatch(
+      filterPostInTag({
+        minimum_date: startDateToISO,
+        maximum_date: endDateToISO,
+        tag_id: parseInt(tagId),
+      }),
+    );
+  };
+
+  if (!user || !postInTag) return null;
+
+  return (
+    <Keyword
+      user={user}
+      postInTag={postInTag}
+      onFilteringDate={onFilteringDate}
+    />
+  );
 };
 
 export default withRouter(KeywordContainer);
