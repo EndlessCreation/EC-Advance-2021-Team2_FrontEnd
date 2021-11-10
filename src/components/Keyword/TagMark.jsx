@@ -19,7 +19,8 @@ const StyledTagMark = styled.button`
 `;
 
 const TagMark = ({ tagName, tagColor }) => {
-  console.log(tagName, tagColor);
+  if (!(tagName && tagColor)) return null;
+  //위의 값을 받아오지 못했을때  화면에서는 < 초기값으로 랜더링 -> 값 적용된 컴포넌트 랜더링 > 하는 버벅임이 생겨서 위 코드 추가
   return <StyledTagMark tagColor={tagColor}>{tagName}</StyledTagMark>;
 };
 
