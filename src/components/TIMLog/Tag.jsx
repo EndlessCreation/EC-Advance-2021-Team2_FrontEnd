@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledTag = styled.div`
-  background-color: ${(props) => props.theme.grey[1]};
+  background-color: ${(props) => {
+    return props.theme.component[props.tagColor][1];
+  }};
   color: ${(props) => props.theme.font['white']};
   font-size: 20px;
   text-align: center;
@@ -12,10 +14,10 @@ const StyledTag = styled.div`
   font-weight: bold;
 `;
 
-const Tag = ({ tag_bg, tag_text, children }) => {
+const Tag = ({ tag_color, tag, children }) => {
   return (
     <>
-      <StyledTag>#{tag_text}</StyledTag>
+      <StyledTag tagColor={tag_color}>#{tag}</StyledTag>
     </>
   );
 };

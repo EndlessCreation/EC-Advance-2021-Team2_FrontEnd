@@ -11,7 +11,6 @@ const TIMLogContainer = ({ type }) => {
   const dispatch = useDispatch();
 
   const LogContainerfetch = async () => {
-    // console.log('fetch 실행?');
     try {
       if (type === 'log') {
         const data = await getRecentPost();
@@ -40,9 +39,6 @@ const TIMLogContainer = ({ type }) => {
   //데이터 실시간 갱신 시에 리프레시 해주는 코드
   useEffect(() => {
     if (reloaded) {
-      // console.log('reload');
-      // console.log(reloaded);
-
       if (reloaded.timLog === true) {
         LogContainerfetch();
       }
@@ -54,26 +50,33 @@ const TIMLogContainer = ({ type }) => {
     return <div></div>;
   }
   if (timData) {
-    // console.log('랜더링 ing');
-    // console.log(timData);
-
-    return timData.map((tim) => {
+    return timData.map((tim, index) => {
+      console.log(tim);
       let {
         id,
         content,
+        createAt,
         updateAt,
         isFavorite,
-        post_tag = { tag: '', tag_color: 'gray' },
-        post_keyword = { keyword: '', keyword_color: 'gray' },
+        tag_id,
+        keyword_id,
+        post_tag,
+        post_keyword,
       } = tim;
-      let { tag, tag_color } = post_tag || { tag: '', tag_color: 'gray' };
-      let { keyword_name: keyword = '', keyword_color } = post_keyword || {
-        keyword: '',
-        keyword_color: 'gray',
-      };
+
+      let { tag, tag_color } =
+        post_tag != undefined ? post_tag : { tag: '', tag_color: 'grey' };
+      let { keyword_name: keyword, keyword_color } =
+        post_keyword != undefined
+          ? post_keyword
+          : {
+              keyword_name: '',
+              keyword_color: 'grey',
+            };
 
       return (
         <TIMLog
+          key={index}
           id={id}
           updateAt={updateAt}
           isFavorite={isFavorite}

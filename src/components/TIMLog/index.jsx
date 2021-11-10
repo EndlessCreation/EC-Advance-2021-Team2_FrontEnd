@@ -15,6 +15,17 @@ const TIMLog = ({
   keyword_color,
   onFavorite,
 }) => {
+  console.log(
+    id,
+    updateAt,
+    isFavorite,
+    content,
+    tag,
+    tag_color,
+    keyword,
+    keyword_color,
+    onFavorite,
+  );
   return (
     <LogWrapper key={id}>
       <Tag tag_color={tag_color} tag={tag}></Tag>
