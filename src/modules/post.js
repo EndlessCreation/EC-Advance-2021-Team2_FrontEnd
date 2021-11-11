@@ -112,18 +112,43 @@ const post = handleActions(
       postInTag,
     }),
 
-    //필터링 된 값도 postIntag, postInKeyword에 넣어주어서 필터링 구현
-    [FILTER_POST_IN_TAG_SUCCESS]: (state, { payload: filteredPost }) => ({
-      ...state,
-      postInTag: { ...state.postInTag, post: filteredPost },
-    }),
-    [FILTER_POST_IN_KEYWORD_SUCCESS]: (state, { payload: filteredPost }) => ({
-      postInTag: { post: filteredPost },
+    //필터링 된 값들을 이미 저장된 postIntag-keyword 안에 새롭게 넣어서 리랜더링
+    [FILTER_POST_IN_TAG_SUCCESS]: (state, { payload: filteredPost }) => {
+      const keywordList = state.postInTag.keyword.map(
+        ({ id, keyword_name, keyword_color }) => ({
+          id,
+          keyword_name,
+          keyword_color,
+          post: [],
+        }),
+      );
+      console.log(filteredPost);
+      // 2중for 문으로 필터링 받은 포스트id == keywordid 일 경우, KeywordList에 push
+      filteredPost.forEach((post) => {
+        for (let keyword in keywordList) {
+          if (keywordList[keyword].id === post.keyword_id) {
+            keywordList[keyword].post.push(post);
+          }
+        }
+      });
 
-      ...state,
-    }),
-    [FILTER_POST_IN_TAG_FAILURE]: (state, { payload: postInKeyword }) => {
-      console.log(postInKeyword);
+      return {
+        ...state,
+        postInTag: { ...state.postInTag, keyword: keywordList },
+      };
+    },
+
+    // [FILTER_POST_IN_KEYWORD_SUCCESS]: (state, { payload: filteredPost }) => {
+
+    // return({
+    //   postInTag: { post: filteredPost },
+
+    //   ...state,
+    // })
+    // },
+
+    [FILTER_POST_IN_TAG_FAILURE]: (state, { payload: failure }) => {
+      console.log(failure);
       return {
         ...state,
       };

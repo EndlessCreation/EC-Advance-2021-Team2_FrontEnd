@@ -41,6 +41,11 @@ const EnterDate = ({ props, placeholder, onFilteringDate }) => {
     const [startDate, endDate] = dates;
     setStartDate(startDate);
     setEndDate(endDate);
+    console.log(startDate, endDate);
+    if (startDate === null && endDate === null) {
+      onFilteringDate(new Date(0), new Date());
+    }
+
     if (startDate && endDate) {
       onFilteringDate(startDate, endDate);
     }

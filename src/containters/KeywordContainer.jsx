@@ -187,8 +187,15 @@ const KeywordContainer = ({ match }) => {
 
   const onFilteringDate = (startDate, endDate) => {
     // console.log(startDate, endDate);
-    const startDateToISO = new Date(startDate).toISOString();
-    const endDateToISO = new Date(endDate).toISOString();
+    const startDateToISO = new Date(startDate);
+    const endDateToISO = new Date(
+      endDate.getFullYear(),
+      endDate.getMonth(),
+      endDate.getDate(),
+      23,
+      59,
+      59,
+    );
     console.log(startDateToISO, endDateToISO);
 
     dispatch(
