@@ -34,14 +34,21 @@ const DatePickerCloseIconStyles = createGlobalStyle`
     }
 `;
 
-const EnterDate = ({ props, placeholder }) => {
-  console.log(placeholder);
+const EnterDate = ({ props, placeholder, onFilteringDate }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const onChange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
+    const [startDate, endDate] = dates;
+    setStartDate(startDate);
+    setEndDate(endDate);
+    console.log(startDate, endDate);
+    if (startDate === null && endDate === null) {
+      onFilteringDate(new Date(0), new Date());
+    }
+
+    if (startDate && endDate) {
+      onFilteringDate(startDate, endDate);
+    }
   };
   return (
     <>
@@ -53,7 +60,7 @@ const EnterDate = ({ props, placeholder }) => {
         endDate={endDate}
         selectsRange
         isClearable
-        dateFormat="yyyy|MM/dd"
+        dateFormat="yyyy. MM. dd"
       />
       <DatePickerCloseIconStyles />
     </>
