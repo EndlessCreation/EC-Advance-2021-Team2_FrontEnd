@@ -15,6 +15,28 @@ const KeywordLine = ({ tagName, keywordName, postList }) => {
   );
 };
 
+const KeywordLineWrap = styled.div`
+  flex-shrink: 0;
+  scroll-snap-align: start; /* latest (Chrome 69+) */
+  scroll-snap-coordinate: 0% 0%; /* older (Firefox/IE) */
+  -webkit-scroll-snap-coordinate: 0% 0%; /* older (Safari) */
+
+  position: relative;
+  display: inline-block;
+  height: 100%;
+  width: 150px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  & + & {
+    margin-left: 66px;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 const KeywordHead = styled.div`
   position: sticky;
   top: 0px;
@@ -30,22 +52,6 @@ const KeywordHead = styled.div`
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
   background-color: ${(props) => props.theme.grey[4]};
   margin-bottom: 32px;
-`;
-const KeywordLineWrap = styled.div`
-  position: relative;
-  display: inline-block;
-  height: 100%;
-  width: 150px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  & + & {
-    margin-left: 66px;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  ::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const KeywordTailWrap = styled.div`
