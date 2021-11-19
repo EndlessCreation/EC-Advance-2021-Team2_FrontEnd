@@ -34,7 +34,7 @@ const Timwrap = styled.div`
   border: 1px #a6a6a6;
   overflow: hidden;
   border-radius: 5px;
-  background-color: ${(props) => props.theme.grey[4]};
+  background-color: ${({ theme }) => theme.component.grey[4]};
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
 `;
 
@@ -52,10 +52,10 @@ const TailwrapforClick = styled.div`
   text-decoration: none;
   &:hover {
     cursor: pointer;
-    background-color: ${(props) => props.theme.grey[3]};
+    background-color: ${({ theme }) => theme.component.grey[3]};
   }
   &:active {
-    background-color: ${(props) => props.theme.grey[3]};
+    background-color: ${({ theme }) => theme.component.grey[3]};
   }
 `;
 
@@ -83,10 +83,10 @@ const IconButton = styled.button`
   width: 30px;
   height: 20px;
   &:hover {
-    background-color: ${(props) => props.theme.grey[3]};
+    background-color: ${({ theme }) => theme.component.grey[3]};
   }
   &:active {
-    background-color: ${(props) => props.theme.grey[3]};
+    background-color: ${({ theme }) => theme.component.grey[3]};
   }
 `;
 export default KeywordTail;

@@ -5,17 +5,19 @@ import { Link } from 'react-router-dom';
 
 const GridView = ({ user, tags }) => {
   if (!tags) return <div>loading...</div>;
+
   return (
     <Wrapper>
       {user && (
         <Grid>
           {tags.map((tag) => (
-            <GridItem key={tag.id}>
+            <GridItem key={tag.id} tagColor={tag.tag_color}>
               <header>{`# ${tag.tag}`}</header>
               <KeywordWrapper>
                 {tag.keyword.map((keyword) => (
                   <KeywordItem
                     key={keyword.id}
+                    keywordColor={keyword.keyword_color}
                     to={`/keyword/${tag.id}/${keyword.id}`}
                   >{`@ ${keyword.keyword_name}`}</KeywordItem>
                 ))}
@@ -62,7 +64,10 @@ const GridItem = styled.li`
     height: 60px;
     justify-content: center;
     align-items: center;
-    background: green;
+    background-color: ${({ tagColor, theme }) => {
+      console.log(theme.component[tagColor][2]);
+      return theme.component[tagColor][2];
+    }};
     font-size: 28px;
     font-weight: bold;
     color: #ffffff;
@@ -94,6 +99,8 @@ const KeywordItem = styled(Link)`
   border-radius: 10px;
   font-size: 16px;
   text-decoration: none;
+  background-color: ${({ keywordColor, theme }) =>
+    theme.component[keywordColor][2]};
   color: ${(props) => props.theme.font[1]};
 `;
 

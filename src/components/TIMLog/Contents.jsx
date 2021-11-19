@@ -20,16 +20,22 @@ const StyledDate = styled.div`
   font-weight: bold;
 `;
 
-const Star = ({ starred }) => {
-  return <StyledStar>{starred ? <FullStar /> : <EmptyStar />}</StyledStar>;
+const Star = ({ isFavorite, onFavorite, id }) => {
+  return (
+    <StyledStar onClick={() => onFavorite(id)}>
+      {isFavorite ? <FullStar /> : <EmptyStar />}
+    </StyledStar>
+  );
 };
 
-const Contents = (props) => {
+const Contents = ({ content, updateAt, isFavorite, id, onFavorite }) => {
+  const date = updateAt.toString().slice(5, 10);
+
   return (
     <StyledContentsWrapper>
-      <StyledText>{props.contents}</StyledText>
-      <Star starred={props.Starred} />
-      <StyledDate>{'09.26'}</StyledDate>
+      <StyledText>{content}</StyledText>
+      <Star isFavorite={isFavorite} onFavorite={onFavorite} id={id} />
+      <StyledDate>{date}</StyledDate>
     </StyledContentsWrapper>
   );
 };

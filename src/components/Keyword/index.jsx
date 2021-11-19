@@ -7,25 +7,24 @@ import TagMark from './TagMark';
 const Keyword = ({ user, postInTag, onFilteringDate }) => {
   if (!user) return null;
   if (!postInTag) return <div>loading...</div>;
-  const { tag, keyword: keywordList } = postInTag;
-
+  const { tag, tag_color, keyword: keywordList } = postInTag;
   return (
     <>
       <HeaderMargin />
       <KeywordStatus>
-        <TagMark tagName={tag} />
-        <Filter onFilteringDate={onFilteringDate} />
+        <TagMark tagName={tag} tagColor={tag_color} />
+        <Filter />
       </KeywordStatus>
       <KeywordList>
-        {keywordList != null &&
-          keywordList.map((keyword) => (
-            <KeywordLine
-              key={keyword.id}
-              tagName={tag}
-              keywordName={keyword.keyword_name}
-              postList={keyword.post}
-            />
-          ))}
+        {keywordList.map((keyword) => (
+          <KeywordLine
+            key={keyword.id}
+            tagName={tag}
+            keywordColor={keyword.keyword_color}
+            keywordName={keyword.keyword_name}
+            postList={keyword.post}
+          />
+        ))}
       </KeywordList>
     </>
   );
@@ -38,6 +37,17 @@ const KeywordStatus = styled.div`
   align-items: center;
 `;
 const KeywordList = styled.div`
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  overflow: auto;
+  scroll-snap-type: x mandatory; /* Chrome Canary */
+  scroll-snap-type: mandatory; /* Firefox */
+  -ms-scroll-snap-type: mandatory; /* IE/Edge */
+  -webkit-scroll-snap-type: mandatory; /* Safari */
+  -webkit-scroll-snap-destination: 0% 0%;
+  -webkit-overflow-scrolling: touch; /* important for iOS */
+
   position: relative;
   height: 100%;
   padding: 48px 60px;
