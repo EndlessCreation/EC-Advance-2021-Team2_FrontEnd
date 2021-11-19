@@ -24,6 +24,7 @@ export const signup = async ({
 };
 
 export const login = async ({ account, password }) => {
+  console.log(`로그인 시도`);
   const response = await axios({
     method: 'post',
     url: '/users/login',

@@ -29,17 +29,16 @@ const dummyData = [
 
 // 특정 키워드(keywordId) 안에 있는 tim 불러와야 함
 const TIMContainer = ({ match, location }) => {
-  const { user, postInKeyword, posts } = useSelector(({ user, post }) => ({
+  const { user, postInKeyword, tagColor } = useSelector(({ user, post }) => ({
     user: user.user,
     postInKeyword: post.postInKeyword,
-    posts: post.posts,
+    tagColor: post.postInTag.tag_color,
   }));
   const dispatch = useDispatch();
   const { keywordId } = match.params;
   const {
     state: { tagName },
   } = location;
-
   useEffect(() => {
     dispatch(getPostInKeyword(keywordId));
   }, [dispatch, keywordId, posts]);
@@ -52,6 +51,7 @@ const TIMContainer = ({ match, location }) => {
     <TIMView
       user={user}
       tagName={tagName}
+      tagColor={tagColor}
       postInKeyword={postInKeyword}
       onEdit={onEdit}
     />

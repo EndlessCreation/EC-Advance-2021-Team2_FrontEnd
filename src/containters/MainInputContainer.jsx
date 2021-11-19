@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux';
 import HomeComponent from '../components/MainInput';
 import { useDispatch } from 'react-redux';
 import { createPost } from '../modules/post';
+import { reloadAction } from '../modules/reload';
+import theme from '../styles/theme';
+import { randomIndex } from '../lib/util/randomIndex';
 
 const MainInputContainer = () => {
   const { user } = useSelector(({ user }) => ({
@@ -14,17 +17,26 @@ const MainInputContainer = () => {
   const [keyword, setKeyword] = useState('');
   const hashWrapperRef = useRef();
   const inputRef = useRef();
+
+  const colors = Object.keys(theme.component);
+
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
     const content = inputRef.current.value;
+    const tag_color = colors[randomIndex(0, colors.length)];
+    const keyword_color = colors[randomIndex(0, colors.length)];
 
     formData.append('file', image);
     formData.append('content', content);
     formData.append('tag', tag);
+    formData.append('tag_color', tag_color);
     formData.append('keyword', keyword);
+    formData.append('keyword_color', keyword_color);
 
     dispatch(createPost(formData));
+    dispatch(reloadAction('timLog'));
+
     inputRef.current.value = '';
     setImage(null);
     setTag('');

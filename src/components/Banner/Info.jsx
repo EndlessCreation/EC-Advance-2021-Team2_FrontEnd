@@ -11,14 +11,13 @@ const StyledInfo = styled.div`
   text-align: end;
 `;
 
-const Info = ({ info, children }) => {
-  const { tag, keyword, date } = info;
+const Info = ({ tag, keyword, createAt }) => {
   return (
     <StyledInfo>
       #{tag}
       <br />@{keyword}
       <br />
-      {date}
+      {createAt}
     </StyledInfo>
   );
 };

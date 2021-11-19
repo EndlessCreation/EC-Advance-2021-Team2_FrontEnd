@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledKeyword = styled.div`
-  background-color: ${(props) => props.theme.grey[2]};
+  background-color: ${({ theme, keywordColor }) => {
+    return theme.component[keywordColor][2] || 'white';
+  }};
   color: ${(props) => props.theme.font[1]};
   border-radius: 0px 8px 8px 0px;
   font-weight: bold;
@@ -10,10 +12,10 @@ const StyledKeyword = styled.div`
   margin-left: 3px;
 `;
 
-const Keyword = ({ keyword_text }) => {
+const Keyword = ({ keyword_color, keyword }) => {
   return (
     <>
-      <StyledKeyword>@{keyword_text}</StyledKeyword>
+      <StyledKeyword keywordColor={keyword_color}>@{keyword}</StyledKeyword>
     </>
   );
 };
