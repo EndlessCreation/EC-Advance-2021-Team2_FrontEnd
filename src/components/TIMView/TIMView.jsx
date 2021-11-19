@@ -5,15 +5,20 @@ import { MdEdit } from 'react-icons/md';
 // keyword 안에 있는 tim 나열
 // 선택한 tim 을 가장 앞에 두도록
 // 원형 스크롤로 구현할 예정
-const TIMView = ({ user, tagName, postInKeyword, onEdit }) => {
+const TIMView = ({ user, tagName, tagColor, postInKeyword, onEdit }) => {
   if (!user || !postInKeyword) return null;
-  const { post: postList, keyword_name } = postInKeyword;
+  const {
+    post: postList,
+    keyword_name,
+    keyword_color: keywordColor = 'grey',
+  } = postInKeyword;
+
   return (
     <>
       <HeaderMargin />
       <ListStatus>
-        <Mark>{tagName}</Mark>
-        <Mark>{keyword_name}</Mark>
+        <Mark tagColor={tagColor}>{tagName}</Mark>
+        <Mark keywordColor={keywordColor}>{keyword_name}</Mark>
       </ListStatus>
       <TIMViewWrapper>
         {postList.map((post) => (
@@ -48,7 +53,7 @@ const TIMWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-image: ${(props) => `url(${props.image})`};
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${({ theme }) => theme.bgColor[1]};
   background-size: cover;
   background-repeat: no-repeat;
   transform: ${(props) => props.size === 'small' && 'scale(0.535)'};
@@ -97,7 +102,11 @@ const ListStatus = styled.div`
 const Mark = styled.button`
   height: 80px;
   display: flex;
-  background-color: ${(props) => props.theme.indigo[1]};
+  background-color: ${({ theme, tagColor, keywordColor }) => {
+    console.log(tagColor, keywordColor);
+    if (tagColor != null) return theme.component[tagColor][1];
+    if (keywordColor != null) return theme.component[keywordColor][2];
+  }};
   align-items: center;
   padding: 0px 28px;
   border: none;

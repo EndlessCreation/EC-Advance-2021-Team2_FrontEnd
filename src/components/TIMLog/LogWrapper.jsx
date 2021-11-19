@@ -10,12 +10,7 @@ const StyledLogWrapper = styled.div`
   background-color: #ffffff;
   font-size: 20px;
   display: flex;
-  & + & {
-    margin-top: 10px;
-  }
-  /* @media screen and (max-width: 1023px) {
-    width: 700px;
-  } */
+  margin-bottom: 10px;
 `;
 
 const LogWrapper = ({ children }) => {
