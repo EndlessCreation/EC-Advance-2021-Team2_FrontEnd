@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MdEdit } from 'react-icons/md';
 
@@ -32,23 +32,27 @@ const TIM = ({ post, onEdit }) => {
   const { image, createAt, content, isFavorite } = post;
   const slicedDate = createAt.toString().slice(0, 10);
   return (
-    <>
-      <TIMWrapper image={image}>
-        <Whitemark>
-          <Date>{slicedDate}</Date>
-          <EdtiButton onClick={onEdit}>
-            <MdEdit />
-          </EdtiButton>
-          <Contents>{content}</Contents>
-        </Whitemark>
-      </TIMWrapper>
-    </>
+    <TIMWrapper image={image ? image.path : null}>
+      <Whitemark>
+        <Date>{slicedDate}</Date>
+        <EdtiButton onClick={onEdit}>
+          <MdEdit />
+        </EdtiButton>
+        <Contents>{content}</Contents>
+      </Whitemark>
+    </TIMWrapper>
   );
 };
-const TIMWrapper = styled.div`
+
+const TIMWrapper = styled.li`
+  flex-shrink: 0;
+  scroll-snap-align: start; /* latest (Chrome 69+) */
+  scroll-snap-coordinate: 0% 0%; /* older (Firefox/IE) */
+  -webkit-scroll-snap-coordinate: 0% 0%; /* older (Safari) */
+
   position: relative;
-  width: 560px;
-  height: 520px;
+  width: 400px;
+  height: 400px;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
@@ -56,8 +60,11 @@ const TIMWrapper = styled.div`
   background-color: ${({ theme }) => theme.bgColor[1]};
   background-size: cover;
   background-repeat: no-repeat;
-  transform: ${(props) => props.size === 'small' && 'scale(0.535)'};
   overflow: hidden;
+  box-sizing: border-box;
+  & + & {
+    margin-left: 30px;
+  }
 `;
 
 const Whitemark = styled.div`
@@ -94,9 +101,60 @@ const Contents = styled.div`
   margin: auto;
 `;
 
+const TIMView = ({ user, tagName, postInKeyword, onEdit }) => {
+  const scrollRef = useRef();
+  const [index, setIndex] = useState(0);
+  // 스크롤값 가져와야 함.
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.children[index].scrollIntoView({
+        behavior: 'smooth',
+        inline: 'start',
+      });
+    }
+  }, [index, scrollRef]);
+  const onClickLeft = (e) => {
+    if (index > 0) setIndex((prevIdx) => prevIdx - 1);
+  };
+  const onClickRight = (e) => {
+    const childrenLength = scrollRef.current.children.length;
+    if (index < childrenLength - 1) setIndex((prevIdx) => prevIdx + 1);
+  };
+
+  if (!user || !postInKeyword) return null;
+  const { post: postList, keyword_name } = postInKeyword;
+  return (
+    <TIMViewWrapper>
+      <ListStatus>
+        <Mark>{tagName}</Mark>
+        <Mark>{keyword_name}</Mark>
+      </ListStatus>
+      <PostList>
+        <TimListWrapper ref={scrollRef}>
+          {postList.map((post) => (
+            <TIM key={post.id} post={post} />
+          ))}
+          <LeftBtn onClick={onClickLeft}>왼쪽</LeftBtn>
+          <RightBtn onClick={onClickRight}>오른쪽</RightBtn>
+        </TimListWrapper>
+      </PostList>
+    </TIMViewWrapper>
+  );
+};
+
+const TIMViewWrapper = styled.div`
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: calc(100vh - 60px);
+  box-sizing: border-box;
+  background-color: #ffffff;
+`;
 const ListStatus = styled.div`
   display: flex;
-  margin: 35px 66px;
+  padding: 35px 66px;
+  background-color: #f6f6f6;
   align-items: flex-start;
 `;
 const Mark = styled.button`
@@ -119,21 +177,41 @@ const Mark = styled.button`
     margin-left: 30px;
   }
 `;
-const HeaderMargin = styled.div`
+const PostList = styled.div`
   position: relative;
-  width: 100%;
-  height: 60px;
 `;
-
-const TIMViewWrapper = styled.div`
-  position: relative;
-  display: inline;
-  width: 100%;
-  height: 100%;
+const TimListWrapper = styled.ul`
+  transition: 1s;
+  padding: 50px 0;
   display: flex;
-  justify-content: center;
-  padding-top: 40px;
-  padding-bottom: 100px;
-  background-color: #ffffff;
+  align-items: stretch;
+  width: 100%;
+  overflow: auto;
+  scroll-snap-type: x mandatory; /* Chrome Canary */
+  scroll-snap-type: mandatory; /* Firefox */
+  -ms-scroll-snap-type: mandatory; /* IE/Edge */
+  -webkit-scroll-snap-type: mandatory; /* Safari */
+  -webkit-scroll-snap-destination: 0% 0%;
+  -webkit-overflow-scrolling: touch; /* important for iOS */
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+const LeftBtn = styled.button`
+  cursor: pointer;
+  outline: 0;
+  position: absolute;
+  top: 50%;
+  left: 0;
+`;
+const RightBtn = styled.button`
+  cursor: pointer;
+  outline: 0;
+  position: absolute;
+  top: 50%;
+  right: 0;
 `;
 export default TIMView;

@@ -37,6 +37,17 @@ const KeywordStatus = styled.div`
   align-items: center;
 `;
 const KeywordList = styled.div`
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  overflow: auto;
+  scroll-snap-type: x mandatory; /* Chrome Canary */
+  scroll-snap-type: mandatory; /* Firefox */
+  -ms-scroll-snap-type: mandatory; /* IE/Edge */
+  -webkit-scroll-snap-type: mandatory; /* Safari */
+  -webkit-scroll-snap-destination: 0% 0%;
+  -webkit-overflow-scrolling: touch; /* important for iOS */
+
   position: relative;
   height: 100%;
   padding: 48px 60px;

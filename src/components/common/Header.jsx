@@ -48,8 +48,6 @@ const Header = ({ user, onLogout, pathname }) => {
             <ul>
               <li>Test</li>
               <li>Test</li>
-              <li>Test</li>
-              <li>Test</li>
             </ul>
             <Line></Line>
             <ul>
@@ -67,7 +65,8 @@ const Header = ({ user, onLogout, pathname }) => {
   );
 };
 const StyledHeader = styled.header`
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
   top: 0;
   width: 100%;
   height: 60px;

@@ -41,7 +41,7 @@ const TIMContainer = ({ match, location }) => {
   } = location;
   useEffect(() => {
     dispatch(getPostInKeyword(keywordId));
-  }, [dispatch, keywordId]);
+  }, [dispatch, keywordId, posts]);
 
   const onEdit = (e) => {
     console.log('수정버튼 클릭');
