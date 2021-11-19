@@ -98,3 +98,23 @@ export const getPostInTag = async (tagId) => {
   });
   return response.data;
 };
+
+export const filterPostInTag = async (filteringParams) => {
+  console.log(filteringParams);
+  const response = await axios({
+    method: 'post',
+    url: `/postview/period/tag/`,
+    data: filteringParams,
+  });
+  return response.data;
+};
+
+export const filterPostInKeyword = async (filteringParams) => {
+  // console.log(filteringParams);
+  const response = await axios({
+    method: 'post',
+    url: `/postview/period/keyword/`,
+    data: filteringParams,
+  });
+  return response.data;
+};

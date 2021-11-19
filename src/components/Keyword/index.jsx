@@ -4,7 +4,7 @@ import Filter from './Filter';
 import KeywordLine from './KeywordLine';
 import TagMark from './TagMark';
 
-const Keyword = ({ user, postInTag }) => {
+const Keyword = ({ user, postInTag, onFilteringDate }) => {
   if (!user) return null;
   if (!postInTag) return <div>loading...</div>;
   const { tag, tag_color, keyword: keywordList } = postInTag;
