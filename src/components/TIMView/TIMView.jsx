@@ -5,29 +5,6 @@ import { MdEdit } from 'react-icons/md';
 // keyword 안에 있는 tim 나열
 // 선택한 tim 을 가장 앞에 두도록
 // 원형 스크롤로 구현할 예정
-const TIMView = ({ user, tagName, tagColor, postInKeyword, onEdit }) => {
-  if (!user || !postInKeyword) return null;
-  const {
-    post: postList,
-    keyword_name,
-    keyword_color: keywordColor = 'grey',
-  } = postInKeyword;
-
-  return (
-    <>
-      <HeaderMargin />
-      <ListStatus>
-        <Mark tagColor={tagColor}>{tagName}</Mark>
-        <Mark keywordColor={keywordColor}>{keyword_name}</Mark>
-      </ListStatus>
-      <TIMViewWrapper>
-        {postList.map((post) => (
-          <TIM key={post.id} post={post} />
-        ))}
-      </TIMViewWrapper>
-    </>
-  );
-};
 const TIM = ({ post, onEdit }) => {
   const { image, createAt, content, isFavorite } = post;
   const slicedDate = createAt.toString().slice(0, 10);

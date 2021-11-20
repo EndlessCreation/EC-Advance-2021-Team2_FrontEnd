@@ -10,7 +10,7 @@ export const signup = async ({
 }) => {
   const response = await axios({
     method: 'post',
-    url: '/users/signup',
+    url: '/api/users/signup',
     data: {
       email,
       name,
@@ -27,7 +27,7 @@ export const login = async ({ account, password }) => {
   console.log(`로그인 시도`);
   const response = await axios({
     method: 'post',
-    url: '/users/login',
+    url: '/api/users/login',
     data: {
       account,
       password,
@@ -39,7 +39,7 @@ export const login = async ({ account, password }) => {
 export const logout = async () => {
   const response = await axios({
     method: 'get',
-    url: '/users/logout',
+    url: '/api/users/logout',
   });
   return null;
 };
@@ -47,7 +47,7 @@ export const logout = async () => {
 export const check = async () => {
   const response = await axios({
     method: 'get',
-    url: '/users/get_user', // url 수정 예정
+    url: '/api/users/get_user', // url 수정 예정
   });
   return response.data;
 };
@@ -55,7 +55,7 @@ export const check = async () => {
 export const findId = async ({ name, email }) => {
   const response = await axios({
     method: 'post',
-    url: '/users/find/email', // url 수정 예정 email->id 변경 필요
+    url: '/api/users/find/email', // url 수정 예정 email->id 변경 필요
     data: {
       name,
       email,
@@ -67,7 +67,7 @@ export const findId = async ({ name, email }) => {
 export const findPassword = async ({ account, email }) => {
   const response = await axios({
     method: 'post',
-    url: '/users/find/password', // url 수정 예정
+    url: '/api/users/find/password', // url 수정 예정
     data: {
       account,
       email,
@@ -79,7 +79,7 @@ export const findPassword = async ({ account, email }) => {
 export const sendEmail = async ({ account, email, phone_number }) => {
   const response = await axios({
     method: 'post',
-    url: '/users/find/password',
+    url: '/api/users/find/password',
     data: {
       account,
       email,
@@ -92,7 +92,7 @@ export const sendEmail = async ({ account, email, phone_number }) => {
 export const updatePassword = async ({ id, password }) => {
   const response = await axios({
     method: 'post',
-    url: '/users/find/changepw', // url 수정 예정
+    url: '/api/users/find/changepw', // url 수정 예정
     data: {
       id,
       password,
@@ -104,7 +104,7 @@ export const updatePassword = async ({ id, password }) => {
 export const checkEmail = async (email) => {
   const response = await axios({
     method: 'post',
-    url: '/users/check/email',
+    url: '/api/users/check/email',
     data: {
       email,
     },
@@ -114,7 +114,7 @@ export const checkEmail = async (email) => {
 export const checkNickname = async (nickname) => {
   const response = await axios({
     method: 'post',
-    url: '/users/check/nickname',
+    url: '/api/users/check/nickname',
     data: {
       nickname,
     },
@@ -124,7 +124,7 @@ export const checkNickname = async (nickname) => {
 export const checkAccount = async (account) => {
   const response = await axios({
     method: 'post',
-    url: '/users/check/account',
+    url: '/api/users/check/account',
     data: {
       account,
     },
