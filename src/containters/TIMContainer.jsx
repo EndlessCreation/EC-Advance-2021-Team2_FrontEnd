@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
-import { TIMView } from '../components/TIMView';
+import TIMView from '../components/TIMView/TIMView';
 import { getPostInKeyword } from '../modules/post';
 
 const dummyData = [
@@ -41,7 +41,7 @@ const TIMContainer = ({ match, location }) => {
   } = location;
   useEffect(() => {
     dispatch(getPostInKeyword(keywordId));
-  }, [dispatch, keywordId, posts]);
+  }, [dispatch, keywordId]);
 
   const onEdit = (e) => {
     console.log('수정버튼 클릭');
