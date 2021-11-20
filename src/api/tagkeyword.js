@@ -4,7 +4,7 @@ import axios from '../../node_modules/axios/index';
 export const getTag = async () => {
   const response = await axios({
     method: 'get',
-    url: '/tag-keyword-view/alltag',
+    url: '/api/tag-keyword-view/alltag',
   });
   return response.data;
 };
@@ -12,7 +12,7 @@ export const getTag = async () => {
 export const getTagKeyword = async () => {
   const response = await axios({
     method: 'get',
-    url: '/tag-keyword-view/alltag/keyword',
+    url: '/api/tag-keyword-view/alltag/keyword',
   });
   return response.data;
 };
@@ -20,7 +20,7 @@ export const getTagKeyword = async () => {
 export const getKeywordInTag = async (tagId) => {
   const response = await axios({
     method: 'get',
-    url: `/tag-keyword-view/tag/${tagId}`,
+    url: `/api/tag-keyword-view/tag/${tagId}`,
   });
   return response.data;
 };

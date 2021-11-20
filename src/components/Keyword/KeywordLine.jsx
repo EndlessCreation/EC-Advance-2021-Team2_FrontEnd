@@ -57,23 +57,6 @@ const KeywordLineWrap = styled.div`
   }
 `;
 
-const KeywordHead = styled.div`
-  position: sticky;
-  top: 0px;
-  left: 0px;
-  width: 150px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  font-size: 24px;
-  font-weight: bold;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-  background-color: ${(props) => props.theme.grey[4]};
-  margin-bottom: 32px;
-`;
-
 const KeywordTailWrap = styled.div`
   display: flex;
   box-sizing: border-box;

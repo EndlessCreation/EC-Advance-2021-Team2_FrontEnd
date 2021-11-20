@@ -3,7 +3,7 @@ import axios from 'axios';
 export const createPost = async (formData) => {
   const response = await axios({
     method: 'post',
-    url: '/posts/upload',
+    url: '/api/posts/upload',
     headers: { 'content-type': 'multipart/form-data' },
     data: formData,
   });
@@ -13,7 +13,7 @@ export const createPost = async (formData) => {
 export const editPost = async (formData) => {
   const response = await axios({
     method: 'post',
-    url: '/posts/edit',
+    url: '/api/posts/edit',
     headers: { 'content-type': 'multipart/form-data' },
     data: formData,
   });
@@ -23,7 +23,7 @@ export const editPost = async (formData) => {
 export const deletePost = async (post_id) => {
   const response = await axios({
     method: 'post',
-    url: '/posts/delete',
+    url: '/api/posts/delete',
     data: { post_id },
   });
   return response.data;
@@ -32,7 +32,7 @@ export const deletePost = async (post_id) => {
 export const favoritePost = async (post_id) => {
   const response = await axios({
     method: 'post',
-    url: `/posts/favorite/`,
+    url: `/api/posts/favorite/`,
     data: { post_id },
   });
   return response.data;
@@ -42,7 +42,7 @@ export const favoritePost = async (post_id) => {
 export const getFavoritePost = async () => {
   const response = await axios({
     method: 'get',
-    url: '/postview/favorite/1',
+    url: '/api/postview/favorite/1',
   });
   return response.data;
 };
@@ -50,7 +50,7 @@ export const getFavoritePost = async () => {
 export const getRecentPost = async () => {
   const response = await axios({
     method: 'get',
-    url: `/postview/recent/`,
+    url: `/api/postview/recent/`,
   });
   return response.data;
 };
@@ -60,7 +60,7 @@ export const getRecentPost = async () => {
 export const getPostView = async () => {
   const response = await axios({
     method: 'get',
-    url: '/postview',
+    url: '/api/postview',
   });
   return response.data;
 };
@@ -86,7 +86,7 @@ export const getBanner = async () => {
 export const getPostInKeyword = async (keywordId) => {
   const response = await axios({
     method: 'get',
-    url: `/postview/keyword/${keywordId}`,
+    url: `/api/postview/keyword/${keywordId}`,
   });
   return response.data;
 };
@@ -94,7 +94,7 @@ export const getPostInKeyword = async (keywordId) => {
 export const getPostInTag = async (tagId) => {
   const response = await axios({
     method: 'get',
-    url: `/postview/tag/${tagId}`,
+    url: `/api/postview/tag/${tagId}`,
   });
   return response.data;
 };
@@ -103,7 +103,7 @@ export const filterPostInTag = async (filteringParams) => {
   console.log(filteringParams);
   const response = await axios({
     method: 'post',
-    url: `/postview/period/tag/`,
+    url: `/api/postview/period/tag/`,
     data: filteringParams,
   });
   return response.data;
@@ -113,7 +113,7 @@ export const filterPostInKeyword = async (filteringParams) => {
   // console.log(filteringParams);
   const response = await axios({
     method: 'post',
-    url: `/postview/period/keyword/`,
+    url: `/api/postview/period/keyword/`,
     data: filteringParams,
   });
   return response.data;
