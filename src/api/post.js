@@ -77,7 +77,7 @@ export const getOnePostView = async (post_id) => {
 export const getBanner = async () => {
   const response = await axios({
     method: 'get',
-    url: '/banner',
+    url: '/api/banner',
   });
   return response.data;
 };

@@ -71,7 +71,6 @@ export const KeywordPageWrapper = styled.div`
   width: 100vw;
   min-height: 100vh;
   height: auto;
-  /* position: fixed; */
   background-color: ${(props) => props.theme.bgColor};
 `;
 

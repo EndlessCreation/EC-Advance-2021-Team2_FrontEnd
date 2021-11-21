@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-// import TIM_Color from '../../styles'
 
 const StyledBannerWrap = styled.div`
   width: 1152px;

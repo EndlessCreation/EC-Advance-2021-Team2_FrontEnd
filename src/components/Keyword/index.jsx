@@ -11,7 +11,6 @@ const Keyword = ({ user, postInTag, onFilteringDate }) => {
 
   return (
     <>
-      <HeaderMargin />
       <KeywordStatus>
         <TagMark tagName={tag} tagColor={tag_color} />
         <Filter />
@@ -32,6 +31,7 @@ const Keyword = ({ user, postInTag, onFilteringDate }) => {
 };
 
 const KeywordStatus = styled.div`
+  top: 60px;
   display: flex;
   margin: 35px 66px;
   justify-content: space-between;
@@ -40,7 +40,7 @@ const KeywordStatus = styled.div`
 const KeywordList = styled.div`
   display: flex;
   align-items: stretch;
-  width: 100%;
+  height: 100vh;
   overflow: auto;
   scroll-snap-type: x mandatory; /* Chrome Canary */
   scroll-snap-type: mandatory; /* Firefox */
@@ -50,7 +50,6 @@ const KeywordList = styled.div`
   -webkit-overflow-scrolling: touch; /* important for iOS */
 
   position: relative;
-  height: 100%;
   padding: 48px 60px;
   white-space: nowrap;
   overflow-x: scroll;
@@ -61,11 +60,6 @@ const KeywordList = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-`;
-const HeaderMargin = styled.div`
-  position: relative;
-  width: 100%;
-  height: 60px;
 `;
 
 export default Keyword;
