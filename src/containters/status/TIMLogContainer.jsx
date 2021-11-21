@@ -65,9 +65,9 @@ const TIMLogContainer = ({ type }) => {
       } = tim;
 
       let { tag, tag_color } =
-        post_tag != undefined ? post_tag : { tag: '', tag_color: 'grey' };
+        post_tag !== undefined ? post_tag : { tag: '', tag_color: 'grey' };
       let { keyword_name: keyword, keyword_color } =
-        post_keyword != undefined
+        post_keyword !== undefined
           ? post_keyword
           : {
               keyword_name: '',
