@@ -29,7 +29,6 @@ const GridView = ({ user, tags }) => {
           ))}
         </Grid>
       )}
-      {/* <Route component={KeywordPage} path="/keyword/:tagId/:keywordId" /> */}
     </Wrapper>
   );
 };

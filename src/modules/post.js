@@ -2,6 +2,8 @@ import { createAction, handleActions } from 'redux-actions';
 import { createActionType, createRequestSaga } from '../lib/utils';
 import { takeLatest } from '@redux-saga/core/effects';
 import * as postAPI from '../api/post';
+import faker from '../../node_modules/faker/index';
+import shortid from 'shortid';
 
 const [CREATE_POST, CREATE_POST_SUCCESS, CREATE_POST_FAILURE] =
   createActionType('post/CREATE_POST');
@@ -89,7 +91,121 @@ const initialState = {
   postInKeyword: null,
   postInTag: null,
 };
-
+initialState.postInTag = {
+  id: shortid.generate(),
+  tag: faker.name.findName(),
+  tag_color: 'orange',
+  keyword: [
+    {
+      id: shortid.generate(),
+      keyword_color: 'yellow',
+      keyword_name: faker.name.findName(),
+      post: [
+        {
+          id: shortid.generate(),
+          content: '로그 로그로그로ㄹ로',
+          createAt: '2021-09-25T16:01:14.883Z',
+          updateAt: '2021-09-25T16:33:13.331Z',
+          isFavorite: false,
+          user_id: 1,
+          tag_id: 1,
+          keyword_id: 7,
+          image: faker.image.image(),
+        },
+        {
+          id: shortid.generate(),
+          content: '로그 로그로그로ㄹ로',
+          createAt: '2021-09-25T16:01:14.883Z',
+          updateAt: '2021-09-25T16:33:13.331Z',
+          isFavorite: false,
+          user_id: 1,
+          tag_id: 1,
+          keyword_id: 7,
+          image: null,
+        },
+        {
+          id: shortid.generate(),
+          content: '로그 로그로그로ㄹ로',
+          createAt: '2021-09-25T16:01:14.883Z',
+          updateAt: '2021-09-25T16:33:13.331Z',
+          isFavorite: false,
+          user_id: 1,
+          tag_id: 1,
+          keyword_id: 7,
+          image: null,
+        },
+        {
+          id: shortid.generate(),
+          content: '로그 로그로그로ㄹ로',
+          createAt: '2021-09-25T16:01:14.883Z',
+          updateAt: '2021-09-25T16:33:13.331Z',
+          isFavorite: false,
+          user_id: 1,
+          tag_id: 1,
+          keyword_id: 7,
+          image: null,
+        },
+      ],
+    },
+    {
+      id: shortid.generate(),
+      keyword_color: 'yellow',
+      keyword_name: faker.name.findName(),
+      post: [
+        {
+          id: shortid.generate(),
+          content: '로그 로그로그로ㄹ로',
+          createAt: '2021-09-25T16:01:14.883Z',
+          updateAt: '2021-09-25T16:33:13.331Z',
+          isFavorite: false,
+          user_id: 1,
+          tag_id: 1,
+          keyword_id: 7,
+          image: null,
+        },
+        {
+          id: shortid.generate(),
+          content: '로그 로그로그로ㄹ로',
+          createAt: '2021-09-25T16:01:14.883Z',
+          updateAt: '2021-09-25T16:33:13.331Z',
+          isFavorite: false,
+          user_id: 1,
+          tag_id: 1,
+          keyword_id: 7,
+          image: null,
+        },
+      ],
+    },
+  ],
+};
+initialState.postInKeyword = {
+  post: [
+    {
+      id: shortid.generate(),
+      image: faker.image.image(),
+      content: faker.name.findName(),
+      createAt: '2021-09-26T16:01:14.883Z',
+    },
+    {
+      id: shortid.generate(),
+      image: faker.image.image(),
+      content: faker.name.findName(),
+      createAt: '2021-09-26T16:01:14.883Z',
+    },
+    {
+      id: shortid.generate(),
+      image: faker.image.image(),
+      content: faker.name.findName(),
+      createAt: '2021-09-26T16:01:14.883Z',
+    },
+    {
+      id: shortid.generate(),
+      image: faker.image.image(),
+      content: faker.name.findName(),
+      createAt: '2021-09-26T16:01:14.883Z',
+    },
+  ],
+};
 const post = handleActions(
   {
     [CREATE_POST_SUCCESS]: (state, { payload: formData }) => ({

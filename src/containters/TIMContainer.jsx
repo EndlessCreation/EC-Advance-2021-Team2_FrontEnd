@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -39,12 +40,21 @@ const TIMContainer = ({ match, location }) => {
   const {
     state: { tagName },
   } = location;
+  const [editMode, setEditMode] = useState(false);
+  const [form, setForm] = useState();
   useEffect(() => {
     dispatch(getPostInKeyword(keywordId));
   }, [dispatch, keywordId]);
 
-  const onEdit = (e) => {
-    console.log('수정버튼 클릭');
+  const handleEditMode = (e) => {
+    if (editMode === false) {
+      console.log('수정버튼 클릭');
+      setEditMode(true);
+      return;
+    }
+    if (editMode === true) {
+      const formData = new FormData();
+    }
   };
 
   return (
@@ -53,7 +63,6 @@ const TIMContainer = ({ match, location }) => {
       tagName={tagName}
       tagColor={tagColor}
       postInKeyword={postInKeyword}
-      onEdit={onEdit}
     />
   );
 };

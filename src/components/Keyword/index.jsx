@@ -8,6 +8,7 @@ const Keyword = ({ user, postInTag, onFilteringDate }) => {
   if (!user) return null;
   if (!postInTag) return <div>loading...</div>;
   const { tag, tag_color, keyword: keywordList } = postInTag;
+
   return (
     <>
       <HeaderMargin />

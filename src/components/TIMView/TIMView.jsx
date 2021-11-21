@@ -5,17 +5,28 @@ import { MdEdit } from 'react-icons/md';
 // keyword 안에 있는 tim 나열
 // 선택한 tim 을 가장 앞에 두도록
 // 원형 스크롤로 구현할 예정
-const TIM = ({ post, onEdit }) => {
+const TIM = ({ post }) => {
   const { image, createAt, content, isFavorite } = post;
   const slicedDate = createAt.toString().slice(0, 10);
+  const [editMode, setEditMode] = useState(false);
+  const handleEditMode = (e) => {
+    console.log('수정버튼 클릭');
+    if (editMode === false) {
+      setEditMode(true);
+      return;
+    }
+    if (editMode === true) {
+      const formData = new FormData();
+    }
+  };
   return (
     <TIMWrapper image={image ? image.path : null}>
       <Whitemark>
         <Date>{slicedDate}</Date>
-        <EdtiButton onClick={onEdit}>
+        <EdtiButton onClick={handleEditMode}>
           <MdEdit />
         </EdtiButton>
-        <Contents>{content}</Contents>
+        <Contents>{editMode ? <EditInput /> : <>{content}</>}</Contents>
       </Whitemark>
     </TIMWrapper>
   );
@@ -64,11 +75,14 @@ const Date = styled.div`
   left: 40px;
 `;
 
-const EdtiButton = styled.div`
+const EdtiButton = styled.button`
   position: absolute;
   font-size: 32px;
   top: 35px;
   right: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
 `;
 
 const Contents = styled.div`
@@ -77,8 +91,15 @@ const Contents = styled.div`
   text-align: center;
   margin: auto;
 `;
-
-const TIMView = ({ user, tagName, postInKeyword, onEdit }) => {
+const EditInput = styled.input`
+  border: none;
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+  font-size: 32px;
+`;
+const TIMView = ({ user, tagColor, tagName, postInKeyword }) => {
+  console.log(postInKeyword);
   const scrollRef = useRef();
   const [index, setIndex] = useState(0);
   // 스크롤값 가져와야 함.
@@ -103,7 +124,7 @@ const TIMView = ({ user, tagName, postInKeyword, onEdit }) => {
   return (
     <TIMViewWrapper>
       <ListStatus>
-        <Mark>{tagName}</Mark>
+        <Mark tagColor={tagColor}>{tagName}</Mark>
         <Mark>{keyword_name}</Mark>
       </ListStatus>
       <PostList>

@@ -183,10 +183,9 @@ const KeywordContainer = ({ match }) => {
 
   useEffect(() => {
     dispatch(getPostInTag(tagId));
-  }, []);
+  }, [dispatch, tagId]);
 
   const onFilteringDate = (startDate, endDate) => {
-    // console.log(startDate, endDate);
     const startDateToISO = new Date(startDate);
     const endDateToISO = new Date(
       endDate.getFullYear(),

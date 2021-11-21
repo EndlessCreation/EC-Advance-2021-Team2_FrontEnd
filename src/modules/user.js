@@ -18,7 +18,7 @@ export function* userSaga() {
 }
 
 const initialState = {
-  user: null,
+  user: 1,
   checkError: null,
 };
 
@@ -31,7 +31,7 @@ export const user = handleActions(
     }),
     [CHECK_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      user: null,
+      // user: null,
       checkError: error,
     }),
     [LOGOUT]: (state) => ({
