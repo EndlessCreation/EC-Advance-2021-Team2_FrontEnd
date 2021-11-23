@@ -44,6 +44,7 @@ const TIM = ({ post, onDeletePost, onEditPost }) => {
         onEditPost(formData);
       }
       setEditMode(false);
+      return;
     }
   };
   const onChange = (e) => {
@@ -228,12 +229,16 @@ const TIMView = ({
               onEditPost={onEditPost}
             />
           ))}
-          <LeftBtn onClick={onClickLeft}>
-            <FiChevronLeft size="25" />
-          </LeftBtn>
-          <RightBtn onClick={onClickRight}>
-            <FiChevronRight size="25" />
-          </RightBtn>
+          {postList !== [] && (
+            <>
+              <LeftBtn onClick={onClickLeft}>
+                <FiChevronLeft size="25" />
+              </LeftBtn>
+              <RightBtn onClick={onClickRight}>
+                <FiChevronRight size="25" />
+              </RightBtn>
+            </>
+          )}
         </TimListWrapper>
       </PostList>
     </TIMViewWrapper>

@@ -28,8 +28,8 @@ function loadUser() {
     console.log('check Failure');
   }
 }
-loadUser();
 sagaMiddleware.run(rootSaga);
+loadUser();
 
 ReactDOM.render(
   <Provider store={store}>

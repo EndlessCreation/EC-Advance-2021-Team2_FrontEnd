@@ -3,7 +3,12 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import TIMView from '../components/TIMView/TIMView';
-import { deletePost, editPost, getPostInKeyword } from '../modules/post';
+import {
+  deletePost,
+  editPost,
+  getPostInKeyword,
+  getPostInTag,
+} from '../modules/post';
 
 // 특정 키워드(keywordId) 안에 있는 tim 불러와야 함
 const TIMContainer = ({ match, location }) => {
@@ -16,7 +21,7 @@ const TIMContainer = ({ match, location }) => {
     }),
   );
   const dispatch = useDispatch();
-  const { keywordId } = match.params;
+  const { tagId, keywordId } = match.params;
   const {
     state: { tagName },
   } = location;
@@ -33,7 +38,8 @@ const TIMContainer = ({ match, location }) => {
   };
   useEffect(() => {
     dispatch(getPostInKeyword(keywordId));
-  }, [dispatch, keywordId]);
+    dispatch(getPostInTag(tagId));
+  }, [dispatch, tagId, keywordId]);
   useEffect(() => {
     if (deletePostSuccess) dispatch(getPostInKeyword(keywordId));
   }, [dispatch, deletePostSuccess, keywordId]);
