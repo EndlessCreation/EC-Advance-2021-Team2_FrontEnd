@@ -58,15 +58,17 @@ const GridItem = styled.li`
   margin: 0;
   border-radius: 20px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
-  background: #ffffff;
+  background: ${({ tagColor, theme }) => {
+    return theme.component[tagColor][3];
+  }};
   & > header {
     display: flex;
     height: 60px;
     justify-content: center;
     align-items: center;
     background-color: ${({ tagColor, theme }) => {
-      console.log(theme.component[tagColor][2]);
-      return theme.component[tagColor][2];
+      console.log(theme.component[tagColor][1]);
+      return theme.component[tagColor][1];
     }};
     font-size: 28px;
     font-weight: bold;
@@ -97,10 +99,16 @@ const KeywordItem = styled(Link)`
   padding: 10px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
+  font-family: NanumGothic;
   font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
   text-decoration: none;
   background-color: ${({ keywordColor, theme }) =>
-    theme.component[keywordColor][2]};
+    keywordColor ? theme.component[keywordColor][2] : '#FAFCF9'};
   color: ${(props) => props.theme.font[1]};
 `;
 
