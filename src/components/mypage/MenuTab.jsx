@@ -5,9 +5,63 @@ import { ReactComponent as LeftArrowIcon } from '../../lib/assets/leftArrowIcon.
 import { exitIconSrc } from '../../lib/assets/exitIcon.js';
 import styled, { css } from 'styled-components';
 
+const MenuTab = ({
+  userName,
+  tabState,
+  pageState,
+  onTabStateChange,
+  onPageStateChange,
+  onLogout,
+}) => {
+  return (
+    <>
+      <StyledMenuTab tabState={tabState}>
+        <StyledMenuTitle
+          onClick={() => {
+            onTabStateChange();
+          }}
+        >
+          <LeftArrowIcon id="leftIcon" />
+          <div> {userName}님의 페이지</div>
+        </StyledMenuTitle>
+        <div style={{ marginBottom: 'auto', flex: 1 }}>
+          <StyledMenuButton
+            pageState={pageState.changePassword}
+            onClick={() => {
+              onPageStateChange('changePassword');
+              onTabStateChange();
+            }}
+          >
+            <Icon src={keyIconSrc} />
+            <StyledMenuTypo>비밀번호 수정</StyledMenuTypo>
+          </StyledMenuButton>
+          <StyledMenuButton
+            pageState={pageState.withDrawal}
+            onClick={() => {
+              onPageStateChange('withDrawal');
+              onTabStateChange();
+            }}
+          >
+            <Icon src={bombIconSrc} />
+            <StyledMenuTypo>회원 탈퇴</StyledMenuTypo>
+          </StyledMenuButton>
+        </div>
+        <StyledMenuTitle exit>
+          <div>로그아웃</div>
+          <div onClick={onLogout}>
+            <Icon src={exitIconSrc} size={35} />
+          </div>
+        </StyledMenuTitle>
+      </StyledMenuTab>
+    </>
+  );
+};
+
+export default MenuTab;
+
 const StyledMenuTab = styled.div`
   position: fixed;
-  right: -340px;
+  right: ${({ tabState }) => (tabState ? '0px' : '-340px')};
   top: 0px;
   height: 100vh;
   width: 340px;
@@ -15,6 +69,7 @@ const StyledMenuTab = styled.div`
   z-index: 100;
   display: flex;
   flex-direction: column;
+  transition: 0.4s ease;
 `;
 
 const StyledMenuTitle = styled.div`
@@ -44,16 +99,16 @@ const StyledMenuButton = styled.div`
   margin-top: 14px;
   border-radius: 20px 0px 0px 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
-  background-color: ${(props) =>
-    props.selected ? props.theme.brand[5] : 'white'};
+
+  background-color: ${({ pageState, theme }) =>
+    pageState ? theme.brand[5] : 'white'};
   padding: 24px;
   box-sizing: border-box;
-
   display: flex;
   justify-content: flex-end;
   align-items: center;
   &:hover {
-    background-color: ${(props) => props.theme.brand[5]};
+    background-color: ${({ theme }) => `${theme.brand[5]}1A`};
   }
   &:active {
     background-color: ${(props) => props.theme.brand[4]};
@@ -71,10 +126,6 @@ const StyledMenuTypo = styled.div`
   margin-left: 24px;
 `;
 
-const MenuButton = ({ children }) => {
-  return <StyledMenuButton>{children}</StyledMenuButton>;
-};
-
 const Icon = styled.div`
   width: ${(props) => props.size || 20}px;
   height: ${(props) => props.size || 20}px;
@@ -82,30 +133,3 @@ const Icon = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
 `;
-
-const MenuTab = ({ id, pageState }) => {
-  return (
-    <StyledMenuTab>
-      <StyledMenuTitle>
-        <LeftArrowIcon id="leftIcon" />
-        <div> ${id}님의 페이지</div>
-      </StyledMenuTitle>
-      <div style={{ marginBottom: 'auto', flex: 1 }}>
-        <MenuButton pageState={pageState.changePassword}>
-          <Icon src={keyIconSrc} />
-          <StyledMenuTypo>비밀번호 수정</StyledMenuTypo>
-        </MenuButton>
-        <MenuButton pageState={pageState.withDrawal}>
-          <Icon src={bombIconSrc} />
-          <StyledMenuTypo>회원 탈퇴</StyledMenuTypo>
-        </MenuButton>
-      </div>
-      <StyledMenuTitle exit>
-        <div>로그아웃</div>
-        <Icon src={exitIconSrc} size={35} />
-      </StyledMenuTitle>
-    </StyledMenuTab>
-  );
-};
-
-export default MenuTab;

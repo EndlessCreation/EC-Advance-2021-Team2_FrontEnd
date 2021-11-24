@@ -10,6 +10,7 @@ import SignupPage from './pages/SignupPage';
 import KeywordPage from './pages/KeywordPage';
 import TIMPage from './pages/TIMPage';
 import theme from './styles/theme';
+import MyPage from './pages/MyPage';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -29,6 +30,7 @@ const App = () => {
       <Route component={FindIdPage} path="/findId" />
       <Route component={FindPasswordPage} path="/findPassword" />
       <Route component={GridViewPage} path="/tag" />
+      <Route component={MyPage} path="/mypage" />
     </ThemeProvider>
   );
 };

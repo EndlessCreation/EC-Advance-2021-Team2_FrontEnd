@@ -20,7 +20,7 @@ export const Input = styled.input`
     font-weight: 400;
     line-height: 16px;
     letter-spacing: 0em;
-    text-align: center;
+    text-align: ${({ center }) => center && 'center'};
   }
 `;
 
@@ -70,4 +70,25 @@ export const SubmitButton = styled.button`
   &:active {
     background-color: ${({ theme }) => theme.brand[2]};
   }
+`;
+
+export const MypageForm = styled.div`
+  position: fixed;
+  max-height: 600px;
+  min-height: 300px;
+  max-width: 600px;
+  min-width: 340px;
+  top: calc(50%);
+  left: ${({ tabState }) =>
+    tabState ? 'calc((100% - 340px) / 2)' : 'calc(50%)'};
+  transform: translate(-50%, -50%);
+  min-height: 300px;
+  min-width: 400px;
+  padding: 50px 30px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 `;
