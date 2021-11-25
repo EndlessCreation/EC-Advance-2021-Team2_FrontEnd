@@ -31,9 +31,6 @@ const Header = ({ user, onLogout, pathname }) => {
           <NavWrapper>
             <ul>
               <li>
-                <div>Profile</div>
-              </li>
-              <li>
                 <LogoutButton onClick={onLogout}>로그아웃</LogoutButton>
               </li>
               <li>

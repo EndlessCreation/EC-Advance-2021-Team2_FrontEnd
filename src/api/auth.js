@@ -131,3 +131,11 @@ export const checkAccount = async (account) => {
   });
   return response.data;
 };
+
+export const deleteAccount = async () => {
+  const response = await axios({
+    method: 'delete',
+    url: '/api/users/delete',
+  });
+  return response.data;
+};
