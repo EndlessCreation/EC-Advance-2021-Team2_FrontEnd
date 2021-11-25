@@ -49,8 +49,8 @@ const LoginContainer = ({ OAuthComponent }) => {
   }, [authError, auth, dispatch]);
 
   useEffect(() => {
-    if (user) history.push('/');
-  }, [user, history]);
+    if (auth) history.push('/');
+  }, [auth, history]);
   return (
     <LoginComponent
       form={form}

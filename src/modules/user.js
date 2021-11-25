@@ -10,7 +10,6 @@ const [UPDATE_PASSWORD, UPDATE_PASSWORD_SUCCESS, UPDATE_PASSWORD_FAILURE] =
 
 export const check = createAction(CHECK);
 export const logout = createAction(LOGOUT);
-
 export const updatePassword = createAction(
   UPDATE_PASSWORD,
   ({ id, existing_password, new_password, check_password }) => ({

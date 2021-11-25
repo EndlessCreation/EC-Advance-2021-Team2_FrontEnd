@@ -11,9 +11,9 @@ const Header = ({ user, onLogout, pathname }) => {
   const handleScroll = () => setScroll(window.scrollY);
   const history = useHistory();
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll);
+  // }, []);
   return (
     <StyledHeader scroll={scroll}>
       {user ? (

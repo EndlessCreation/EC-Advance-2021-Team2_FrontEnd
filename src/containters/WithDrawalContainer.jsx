@@ -3,10 +3,13 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { deleteAccount } from '../api/auth';
 import WithDrawal from '../components/mypage/WithDrawal';
+import { initAuth } from '../modules/auth';
+import { logout } from '../modules/user';
 
 const WithDrawalContainer = ({ tabState, pageState }) => {
   const [input, setInput] = useState();
   const [textCheckState, setTextCheckState] = useState();
+  const dispatch = useDispatch();
   const history = useHistory();
   const handleTextCheck = () => {
     if (input === '회원 탈퇴하기') {
@@ -22,7 +25,9 @@ const WithDrawalContainer = ({ tabState, pageState }) => {
     } else {
       if (window.confirm('정말 탈퇴 하시겠습니까?') && textCheckState) {
         deleteAccount();
-        history.replace('/');
+        history.push('/');
+        dispatch(initAuth());
+        dispatch(logout());
       }
     }
   };
