@@ -16,18 +16,21 @@ const ChangePasswordContainer = ({ tabState, pageState }) => {
   const [sameState, setSameState] = useState();
 
   const userData = useSelector(({ user }) => user);
-  // const auth = useSelector(({ auth }) => auth);
-  // const { account } = userData.user;
   const { checkCurrent } = userData;
   const dispatch = useDispatch();
   const history = useHistory();
-  const onCheckPreviousPassword = () => {
-    // dispatch(checkCurrentPassword({ account, password: inputs.current }));
-  };
+
+  // const onCheckPreviousPassword = () => {
+  // dispatch(checkCurrentPassword({ account, password: inputs.current }));
+  // };
 
   const onSubmit = (data) => {
-    console.log(data);
-    dispatch(updatePassword(data));
+    try {
+      console.log(data);
+      dispatch(updatePassword(data));
+    } catch (err) {
+      alert('비밀번호 변경에 실패했습니다');
+    }
   };
   const onCheckSamePassword = () => {
     if (inputs.new === inputs.check) {
@@ -47,13 +50,11 @@ const ChangePasswordContainer = ({ tabState, pageState }) => {
 
   return (
     <ChangePassword
-      // id={id}
       tabState={tabState}
       pageState={pageState}
       inputs={inputs}
       onChangeInputs={onChangeInputs}
       onSubmit={onSubmit}
-      onCheckPreviousPassword={onCheckPreviousPassword}
       onCheckSamePassword={onCheckSamePassword}
       currentState={checkCurrent}
       sameState={sameState}

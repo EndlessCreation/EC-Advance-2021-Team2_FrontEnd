@@ -19,20 +19,19 @@ const boxFade = keyframes`
 `;
 
 const ChagePassWord = ({
-  id,
   tabState,
   pageState,
   inputs,
   onChangeInputs,
   onSubmit,
   passwordCheck,
-  onCheckPreviousPassword,
   onCheckSamePassword,
   currentState,
   sameState,
 }) => {
   if (!pageState) return null;
   if (pageState) {
+    console.log(inputs);
     return (
       <ChangePasswordWrapper>
         <MypageForm tabState={tabState}>
@@ -55,6 +54,9 @@ const ChagePassWord = ({
               onChange={(e) => {
                 onChangeInputs(e);
               }}
+              onKeyUp={(e) => {
+                onCheckSamePassword();
+              }}
             />
           </InputForm>
           <InputForm>
@@ -68,17 +70,23 @@ const ChagePassWord = ({
                 onCheckSamePassword();
               }}
             />
-            {sameState && sameState !== null ? (
-              <div>일치</div>
-            ) : (
-              <div>불일치</div>
-            )}
+
+            {inputs.new !== '' &&
+              inputs.check !== '' &&
+              (sameState ? (
+                <SameCheckMessage sameState={sameState}>
+                  비밀번호가 일치합니다
+                </SameCheckMessage>
+              ) : (
+                <SameCheckMessage sameState={sameState}>
+                  비밀번호가 불일치합니다
+                </SameCheckMessage>
+              ))}
           </InputForm>
           <SubmitButton
             style={{ marginTop: '20px' }}
             onClick={() =>
               onSubmit({
-                id: id,
                 existing_password: inputs.current,
                 new_password: inputs.new,
                 check_password: inputs.check,
@@ -100,4 +108,16 @@ const ChangePasswordWrapper = styled.div`
   height: 100%;
   background-color: #ffffff;
   animation: ${boxFade} 0.5s ease-in-out;
+`;
+
+const SameCheckMessage = styled.div`
+  position: absolute;
+  top: 36px;
+  right: 6px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  color: ${({ sameState }) => (sameState ? '#138700' : '#E70000')};
 `;

@@ -16,7 +16,14 @@ const boxFade = keyframes`
   }
 `;
 
-const WithDrawal = ({ pageState, tabState }) => {
+const WithDrawal = ({
+  tabState,
+  pageState,
+  onSubmit,
+  input,
+  onChangeInput,
+  handleTextCheck,
+}) => {
   if (!pageState) return null;
   if (pageState) {
     return (
@@ -34,15 +41,17 @@ const WithDrawal = ({ pageState, tabState }) => {
           <Input
             placeholder={`"회원 탈퇴하기"를 입력하시고 탈퇴하기 버튼을 누르면 회원탈퇴가 완료됩니다`}
             center
-            // type="password"
-            // value={newPasswordCheck}
-            // onChange={(e) => {
-            //   setNewPasswordCheck(e.target.value);
-            // }}
+            value={input}
+            onChange={(e) => {
+              onChangeInput(e);
+            }}
+            onKeyUp={(e) => {
+              handleTextCheck();
+            }}
           />
           <SubmitButton
             style={{ marginTop: '60px' }}
-            // onClick={handleUpdatePassword}
+            onClick={() => onSubmit()}
           >
             탈퇴하기
           </SubmitButton>
