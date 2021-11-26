@@ -74,6 +74,7 @@ const initialState = {
     passwordConfirm: '',
     account: '',
     phone_number: '',
+    signupSuccess: false,
   },
   login: {
     account: '',
@@ -100,7 +101,7 @@ const auth = handleActions(
     [SIGNUP_SUCCESS]: (state, { payload: auth }) => ({
       ...state,
       authError: null,
-      auth,
+      signup: { signupSuccess: true },
     }),
     [SIGNUP_FAILURE]: (state, { payload: error }) => ({
       ...state,

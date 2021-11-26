@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import HomeComponent from '../components/MainInput';
+import MainInput from '../components/MainInput';
 import { useDispatch } from 'react-redux';
 import { createPost } from '../modules/post';
 import { reloadAction } from '../modules/reload';
@@ -18,29 +18,37 @@ const MainInputContainer = () => {
   const hashWrapperRef = useRef();
   const inputRef = useRef();
 
-  const colors = Object.keys(theme.component);
+  const colors = Object.keys(theme.component).filter(
+    (color) => color !== 'gray' && color !== 'grey',
+  );
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    const content = inputRef.current.value;
-    const tag_color = colors[randomIndex(0, colors.length)];
-    const keyword_color = colors[randomIndex(0, colors.length)];
 
-    formData.append('file', image);
-    formData.append('content', content);
-    formData.append('tag', tag);
-    formData.append('tag_color', tag_color);
-    formData.append('keyword', keyword);
-    formData.append('keyword_color', keyword_color);
+    if (!(tag && keyword && inputRef.current.value !== '')) {
+      alert('tag와 keyword, 메모를 모두 입력해주세요');
+      return;
+    } else {
+      const formData = new FormData();
+      const content = inputRef.current.value;
+      const tag_color = colors[randomIndex(0, colors.length - 2)];
+      const keyword_color = colors[randomIndex(0, colors.length - 2)];
 
-    dispatch(createPost(formData));
-    dispatch(reloadAction('timLog'));
+      formData.append('file', image);
+      formData.append('content', content);
+      formData.append('tag', tag);
+      formData.append('tag_color', tag_color);
+      formData.append('keyword', keyword);
+      formData.append('keyword_color', keyword_color);
 
-    inputRef.current.value = '';
-    setImage(null);
-    setTag('');
-    setKeyword('');
+      dispatch(createPost(formData));
+      dispatch(reloadAction('timLog'));
+
+      inputRef.current.value = '';
+      setImage(null);
+      setTag('');
+      setKeyword('');
+    }
   };
 
   const onChange = (e) => {
@@ -50,6 +58,8 @@ const MainInputContainer = () => {
     }
   };
   const onKeyUp = (e) => {
+    console.log(tag, keyword);
+
     const { value } = e.target;
     if (value !== '') {
       if (value.includes('#')) {
@@ -78,7 +88,7 @@ const MainInputContainer = () => {
     }
   };
   return (
-    <HomeComponent
+    <MainInput
       onSubmit={onSubmit}
       onChange={onChange}
       onKeyUp={onKeyUp}

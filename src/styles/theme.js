@@ -50,7 +50,7 @@ const theme = {
     pink: {
       // index: 2,
       1: '#C5426D',
-      2: '#C5426D',
+      2: '#F07CA2',
       3: '#FFB8D0',
       4: '#FFE4EB',
     },
