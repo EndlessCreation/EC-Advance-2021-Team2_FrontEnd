@@ -17,19 +17,19 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware, logger)),
 );
 
-function loadUser() {
-  try {
-    store.dispatch(check());
-    const {
-      user: { user },
-    } = store.getState();
-    if (!user) return;
-  } catch (e) {
-    console.log('check Failure');
-  }
-}
+// function loadUser() {
+//   try {
+//     store.dispatch(check());
+//     const {
+//       user: { user },
+//     } = store.getState();
+//     if (!user) return;
+//   } catch (e) {
+//     console.log('check Failure');
+//   }
+// }
 sagaMiddleware.run(rootSaga);
-loadUser();
+// loadUser();
 
 ReactDOM.render(
   <Provider store={store}>

@@ -46,10 +46,15 @@ const TIMLogContainer = ({ type }) => {
   }, [reloaded]);
 
   if (timData === null) {
+    return <>loading</>;
+  }
+
+  if (typeof timData === 'string') {
     console.log('데이터 없는경우 ');
-    return <div></div>;
+    return <div>아직 데이터가 없습니다!</div>;
   }
   if (timData) {
+    console.log(timData);
     return timData.map((tim, index) => {
       console.log(tim);
       let {
@@ -62,12 +67,15 @@ const TIMLogContainer = ({ type }) => {
         keyword_id,
         post_tag,
         post_keyword,
+        image,
       } = tim;
 
       let { tag, tag_color } =
-        post_tag !== undefined ? post_tag : { tag: '', tag_color: 'grey' };
+        post_tag !== (undefined || null)
+          ? post_tag
+          : { tag: '', tag_color: 'grey' };
       let { keyword_name: keyword, keyword_color } =
-        post_keyword !== undefined
+        post_keyword !== (undefined || null)
           ? post_keyword
           : {
               keyword_name: '',

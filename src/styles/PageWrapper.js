@@ -16,6 +16,8 @@ export const LoginPageWrapper = styled.section`
   }
 `;
 
+export const MypageWrapper = styled.div``;
+
 export const SignupPageWrapper = styled.div`
   position: relative;
   display: flex;

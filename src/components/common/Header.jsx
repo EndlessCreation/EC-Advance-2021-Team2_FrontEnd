@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
-import { FaHome, FaRegBell } from 'react-icons/fa';
+import { FaHome } from 'react-icons/fa';
+import { MdAccountCircle } from 'react-icons/md';
+import { useHistory } from 'react-router-dom';
 
 const Header = ({ user, onLogout, pathname }) => {
   const [scroll, setScroll] = useState(window.scrollY);
   const handleScroll = () => setScroll(window.scrollY);
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-  }, []);
+  const history = useHistory();
+
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll);
+  // }, []);
   return (
     <StyledHeader scroll={scroll}>
       {user ? (
@@ -33,7 +37,12 @@ const Header = ({ user, onLogout, pathname }) => {
                 <LogoutButton onClick={onLogout}>로그아웃</LogoutButton>
               </li>
               <li>
-                <FaRegBell size="30" />
+                <MdAccountCircle
+                  size="30"
+                  onClick={() => {
+                    history.push('/mypage');
+                  }}
+                />
               </li>
             </ul>
           </NavWrapper>
@@ -45,10 +54,6 @@ const Header = ({ user, onLogout, pathname }) => {
           </StyledLink>
 
           <NavWrapper>
-            <ul>
-              <li>Test</li>
-              <li>Test</li>
-            </ul>
             <Line></Line>
             <ul>
               <li>
@@ -65,8 +70,8 @@ const Header = ({ user, onLogout, pathname }) => {
   );
 };
 const StyledHeader = styled.header`
-  position: -webkit-sticky;
-  position: sticky;
+  // 여기 왜 sticky??
+  position: fixed;
   top: 0;
   width: 100%;
   height: 60px;
