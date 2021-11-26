@@ -5,6 +5,8 @@ import { AiOutlineUnorderedList } from 'react-icons/ai';
 import { FaHome } from 'react-icons/fa';
 import { MdAccountCircle } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
+import { exitIconSrc } from '../../lib/assets/exitIcon.js';
+import SearchContainer from '../../containters/SearchContainer';
 
 const Header = ({ user, onLogout, pathname }) => {
   const [scroll, setScroll] = useState(window.scrollY);
@@ -19,47 +21,56 @@ const Header = ({ user, onLogout, pathname }) => {
       {user ? (
         <LoginWrapper>
           {pathname === '/' ? (
-            <StyledLink to="/tag">
+            <HeaderMenuButton onClick={() => history.push('/tag')}>
               <AiOutlineUnorderedList size="30" />
-            </StyledLink>
+            </HeaderMenuButton>
           ) : (
             <StyledLink to="/">
               <FaHome size="30" />
             </StyledLink>
           )}
-          <SearchInput type="text" />
+          <SearchContainer />
           <NavWrapper>
-            <ul>
-              <li>
-                <LogoutButton onClick={onLogout}>로그아웃</LogoutButton>
-              </li>
-              <li>
-                <MdAccountCircle
-                  size="30"
-                  onClick={() => {
-                    history.push('/mypage');
-                  }}
-                />
-              </li>
-            </ul>
+            <HeaderMenuButton onClick={onLogout}>
+              <Icon src={exitIconSrc} size={30} />
+            </HeaderMenuButton>
+            {/* <Line /> */}
+            <HeaderMenuButton>
+              <MdAccountCircle
+                size="30"
+                onClick={() => {
+                  history.push('/mypage');
+                }}
+              />
+            </HeaderMenuButton>
           </NavWrapper>
         </LoginWrapper>
       ) : (
         <LogoutWrapper>
-          <StyledLink to="/">
+          <HeaderMenuButton
+            onClick={() => {
+              history.push('/');
+            }}
+          >
             <h1>TIM</h1>
-          </StyledLink>
+          </HeaderMenuButton>
 
           <NavWrapper>
-            <Line></Line>
-            <ul>
-              <li>
-                <StyledLink to="/login">로그인</StyledLink>
-              </li>
-              <li>
-                <StyledLink to="/signup">회원가입</StyledLink>
-              </li>
-            </ul>
+            <Line />
+            <HeaderMenuButton
+              onClick={() => {
+                history.push('/login');
+              }}
+            >
+              로그인
+            </HeaderMenuButton>
+            <HeaderMenuButton
+              onClick={() => {
+                history.push('/signup');
+              }}
+            >
+              회원가입
+            </HeaderMenuButton>
           </NavWrapper>
         </LogoutWrapper>
       )}
@@ -80,7 +91,7 @@ const LoginWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 30px;
+  padding: 0px;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -94,7 +105,7 @@ const LogoutWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 30px;
+  padding: 0px;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -106,17 +117,23 @@ const NavWrapper = styled.nav`
   display: flex;
   justify-content: left;
   align-items: center;
+  width: 200px;
   & > ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     margin: 0;
     padding: 0;
     & > li {
       list-style-type: none;
-      padding: 5px 10px;
+      box-sizing: border-box;
+      padding: 5px;
       cursor: pointer;
       border-radius: 2px;
+      width: 80px;
+      text-align: center;
+      margin: 0px;
       &:hover {
         background-color: #e4e5e8;
         transition: background-color 200ms linear;
@@ -131,12 +148,34 @@ const Line = styled.div`
   margin: 0 10px;
 `;
 const StyledLink = styled(Link)`
+  /* padding: 35px; */
+  box-sizing: border-box;
   text-decoration: none;
   color: #000000;
+  width: 100px;
 `;
-const LogoutButton = styled.button`
+const HeaderMenuButton = styled.button`
+  min-width: 100px;
   border: none;
   background: none;
+  margin: 0px;
+  padding: 10px 25px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  word-break: keep-all;
+  &:hover {
+    background-color: #e4e5e8;
+    transition: background-color 200ms linear;
+  }
+`;
+
+const Icon = styled.div`
+  width: ${(props) => props.size || 20}px;
+  height: ${(props) => props.size || 20}px;
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-repeat: no-repeat;
 `;
 
 export default Header;
