@@ -28,7 +28,7 @@ const dummyData = [
 ];
 
 // 특정 키워드(keywordId) 안에 있는 tim 불러와야 함
-const TIMContainer = ({ match, location }) => {
+const TIMViewContainer = ({ match, location }) => {
   const { user, postInKeyword, tagColor } = useSelector(({ user, post }) => ({
     user: user.user,
     postInKeyword: post.postInKeyword,
@@ -39,23 +39,42 @@ const TIMContainer = ({ match, location }) => {
   const {
     state: { tagName },
   } = location;
+  const { keyword_color, keyword_name, post } = postInKeyword || {
+    keyword_color: 'grey',
+    keyword_name: '',
+    post: [],
+  };
+
   useEffect(() => {
     dispatch(getPostInKeyword(keywordId));
-  }, [dispatch, keywordId]);
+  }, [dispatch]);
 
   const onEdit = (e) => {
     console.log('수정버튼 클릭');
   };
 
-  return (
-    <TIMView
-      user={user}
-      tagName={tagName}
-      tagColor={tagColor}
-      postInKeyword={postInKeyword}
-      onEdit={onEdit}
-    />
+  console.log(
+    user,
+    tagName,
+    tagColor,
+    keyword_name,
+    keyword_color,
+    post,
+    onEdit,
   );
+  if (post.length === 0) return <>loading</>;
+  if (post)
+    return (
+      <TIMView
+        user={user}
+        tagName={tagName}
+        tagColor={tagColor}
+        keywordName={keyword_name}
+        keywordColor={keyword_color}
+        postlist={post}
+        onEdit={onEdit}
+      />
+    );
 };
 
-export default withRouter(TIMContainer);
+export default withRouter(TIMViewContainer);

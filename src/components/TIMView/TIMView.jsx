@@ -21,6 +21,53 @@ const TIM = ({ post, onEdit }) => {
   );
 };
 
+const TIMView = ({
+  user,
+  tagName,
+  tagColor,
+  keywordName,
+  keywordColor,
+  postlist,
+}) => {
+  const scrollRef = useRef();
+  const [index, setIndex] = useState(0);
+  // 스크롤값 가져와야 함.
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.children[index].scrollIntoView({
+        behavior: 'smooth',
+        inline: 'start',
+      });
+    }
+  }, [index, scrollRef]);
+  const onClickLeft = (e) => {
+    if (index > 0) setIndex((prevIdx) => prevIdx - 1);
+  };
+  const onClickRight = (e) => {
+    const childrenLength = scrollRef.current.children.length;
+    if (index < childrenLength - 1) setIndex((prevIdx) => prevIdx + 1);
+  };
+
+  if (!user || !postlist) return null;
+  return (
+    <TIMViewWrapper>
+      <ListStatus>
+        <Mark tagColor={tagColor}>{tagName}</Mark>
+        <Mark keywordColor={keywordColor}>{keywordName}</Mark>
+      </ListStatus>
+      <PostList>
+        <TimListWrapper ref={scrollRef}>
+          {postlist.map((post) => (
+            <TIM key={post.id} post={post} />
+          ))}
+          <LeftBtn onClick={onClickLeft}>왼쪽</LeftBtn>
+          <RightBtn onClick={onClickRight}>오른쪽</RightBtn>
+        </TimListWrapper>
+      </PostList>
+    </TIMViewWrapper>
+  );
+};
+
 const TIMWrapper = styled.li`
   flex-shrink: 0;
   scroll-snap-align: start; /* latest (Chrome 69+) */
@@ -77,47 +124,6 @@ const Contents = styled.div`
   text-align: center;
   margin: auto;
 `;
-
-const TIMView = ({ user, tagName, postInKeyword, onEdit }) => {
-  const scrollRef = useRef();
-  const [index, setIndex] = useState(0);
-  // 스크롤값 가져와야 함.
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.children[index].scrollIntoView({
-        behavior: 'smooth',
-        inline: 'start',
-      });
-    }
-  }, [index, scrollRef]);
-  const onClickLeft = (e) => {
-    if (index > 0) setIndex((prevIdx) => prevIdx - 1);
-  };
-  const onClickRight = (e) => {
-    const childrenLength = scrollRef.current.children.length;
-    if (index < childrenLength - 1) setIndex((prevIdx) => prevIdx + 1);
-  };
-
-  if (!user || !postInKeyword) return null;
-  const { post: postList, keyword_name } = postInKeyword;
-  return (
-    <TIMViewWrapper>
-      <ListStatus>
-        <Mark>{tagName}</Mark>
-        <Mark>{keyword_name}</Mark>
-      </ListStatus>
-      <PostList>
-        <TimListWrapper ref={scrollRef}>
-          {postList.map((post) => (
-            <TIM key={post.id} post={post} />
-          ))}
-          <LeftBtn onClick={onClickLeft}>왼쪽</LeftBtn>
-          <RightBtn onClick={onClickRight}>오른쪽</RightBtn>
-        </TimListWrapper>
-      </PostList>
-    </TIMViewWrapper>
-  );
-};
 
 const TIMViewWrapper = styled.div`
   overflow: hidden;
@@ -191,4 +197,5 @@ const RightBtn = styled.button`
   top: 50%;
   right: 0;
 `;
+
 export default TIMView;
