@@ -50,21 +50,24 @@ const TIMView = ({
 
   if (!user || !postlist) return null;
   return (
-    <TIMViewWrapper>
-      <ListStatus>
-        <Mark tagColor={tagColor}>{tagName}</Mark>
-        <Mark keywordColor={keywordColor}>{keywordName}</Mark>
-      </ListStatus>
-      <PostList>
-        <TimListWrapper ref={scrollRef}>
-          {postlist.map((post) => (
-            <TIM key={post.id} post={post} />
-          ))}
-          <LeftBtn onClick={onClickLeft}>왼쪽</LeftBtn>
-          <RightBtn onClick={onClickRight}>오른쪽</RightBtn>
-        </TimListWrapper>
-      </PostList>
-    </TIMViewWrapper>
+    <>
+      <HeaderMargin />
+      <TIMViewWrapper>
+        <ListStatus>
+          <Mark tagColor={tagColor}>{tagName}</Mark>
+          <Mark keywordColor={keywordColor}>{keywordName}</Mark>
+        </ListStatus>
+        <PostList>
+          <TimListWrapper ref={scrollRef}>
+            {postlist.map((post) => (
+              <TIM key={post.id} post={post} />
+            ))}
+            <LeftBtn onClick={onClickLeft}>왼쪽</LeftBtn>
+            <RightBtn onClick={onClickRight}>오른쪽</RightBtn>
+          </TimListWrapper>
+        </PostList>
+      </TIMViewWrapper>
+    </>
   );
 };
 
@@ -196,6 +199,12 @@ const RightBtn = styled.button`
   position: absolute;
   top: 50%;
   right: 0;
+`;
+
+const HeaderMargin = styled.div`
+  position: relative;
+  width: 100%;
+  height: 60px;
 `;
 
 export default TIMView;
