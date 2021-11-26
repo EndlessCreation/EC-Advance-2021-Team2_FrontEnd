@@ -26,6 +26,7 @@ const SignupContainer = () => {
     accountChecked,
     auth,
     authError,
+    signupSuccess,
   } = useSelector(({ auth, user }) => ({
     form: auth.signup,
     emailChecked: auth.emailChecked,
@@ -34,6 +35,7 @@ const SignupContainer = () => {
     auth: auth.auth,
     authError: auth.authError,
     user: user.user,
+    signupSuccess: auth.signup.signupSuccess,
   }));
   const {
     email,
@@ -118,15 +120,17 @@ const SignupContainer = () => {
       setError('회원가입에 실패하였습니다.');
       return;
     }
-    if (auth) {
+    if (signupSuccess) {
+      console.log(signupSuccess);
       console.log('Success!');
+      alert('가입한 아이디로 로그인해주세요');
       history.push('/');
     }
     return () => {
       dispatch(initializeForm('signup'));
       setError('');
     };
-  }, [auth, authError, history, dispatch]);
+  }, [auth, authError, history, dispatch, signupSuccess]);
   return (
     <SignupComponent
       type="signup"

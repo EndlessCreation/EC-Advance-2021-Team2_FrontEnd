@@ -31,7 +31,9 @@ const KeywordHead = styled.div`
   font-weight: bold;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
   background-color: ${({ keywordColor, theme }) => {
-    return theme.component[keywordColor][4];
+    return keywordColor !== 'undefined'
+      ? theme.component[keywordColor][4]
+      : '#FAFCF9';
   }};
   margin-bottom: 32px;
 `;
