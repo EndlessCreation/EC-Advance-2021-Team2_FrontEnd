@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const StyledKeyword = styled.div`
   background-color: ${({ theme, keywordColor }) => {
+    // console.log(theme.component[keywordColor]);
     return theme.component[keywordColor][2] || 'white';
   }};
   color: ${(props) => props.theme.font[1]};
@@ -13,9 +14,13 @@ const StyledKeyword = styled.div`
 `;
 
 const Keyword = ({ keyword_color, keyword }) => {
+  console.log(keyword_color);
+
   return (
     <>
-      <StyledKeyword keywordColor={keyword_color}>@{keyword}</StyledKeyword>
+      <StyledKeyword keywordColor={keyword_color || 'grey'}>
+        @{keyword || ''}
+      </StyledKeyword>
     </>
   );
 };
