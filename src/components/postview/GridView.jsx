@@ -107,8 +107,13 @@ const KeywordItem = styled(Link)`
   letter-spacing: 0em;
   text-align: left;
   text-decoration: none;
-  background-color: ${({ keywordColor, theme }) =>
-    keywordColor ? theme.component[keywordColor][2] : '#FAFCF9'};
+  background-color: ${({ keywordColor, theme }) => {
+    console.log(keywordColor);
+
+    return keywordColor !== 'undefined'
+      ? theme.component[keywordColor][2]
+      : '#FAFCF9';
+  }};
   color: ${(props) => props.theme.font[1]};
 `;
 

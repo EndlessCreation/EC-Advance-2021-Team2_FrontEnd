@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 const StyledTag = styled.div`
   background-color: ${({ theme, tagColor }) => {
-    return theme.component[tagColor][1];
+    // console.log(tagColor);
+    return tagColor !== 'undefined' ? theme.component[tagColor][1] : '#FAFCF9';
   }};
   color: ${(props) => props.theme.font['white']};
   font-size: 20px;
@@ -15,9 +16,12 @@ const StyledTag = styled.div`
 `;
 
 const Tag = ({ tag_color, tag, children }) => {
+  // console.log(tag, tag_color);
+  // if (!(tag && tag_color)) return <>loading</>;
+
   return (
     <>
-      <StyledTag tagColor={tag_color}>#{tag}</StyledTag>
+      <StyledTag tagColor={tag_color || 'grey'}>#{tag || ''}</StyledTag>
     </>
   );
 };

@@ -11,19 +11,17 @@ const TIMLogContainer = ({ type }) => {
   const dispatch = useDispatch();
 
   const LogContainerfetch = async () => {
-    try {
-      if (type === 'log') {
-        const data = await getRecentPost();
-        setTimData(data);
-        return;
-      } else if (type === 'favorite') {
-        const data = await getFavoritePost();
-        setTimData(data);
-        return;
-      } else {
-        console.log('뭔가잘못되었을때?');
-      }
-    } catch (err) {}
+    // try {
+    if (type === 'log') {
+      const data = await getRecentPost();
+      setTimData(data);
+    } else if (type === 'favorite') {
+      const data = await getFavoritePost();
+      setTimData(data);
+    } else {
+      console.log('뭔가잘못되었을때?');
+    }
+    // } catch (err) {}
   };
 
   const onFavorite = (post_id) => {
@@ -49,9 +47,9 @@ const TIMLogContainer = ({ type }) => {
     console.log('데이터 없는경우 ');
     return <div></div>;
   }
+
   if (timData) {
     return timData.map((tim, index) => {
-      console.log(tim);
       let {
         id,
         content,
@@ -60,31 +58,46 @@ const TIMLogContainer = ({ type }) => {
         isFavorite,
         tag_id,
         keyword_id,
-        post_tag,
+        post_tag = { tag: '', tag_color: 'grey' },
         post_keyword,
       } = tim;
 
-      let { tag, tag_color } =
-        post_tag !== undefined ? post_tag : { tag: '', tag_color: 'grey' };
-      let { keyword_name: keyword, keyword_color } =
-        post_keyword !== undefined
-          ? post_keyword
-          : {
-              keyword_name: '',
-              keyword_color: 'grey',
-            };
+      console.log(post_tag, post_keyword);
+      // console.log(tim);
+      let { tag, tag_color } = post_tag || {
+        tag: '',
+        tag_color: 'grey',
+      };
+      let { keyword_name: keyword, keyword_color } = post_keyword || {
+        keyword_name: '',
+        keyword_color: 'grey',
+      };
+
+      // let { tag, tag_color } =
+      //   post_tag !== undefined && post_tag !== null
+      //     ? post_tag
+      //     : { tag: '', tag_color: 'grey' };
+      // let { keyword_name: keyword, keyword_color } =
+      //   post_keyword !== undefined && post_keyword !== null
+      //     ? post_keyword
+      //     : {
+      //         keyword_name: '',
+      //         keyword_color: 'grey',
+      //       };
+
+      console.log(id, tag, tag_color, keyword, keyword_color);
 
       return (
         <TIMLog
           key={index}
           id={id}
-          updateAt={updateAt}
+          createAt={createAt}
           isFavorite={isFavorite}
           content={content}
-          tag={tag}
-          tag_color={tag_color}
-          keyword={keyword}
-          keyword_color={keyword_color}
+          tag={tag || ''}
+          tag_color={tag_color === 'undefined' ? 'grey' : tag_color}
+          keyword={keyword || ''}
+          keyword_color={keyword_color === 'undefined' ? 'grey' : keyword_color}
           onFavorite={onFavorite}
         />
       );

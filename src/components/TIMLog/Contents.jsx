@@ -28,8 +28,8 @@ const Star = ({ isFavorite, onFavorite, id }) => {
   );
 };
 
-const Contents = ({ content, updateAt, isFavorite, id, onFavorite }) => {
-  const date = updateAt.toString().slice(5, 10);
+const Contents = ({ content, createAt, isFavorite, id, onFavorite }) => {
+  const date = createAt.toString().slice(5, 10);
 
   return (
     <StyledContentsWrapper>
