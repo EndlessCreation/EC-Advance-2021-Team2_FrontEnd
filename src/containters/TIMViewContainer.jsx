@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
+import { getPostInTag } from '../api/post';
 import TIMView from '../components/TIMView/TIMView';
 import { getPostInKeyword } from '../modules/post';
 
@@ -29,49 +30,41 @@ const dummyData = [
 
 // 특정 키워드(keywordId) 안에 있는 tim 불러와야 함
 const TIMViewContainer = ({ match, location }) => {
-  const { user, postInKeyword, tagColor } = useSelector(({ user, post }) => ({
+  console.log(match, location);
+  const { user, postInKeyword } = useSelector(({ user, post }) => ({
     user: user.user,
     postInKeyword: post.postInKeyword,
-    tagColor: post.postInTag.tag_color,
   }));
+  console.log(user, postInKeyword);
   const dispatch = useDispatch();
-  const { keywordId } = match.params;
+  const { tagId, keywordId } = match.params;
   const {
-    state: { tagName },
+    state: { tagName, tagColor },
   } = location;
-  const { keyword_color, keyword_name, post } = postInKeyword || {
-    keyword_color: 'grey',
-    keyword_name: '',
-    post: [],
-  };
+  const {
+    post: postList,
+    keyword_name: keywordName,
+    keyword_color: keywordColor,
+  } = postInKeyword || { post: '', keyword_name: '', keyword_color: '' };
 
   useEffect(() => {
     dispatch(getPostInKeyword(keywordId));
-  }, [dispatch]);
+  }, [dispatch, keywordId, tagId]);
 
   const onEdit = (e) => {
     console.log('수정버튼 클릭');
   };
 
-  console.log(
-    user,
-    tagName,
-    tagColor,
-    keyword_name,
-    keyword_color,
-    post,
-    onEdit,
-  );
-  if (post.length === 0) return <>loading</>;
-  if (post)
+  if (postList.length === 0) return <>loading</>;
+  if (postList)
     return (
       <TIMView
         user={user}
         tagName={tagName}
         tagColor={tagColor}
-        keywordName={keyword_name}
-        keywordColor={keyword_color}
-        postlist={post}
+        keywordName={keywordName}
+        keywordColor={keywordColor}
+        postlist={postList}
         onEdit={onEdit}
       />
     );

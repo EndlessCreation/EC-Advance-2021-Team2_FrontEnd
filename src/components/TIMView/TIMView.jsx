@@ -48,7 +48,15 @@ const TIMView = ({
     if (index < childrenLength - 1) setIndex((prevIdx) => prevIdx + 1);
   };
 
-  if (!user || !postlist) return null;
+  if (
+    !user ||
+    !postlist ||
+    !tagName ||
+    !tagColor ||
+    !keywordName ||
+    !keywordColor
+  )
+    return null;
   return (
     <>
       <HeaderMargin />
