@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import theme from '../../styles/theme';
 import SearchItem from './SearchItem';
 
 const Search = ({
@@ -11,15 +12,13 @@ const Search = ({
   handleKeyUp,
 }) => {
   console.log(searchingData);
+
   return (
     <>
       <StyledSearchInputWrapper>
         <StyledSearchInput
           onFocus={(e) => {
             handleOpenned(true);
-          }}
-          onBlur={(e) => {
-            handleOpenned(false);
           }}
           value={searchValue}
           onChange={(e) => {
@@ -30,14 +29,20 @@ const Search = ({
           }}
         />
         {isOpenned && (
-          <StyledSearchBackGround>
+          <StyledSearchBackGround
+            onClick={() => {
+              handleOpenned(false);
+            }}
+          >
             <StyledSearchDataWrapper>
-              {searchingData && searchingData !== null ? (
+              {searchingData === undefined || searchingData === null ? (
+                <EmptyData> 검색할 메모를 입력해주세요 </EmptyData>
+              ) : searchingData.length === 0 ? (
+                <EmptyData> 검색 결과가 없습니다</EmptyData>
+              ) : (
                 searchingData.map((item, index) => (
                   <SearchItem key={index} item={item} />
                 ))
-              ) : (
-                <EmptyData> 검색 결과가 없습니다</EmptyData>
               )}
             </StyledSearchDataWrapper>
           </StyledSearchBackGround>
@@ -63,6 +68,15 @@ const StyledSearchInput = styled.input`
   box-sizing: border-box;
   border: 2px solid #aeaeae;
   border-radius: 10px;
+  padding-left: 14px;
+  font-family: NanumGothic;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: ${({ theme }) => theme.font[3]};
 `;
 const StyledSearchBackGround = styled.div`
   position: fixed;
@@ -77,15 +91,23 @@ const StyledSearchBackGround = styled.div`
 `;
 const StyledSearchDataWrapper = styled.div`
   display: flex;
+  box-sizing: border-box;
+  padding: 20px 20px 20px 20px;
+  min-width: 500px;
+  justify-content: center;
   flex-direction: column;
+  max-height: 640px;
   margin-right: 100px;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 0px 0px 16px 16px;
-  overflow: hidden;
+  overflow-y: auto;
+  z-index: 100;
+  & > div {
+    margin-top: 75px;
+  }
 `;
 
 const EmptyData = styled.div`
-  padding: 100px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,4 +118,5 @@ const EmptyData = styled.div`
   line-height: 28px;
   letter-spacing: 0em;
   text-align: left;
+  margin-bottom: 75px;
 `;

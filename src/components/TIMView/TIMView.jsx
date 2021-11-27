@@ -78,7 +78,14 @@ const Contents = styled.div`
   margin: auto;
 `;
 
-const TIMView = ({ user, tagName, postInKeyword, onEdit }) => {
+const TIMView = ({
+  user,
+  tagName,
+  tagColor,
+  keywordName,
+  keywordColor,
+  postList,
+}) => {
   const scrollRef = useRef();
   const [index, setIndex] = useState(0);
   // 스크롤값 가져와야 함.
@@ -98,13 +105,12 @@ const TIMView = ({ user, tagName, postInKeyword, onEdit }) => {
     if (index < childrenLength - 1) setIndex((prevIdx) => prevIdx + 1);
   };
 
-  if (!user || !postInKeyword) return null;
-  const { post: postList, keyword_name } = postInKeyword;
+  if (!user || !tagName || !keywordName) return null;
   return (
     <TIMViewWrapper>
       <ListStatus>
-        <Mark>{tagName}</Mark>
-        <Mark>{keyword_name}</Mark>
+        <Mark tagColor={tagColor}>{tagName}</Mark>
+        <Mark keywordColor={keywordColor}>{keywordName}</Mark>
       </ListStatus>
       <PostList>
         <TimListWrapper ref={scrollRef}>

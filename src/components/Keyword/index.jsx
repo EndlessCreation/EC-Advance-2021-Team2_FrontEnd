@@ -7,12 +7,12 @@ import TagMark from './TagMark';
 const Keyword = ({ user, postInTag, onFilteringDate }) => {
   if (!user) return null;
   if (!postInTag) return <div>loading...</div>;
-  const { tag, tag_color, keyword: keywordList } = postInTag;
+  const { tag, tag_color: tagColor, keyword: keywordList } = postInTag;
   return (
     <>
       <HeaderMargin />
       <KeywordStatus>
-        <TagMark tagName={tag} tagColor={tag_color} />
+        <TagMark tagName={tag} tagColor={tagColor} />
         <Filter />
       </KeywordStatus>
       <KeywordList>
@@ -20,6 +20,7 @@ const Keyword = ({ user, postInTag, onFilteringDate }) => {
           <KeywordLine
             key={keyword.id}
             tagName={tag}
+            tagColor={tagColor}
             keywordColor={keyword.keyword_color}
             keywordName={keyword.keyword_name}
             postList={keyword.post}

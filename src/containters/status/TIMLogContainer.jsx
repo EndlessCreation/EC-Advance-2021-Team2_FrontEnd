@@ -53,7 +53,7 @@ const TIMLogContainer = ({ type }) => {
   }
 
   if (timData) {
-    console.log(timData);
+    // console.log(timData);
     return timData.map((tim, index) => {
       let {
         id,
@@ -68,7 +68,7 @@ const TIMLogContainer = ({ type }) => {
         image,
       } = tim;
 
-      console.log(post_tag, post_keyword);
+      // console.log(post_tag, post_keyword);
       // console.log(tim);
       let { tag, tag_color } = post_tag || {
         tag: '',
@@ -90,8 +90,6 @@ const TIMLogContainer = ({ type }) => {
       //         keyword_name: '',
       //         keyword_color: 'grey',
       //       };
-
-      console.log(id, tag, tag_color, keyword, keyword_color);
 
       return (
         <TIMLog

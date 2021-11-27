@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
+import { getPostInTag } from '../api/post';
 import TIMView from '../components/TIMView/TIMView';
 import { getPostInKeyword } from '../modules/post';
 
@@ -29,19 +30,26 @@ const dummyData = [
 
 // 특정 키워드(keywordId) 안에 있는 tim 불러와야 함
 const TIMContainer = ({ match, location }) => {
-  const { user, postInKeyword, tagColor } = useSelector(({ user, post }) => ({
+  console.log(match, location);
+  const { user, postInKeyword } = useSelector(({ user, post }) => ({
     user: user.user,
     postInKeyword: post.postInKeyword,
-    tagColor: post.postInTag.tag_color,
   }));
+  console.log(user, postInKeyword);
   const dispatch = useDispatch();
-  const { keywordId } = match.params;
+  const { tagId, keywordId } = match.params;
   const {
-    state: { tagName },
+    state: { tagName, tagColor },
   } = location;
+  const {
+    post: postList,
+    keyword_name: keywordName,
+    keyword_color: keywordColor,
+  } = postInKeyword || { post: '', keyword_name: '', keyword_color: '' };
+
   useEffect(() => {
     dispatch(getPostInKeyword(keywordId));
-  }, [dispatch, keywordId]);
+  }, [dispatch, keywordId, tagId]);
 
   const onEdit = (e) => {
     console.log('수정버튼 클릭');
@@ -50,9 +58,11 @@ const TIMContainer = ({ match, location }) => {
   return (
     <TIMView
       user={user}
+      postList={postList}
       tagName={tagName}
       tagColor={tagColor}
-      postInKeyword={postInKeyword}
+      keywordName={keywordName}
+      keywordColor={keywordColor}
       onEdit={onEdit}
     />
   );

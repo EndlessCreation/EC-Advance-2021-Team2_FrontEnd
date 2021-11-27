@@ -38,12 +38,10 @@ const SearchContainer = (props) => {
     console.log('여기 왔냐?');
     // if (searchValue.length > 0) {
     const responseData = await debounceSearchContent(searchValue);
-    console.log(responseData);
-
     setSearchingData(responseData);
-    console.log(setSearchingData);
     // }
   };
+
   return (
     <Search
       isOpenned={isOpenned}
