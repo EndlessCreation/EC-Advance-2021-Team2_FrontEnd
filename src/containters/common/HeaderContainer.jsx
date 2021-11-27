@@ -20,10 +20,6 @@ const HeaderContainer = () => {
     dispatch(initAuth());
   };
 
-  // useEffect(() => {
-  //   dispatch(check());
-  // }, []);
-
   useEffect(() => {
     const userCheck = async () => {
       try {
