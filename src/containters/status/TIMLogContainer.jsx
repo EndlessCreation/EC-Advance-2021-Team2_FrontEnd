@@ -91,6 +91,8 @@ const TIMLogContainer = ({ type }) => {
       //         keyword_color: 'grey',
       //       };
 
+      // console.log(id, tag, tag_color, keyword, keyword_color);
+
       return (
         <TIMLog
           key={index}
