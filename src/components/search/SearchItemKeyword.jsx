@@ -11,18 +11,20 @@ const StyledKeyword = styled.div`
   font-weight: bold;
   padding: 11px 15px;
   margin-left: 3px;
+  flex-shrink: 1;
+  line-height: 30px;
 `;
 
-const Keyword = ({ keyword_color, keyword }) => {
-  console.log(keyword_color);
+const SearchItemKeyword = ({ keywordColor, keywordName }) => {
+  console.log(keywordColor);
 
   return (
     <>
-      <StyledKeyword keywordColor={keyword_color || 'grey'}>
-        @{keyword || ''}
+      <StyledKeyword keywordColor={keywordColor || 'grey'}>
+        @{keywordName || ''}
       </StyledKeyword>
     </>
   );
 };
 
-export default Keyword;
+export default SearchItemKeyword;

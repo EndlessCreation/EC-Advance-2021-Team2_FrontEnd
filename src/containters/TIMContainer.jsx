@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
+import { getPostInTag } from '../api/post';
 import TIMView from '../components/TIMView/TIMView';
 import {
   deletePost,
@@ -20,10 +21,11 @@ const TIMContainer = ({ match, location }) => {
       deletePostSuccess: post.deletePostSuccess,
     }),
   );
+
   const dispatch = useDispatch();
   const { tagId, keywordId } = match.params;
   const {
-    state: { tagName },
+    state: { tagName, tagColor },
   } = location;
   const onDeletePost = (post_id) => {
     let result = window.confirm('해당 TIM을 삭제하시겠습니까?');
@@ -43,9 +45,11 @@ const TIMContainer = ({ match, location }) => {
   useEffect(() => {
     if (deletePostSuccess) dispatch(getPostInKeyword(keywordId));
   }, [dispatch, deletePostSuccess, keywordId]);
+
   return (
     <TIMView
       user={user}
+      postList={postList}
       tagName={tagName}
       tagColor={tag_color}
       postInKeyword={postInKeyword}

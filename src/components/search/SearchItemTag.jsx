@@ -7,23 +7,25 @@ const StyledTag = styled.div`
     return tagColor !== 'undefined' ? theme.component[tagColor][1] : '#FAFCF9';
   }};
   color: ${(props) => props.theme.font['white']};
+  flex-shrink: 0;
   font-size: 20px;
   text-align: center;
   align-items: center;
+  box-sizing: border-box;
   padding: 11px 15px;
   border-radius: 8px 0px 0px 8px;
-  font-weight: bold;
+  line-height: 30px;
 `;
 
-const Tag = ({ tag_color, tag, children }) => {
+const SearchItemTag = ({ tagColor, tagName, children }) => {
   // console.log(tag, tag_color);
   // if (!(tag && tag_color)) return <>loading</>;
 
   return (
     <>
-      <StyledTag tagColor={tag_color || 'grey'}>#{tag || ''}</StyledTag>
+      <StyledTag tagColor={tagColor || 'grey'}>#{tagName || ''}</StyledTag>
     </>
   );
 };
 
-export default Tag;
+export default SearchItemTag;

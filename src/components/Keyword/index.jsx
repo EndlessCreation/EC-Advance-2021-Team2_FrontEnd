@@ -46,7 +46,7 @@ const Keyword = ({ user, postInTag, onFilteringDate }) => {
   // const onThrottleDragMove = throttle(onDragMove, delay);
   if (!user) return null;
   if (!postInTag) return <div>loading...</div>;
-  const { tag, tag_color, keyword: keywordList } = postInTag;
+  const { tag, tag_color: tagColor, keyword: keywordList } = postInTag;
   return (
     <KeywordWrapper>
       <KeywordStatus>
@@ -65,6 +65,7 @@ const Keyword = ({ user, postInTag, onFilteringDate }) => {
           <KeywordLine
             key={keyword.id}
             tagName={tag}
+            tagColor={tagColor}
             keywordColor={keyword.keyword_color}
             keywordName={keyword.keyword_name}
             postList={keyword.post}

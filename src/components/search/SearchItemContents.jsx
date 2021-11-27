@@ -5,36 +5,41 @@ import { ReactComponent as EmptyStar } from '../../lib/assets/TIM_Log/emptyStar.
 
 const StyledContentsWrapper = styled.div`
   display: flex;
-  margin-left: auto;
-  justify-content: right;
+  width: 100%;
+  justify-content: flex-end;
   align-items: center;
+  flex: 1;
+  line-height: 30px;
 `;
 const StyledText = styled.div`
-  margin-right: 80px;
+  margin-right: 20px;
 `;
 const StyledStar = styled.div`
-  margin-right: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
 `;
 const StyledDate = styled.div`
-  margin-right: 40px;
-  font-weight: bold;
+  margin-right: 20px;
+  font-size: 16px;
 `;
 
 const Star = ({ isFavorite, onFavorite, id }) => {
   return (
-    <StyledStar onClick={() => onFavorite(id)}>
-      {isFavorite ? <FullStar /> : <EmptyStar />}
+    <StyledStar>
+      {isFavorite ? <FullStar width={16} /> : <EmptyStar width={16} />}
     </StyledStar>
   );
 };
 
-const Contents = ({ content, createAt, isFavorite, id, onFavorite }) => {
+const Contents = ({ content, createAt, isFavorite, id }) => {
   const date = createAt.toString().slice(5, 10);
 
   return (
     <StyledContentsWrapper>
       <StyledText>{content}</StyledText>
-      <Star isFavorite={isFavorite} onFavorite={onFavorite} id={id} />
+      <Star isFavorite={isFavorite} width={15} />
       <StyledDate>{date}</StyledDate>
     </StyledContentsWrapper>
   );

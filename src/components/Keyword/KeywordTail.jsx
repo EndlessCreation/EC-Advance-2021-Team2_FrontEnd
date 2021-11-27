@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { MdImage, MdStar, MdStarBorder } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
-const KeywordTail = ({ tagName, post }) => {
+const KeywordTail = ({ tagName, post, tagColor }) => {
   const { createAt, image, isFavorite, tag_id, keyword_id } = post;
   const date = createAt.toString().slice(5, 10);
 
@@ -12,7 +12,7 @@ const KeywordTail = ({ tagName, post }) => {
       <Link
         to={{
           pathname: `/tim/${tag_id}/${keyword_id}`,
-          state: { tagName },
+          state: { tagName, tagColor },
         }}
       >
         <TailwrapforClick>

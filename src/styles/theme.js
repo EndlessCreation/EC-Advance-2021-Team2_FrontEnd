@@ -31,6 +31,13 @@ const theme = {
       3: '#EAEAEA',
       4: '#F1F1F1',
     },
+    gray: {
+      // index: 0,
+      1: '#A9A9A9',
+      2: '#D2D2D2',
+      3: '#EAEAEA',
+      4: '#F1F1F1',
+    },
 
     red: {
       // index: 1,
@@ -43,7 +50,7 @@ const theme = {
     pink: {
       // index: 2,
       1: '#C5426D',
-      2: '#C5426D',
+      2: '#F07CA2',
       3: '#FFB8D0',
       4: '#FFE4EB',
     },

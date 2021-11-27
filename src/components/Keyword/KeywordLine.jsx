@@ -2,7 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import KeywordTail from './KeywordTail';
 
-const KeywordLine = ({ tagName, keywordName, postList, keywordColor }) => {
+const KeywordLine = ({
+  tagName,
+  tagColor,
+  keywordName,
+  keywordColor,
+  postList,
+}) => {
   if (!(tagName && keywordName && postList && keywordColor)) return null;
   //위에 네개의 값을 받아오지 못했을때 초기값으로 랜더링 -> 4개 값 적용된 컴포넌트 랜더링 하는 버벅임이 생겨서 위 코드 추가
   return (
@@ -10,7 +16,12 @@ const KeywordLine = ({ tagName, keywordName, postList, keywordColor }) => {
       <KeywordHead keywordColor={keywordColor}>{keywordName}</KeywordHead>
       <KeywordTailWrap>
         {postList.map((post) => (
-          <KeywordTail key={post.id} post={post} tagName={tagName} />
+          <KeywordTail
+            key={post.id}
+            post={post}
+            tagName={tagName}
+            tagColor={tagColor}
+          />
         ))}
       </KeywordTailWrap>
     </KeywordLineWrap>
@@ -31,7 +42,9 @@ const KeywordHead = styled.div`
   font-weight: bold;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
   background-color: ${({ keywordColor, theme }) => {
-    return theme.component[keywordColor][4];
+    return keywordColor !== 'undefined'
+      ? theme.component[keywordColor][4]
+      : '#FAFCF9';
   }};
   margin-bottom: 32px;
 `;
