@@ -6,11 +6,14 @@ import { createPost } from '../modules/post';
 import { reloadAction } from '../modules/reload';
 import theme from '../styles/theme';
 import { randomIndex } from '../lib/util/randomIndex';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 const MainInputContainer = () => {
   const { user } = useSelector(({ user }) => ({
     user: user.user,
   }));
+  const { pathname } = useLocation();
+
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const [tag, setTag] = useState('');
@@ -21,6 +24,8 @@ const MainInputContainer = () => {
   const colors = Object.keys(theme.component).filter(
     (color) => color !== 'gray' && color !== 'grey',
   );
+
+  // console.log(pathname.split('/')[1]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -41,8 +46,20 @@ const MainInputContainer = () => {
       formData.append('keyword', keyword);
       formData.append('keyword_color', keyword_color);
 
+      // console.log(formData);
+      /* key 확인하기 */
+      for (let key of formData.keys()) {
+        console.log(key);
+      }
+
+      /* value 확인하기 */
+      for (let value of formData.values()) {
+        console.log(value);
+      }
+
       dispatch(createPost(formData));
       dispatch(reloadAction('timLog'));
+      dispatch(reloadAction(pathname.split('/')[1]));
 
       inputRef.current.value = '';
       setImage(null);
@@ -58,7 +75,7 @@ const MainInputContainer = () => {
     }
   };
   const onKeyUp = (e) => {
-    console.log(tag, keyword);
+    // console.log(tag, keyword);
 
     const { value } = e.target;
     if (value !== '') {

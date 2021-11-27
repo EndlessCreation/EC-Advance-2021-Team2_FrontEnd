@@ -27,7 +27,7 @@ function* reRenderSaga({ payload }) {
 
 //모니터링 사가
 export function* reloadSaga() {
-  yield takeLatest(RELOAD_START, reRenderSaga);
+  yield takeEvery(RELOAD_START, reRenderSaga);
 }
 
 //리듀서

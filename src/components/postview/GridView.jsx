@@ -4,6 +4,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
 const GridView = ({ user, tags }) => {
+  console.log(tags);
   if (!tags) return <div>loading...</div>;
 
   return (
@@ -58,7 +59,8 @@ const GridItem = styled.li`
   border-radius: 20px;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
   background: ${({ tagColor, theme }) => {
-    return theme.component[tagColor][3];
+    console.log(tagColor);
+    return tagColor !== 'undefined' ? theme.component[tagColor][3] : '#FAFCF9';
   }};
   & > header {
     display: flex;
@@ -66,8 +68,10 @@ const GridItem = styled.li`
     justify-content: center;
     align-items: center;
     background-color: ${({ tagColor, theme }) => {
-      console.log(theme.component[tagColor][1]);
-      return theme.component[tagColor][1];
+      console.log(theme.component[tagColor]);
+      return tagColor !== 'undefined'
+        ? theme.component[tagColor][1]
+        : '#FAFCF9';
     }};
     font-size: 28px;
     font-weight: bold;

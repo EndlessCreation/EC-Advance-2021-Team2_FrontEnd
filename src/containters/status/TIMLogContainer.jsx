@@ -37,6 +37,10 @@ const TIMLogContainer = ({ type }) => {
   useEffect(() => {
     if (reloaded) {
       if (reloaded.timLog === true) {
+        console.log('fsdfsdfsdfdsfds');
+        console.log('fsdfsdfsdfdsfds');
+        console.log('fsdfsdfsdfdsfds');
+        console.log('fsdfsdfsdfdsfds');
         LogContainerfetch();
       }
     }

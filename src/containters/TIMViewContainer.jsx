@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import TIMView from '../components/TIMView/TIMView';
 import { deletePost, editPost, getPostInKeyword } from '../modules/post';
+import { reloadAction } from '../modules/reload';
 
 // 특정 키워드(keywordId) 안에 있는 tim 불러와야 함
 const TIMViewContainer = ({ match, location }) => {
@@ -12,6 +13,8 @@ const TIMViewContainer = ({ match, location }) => {
     postInKeyword: post.postInKeyword,
     deletePostSuccess: post.deletePostSuccess,
   }));
+
+  const reloaded = useSelector(({ reload }) => reload);
 
   const dispatch = useDispatch();
   const { tagId, keywordId } = match.params;
@@ -28,31 +31,30 @@ const TIMViewContainer = ({ match, location }) => {
     let result = window.confirm('해당 TIM을 삭제하시겠습니까?');
     if (result) {
       dispatch(deletePost(post_id));
+      dispatch(reloadAction('tim'));
+
       // 삭제하자마자 리렌더링 하게 하려면?
     } else return;
   };
   const onEditPost = (formData) => {
     dispatch(editPost(formData));
+    dispatch(reloadAction('tim'));
+
     // 수정하자마자 리렌더링 하게 하려면?
   };
 
   useEffect(() => {
     dispatch(getPostInKeyword(keywordId));
-  }, [dispatch, keywordId, tagId]);
+  }, [dispatch, keywordId]);
 
-  // console.log(match, location);
+  useEffect(() => {
+    if (reloaded) {
+      if (reloaded.tim === true) {
+        dispatch(getPostInKeyword(keywordId));
+      }
+    }
+  }, [reloaded]);
 
-  // console.log(user, postInKeyword);
-  console.log(
-    user,
-    postList,
-    tagName,
-    tagColor,
-    keywordName,
-    keywordColor,
-    onEditPost,
-    onDeletePost,
-  );
   if (postList.length === 0) return <>loading</>;
   if (postList)
     return (

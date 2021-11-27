@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import Keyword from '../components/Keyword';
 import { filterPostInTag, getPostInTag } from '../modules/post';
 
@@ -10,12 +11,22 @@ const KeywordContainer = ({ match }) => {
     postInTag: post.postInTag,
     loading: loading,
   }));
+  const reloaded = useSelector(({ reload }) => reload);
+  const history = useHistory();
   const dispatch = useDispatch();
   const { tagId } = match.params;
 
   useEffect(() => {
     dispatch(getPostInTag(tagId));
   }, [dispatch, tagId]);
+
+  useEffect(() => {
+    if (reloaded) {
+      if (reloaded.keyword === true) {
+        dispatch(getPostInTag(tagId));
+      }
+    }
+  }, [reloaded]);
 
   const onFilteringDate = (startDate, endDate) => {
     const startDateToISO = new Date(startDate);

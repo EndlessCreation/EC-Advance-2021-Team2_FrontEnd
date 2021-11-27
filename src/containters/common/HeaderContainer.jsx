@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useLocation, useHistory } from 'react-router';
 
 import Header from '../../components/common/Header';
 import { initAuth } from '../../modules/auth';
@@ -24,7 +23,7 @@ const HeaderContainer = () => {
     const userCheck = async () => {
       try {
         const a = await getUser();
-        console.log(a);
+        // console.log(a);
       } catch (e) {
         dispatch(initAuth());
         alert('로그인이 필요합니다');
