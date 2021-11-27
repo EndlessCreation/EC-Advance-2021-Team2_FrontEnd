@@ -48,31 +48,35 @@ const Keyword = ({ user, postInTag, onFilteringDate }) => {
   if (!postInTag) return <div>loading...</div>;
   const { tag, tag_color: tagColor, keyword: keywordList } = postInTag;
   return (
-    <KeywordWrapper>
-      <KeywordStatus>
-        <TagMark tagName={tag} tagColor={tag_color} />
-        <Filter onFilteringDate={onFilteringDate} />
-      </KeywordStatus>
-      <KeywordList
-        ref={listRef}
-        onMouseDown={onDragStart}
-        // onMouseMove={isDrag ? onThrottleDragMove : null}
-        onMouseMove={isDrag ? onDragMove : null}
-        onMouseUp={onDragEnd}
-        onMouseLeave={onDragEnd}
-      >
-        {keywordList.map((keyword) => (
-          <KeywordLine
-            key={keyword.id}
-            tagName={tag}
-            tagColor={tagColor}
-            keywordColor={keyword.keyword_color}
-            keywordName={keyword.keyword_name}
-            postList={keyword.post}
-          />
-        ))}
-      </KeywordList>
-    </KeywordWrapper>
+    <>
+      <KeywordWrapper>
+        <HeaderMargin />
+
+        <KeywordStatus>
+          <TagMark tagName={tag} tagColor={tagColor} />
+          <Filter onFilteringDate={onFilteringDate} />
+        </KeywordStatus>
+        <KeywordList
+          ref={listRef}
+          onMouseDown={onDragStart}
+          // onMouseMove={isDrag ? onThrottleDragMove : null}
+          onMouseMove={isDrag ? onDragMove : null}
+          onMouseUp={onDragEnd}
+          onMouseLeave={onDragEnd}
+        >
+          {keywordList.map((keyword) => (
+            <KeywordLine
+              key={keyword.id}
+              tagName={tag}
+              tagColor={tagColor}
+              keywordColor={keyword.keyword_color}
+              keywordName={keyword.keyword_name}
+              postList={keyword.post}
+            />
+          ))}
+        </KeywordList>
+      </KeywordWrapper>
+    </>
   );
 };
 const KeywordWrapper = styled.div`
@@ -97,6 +101,9 @@ const KeywordList = styled.div`
   background-color: #ffffff;
   overflow: scroll;
   flex: auto;
+`;
+const HeaderMargin = styled.div`
+  margin-top: 60px;
 `;
 
 export default Keyword;

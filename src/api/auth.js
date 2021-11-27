@@ -134,7 +134,7 @@ export const checkAccount = async (account) => {
 
 export const deleteAccount = async () => {
   const response = await axios({
-    method: 'delete',
+    method: 'DELETE',
     url: '/api/users/delete',
   });
   return response.data;

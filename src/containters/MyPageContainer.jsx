@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { updatePassword } from '../api/auth';
 import MenuButton from '../components/mypage/MenuButton';
 import MenuTab from '../components/mypage/MenuTab';
+import MyPageMain from '../components/mypage/MyPageMain';
 import { initAuth } from '../modules/auth';
 import { check, logout } from '../modules/user';
 import ChangePasswordContainer from './ChangePasswordContainer';
@@ -12,8 +13,8 @@ import WithDrawalContainer from './WithDrawalContainer';
 const InitpageState = { main: false, changePassword: false, withDrawal: false };
 
 const MyPageContainer = (props) => {
-  const [tabState, setTabState] = useState(false);
-  const [pageState, setPageState] = useState(InitpageState);
+  const [tabState, setTabState] = useState(true);
+  const [pageState, setPageState] = useState({ ...InitpageState, main: true });
 
   const userData = useSelector(({ user }) => user);
   const { user, checkError } = userData;
@@ -65,6 +66,7 @@ const MyPageContainer = (props) => {
           onPageStateChange={onPageStateChange}
           onLogout={onLogout}
         />
+        <MyPageMain pageState={pageState.main} tabState={tabState} />
         <ChangePasswordContainer
           pageState={pageState.changePassword}
           tabState={tabState}

@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     background-color: #fafcf9;
-    overflow: hidden;
+    overflow-x: hidden;
   }
 `;
 

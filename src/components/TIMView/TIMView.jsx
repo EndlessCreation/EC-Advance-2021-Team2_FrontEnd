@@ -1,194 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { MdEdit } from 'react-icons/md';
 import { BsFillTrashFill, BsImages } from 'react-icons/bs';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import TIM from './TIM';
 // keyword 안에 있는 tim 나열
 // 선택한 tim 을 가장 앞에 두도록
 // 원형 스크롤로 구현할 예정
-const TIM = ({ post, onDeletePost, onEditPost }) => {
-  const {
-    id,
-    content,
-    createAt,
-    image,
-    isFavorite,
-    post_tag: { tag, tag_color },
-    post_keyword: { keyword_name, keyword_color },
-  } = post;
-  const slicedDate = createAt.toString().slice(0, 10);
-  const [editMode, setEditMode] = useState(false);
-  const initForm = {
-    image,
-    content,
-  };
-  const [form, setForm] = useState(initForm);
-  const handleEditMode = (e) => {
-    e.preventDefault();
-    if (editMode === false) {
-      setEditMode(true);
-      return;
-    }
-    if (editMode === true) {
-      let result = window.confirm('수정하시겠습니까?');
-      if (result) {
-        console.log(form);
-        const formData = new FormData();
-        formData.append('file', form.image);
-        formData.append('content', form.content);
-        formData.append('post_id', id);
-        formData.append('tag', tag);
-        formData.append('keyword', keyword_name);
-        formData.append('tag_color', tag_color);
-        formData.append('keyword_color', keyword_color);
-        onEditPost(formData);
-      }
-      setEditMode(false);
-      return;
-    }
-  };
-  const onChange = (e) => {
-    const {
-      target: { name, value, files },
-    } = e;
-    setForm((state) => ({
-      ...state,
-      [name]: name === 'image' ? files[0] : value,
-    }));
-  };
-  return (
-    <TIMWrapper image={image ? image.path : null}>
-      <Whitemark>
-        <Date>{slicedDate}</Date>
-        <EdtiButton onClick={handleEditMode}>
-          <MdEdit />
-        </EdtiButton>
-        <DeleteButton onClick={() => onDeletePost(id)}>
-          <BsFillTrashFill />
-        </DeleteButton>
-        {editMode ? (
-          <EditForm onSubmit={handleEditMode}>
-            <EditInput
-              name="content"
-              value={form.content}
-              onChange={onChange}
-            />
-            <ImageLabel>
-              <ImageInput
-                name="image"
-                type="file"
-                onChange={onChange}
-                accept="image/png, image/jpeg"
-              />
-              <BsImages size="30" />
-            </ImageLabel>
-          </EditForm>
-        ) : (
-          <Contents>{content}</Contents>
-        )}
-      </Whitemark>
-    </TIMWrapper>
-  );
-};
 
-const TIMWrapper = styled.li`
-  flex-shrink: 0;
-  scroll-snap-align: start; /* latest (Chrome 69+) */
-  scroll-snap-coordinate: 0% 0%; /* older (Firefox/IE) */
-  -webkit-scroll-snap-coordinate: 0% 0%; /* older (Safari) */
-
-  position: relative;
-  width: 400px;
-  height: 400px;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  background-image: ${(props) => `url(/static/${props.image})`};
-  background-color: ${({ theme }) => theme.bgColor[1]};
-  background-size: cover;
-  background-repeat: no-repeat;
-  overflow: hidden;
-  box-sizing: border-box;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
-  & + & {
-    margin-left: 30px;
-  }
-`;
-
-const Whitemark = styled.div`
-  position: absolute;
-  border-radius: 20px;
-  background-color: rgba(200, 200, 200, 0.3);
-  margin: auto;
-  width: 100%;
-  height: 100%;
-  padding: 35px 40px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  box-sizing: border-box;
-`;
-
-const Date = styled.div`
-  position: absolute;
-  font-size: 32px;
-  top: 35px;
-  left: 40px;
-`;
-const EdtiButton = styled.button`
-  position: absolute;
-  font-size: 32px;
-  top: 35px;
-  right: 40px;
-  border: none;
-  background: none;
-  cursor: pointer;
-`;
-const DeleteButton = styled.button`
-  position: absolute;
-  font-size: 32px;
-  top: 35px;
-  right: 80px;
-  border: none;
-  background: none;
-  cursor: pointer;
-`;
-
-const Contents = styled.div`
-  font-size: 32px;
-  font-weight: bold;
-  text-align: center;
-  margin: auto;
-`;
-const EditForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-const EditInput = styled.input`
-  border: none;
-  width: 300px;
-  height: 200px;
-  border-radius: 10px;
-  font-size: 32px;
-`;
-const ImageLabel = styled.label`
-  background-color: white;
-  margin-top: 10px;
-  width: 30px;
-  height: 30px;
-`;
-const ImageInput = styled.input`
-  display: none;
-`;
 const TIMView = ({
   user,
-  tagColor,
+  postList,
   tagName,
-  postInKeyword,
-  onDeletePost,
+  tagColor,
+  keywordName,
+  keywordColor,
   onEditPost,
+  onDeletePost,
 }) => {
   const scrollRef = useRef();
   const [index, setIndex] = useState(0);
@@ -209,39 +37,42 @@ const TIMView = ({
     if (index < childrenLength - 1) setIndex((prevIdx) => prevIdx + 1);
   };
 
-  if (!user || !postInKeyword) return null;
-  const { post: postList, keyword_name, keyword_color } = postInKeyword;
+  if (!user || !postList) return null;
   return (
-    <TIMViewWrapper>
-      <ListStatus>
-        <Mark tagColor={tagColor}>{tagName}</Mark>
-        <Mark keywordColor={keyword_color}>{keyword_name}</Mark>
-      </ListStatus>
-      <PostList>
-        <TimListWrapper ref={scrollRef}>
-          {postList.map((post) => (
-            <TIM
-              key={post.id}
-              post={post}
-              tagName={tagName}
-              keywordName={keyword_name}
-              onDeletePost={onDeletePost}
-              onEditPost={onEditPost}
-            />
-          ))}
-          {postList !== [] && (
-            <>
-              <LeftBtn onClick={onClickLeft}>
-                <FiChevronLeft size="25" />
-              </LeftBtn>
-              <RightBtn onClick={onClickRight}>
-                <FiChevronRight size="25" />
-              </RightBtn>
-            </>
-          )}
-        </TimListWrapper>
-      </PostList>
-    </TIMViewWrapper>
+    <>
+      <TIMViewWrapper>
+        <HeaderMargin />
+
+        <ListStatus>
+          <Mark tagColor={tagColor}>{tagName}</Mark>
+          <Mark keywordColor={keywordColor}>{keywordName}</Mark>
+        </ListStatus>
+        <PostList>
+          <TimListWrapper ref={scrollRef}>
+            {postList.map((post) => (
+              <TIM
+                key={post.id}
+                post={post}
+                tagName={tagName}
+                keywordName={keywordName}
+                onDeletePost={onDeletePost}
+                onEditPost={onEditPost}
+              />
+            ))}
+            {postList !== [] && (
+              <>
+                <LeftBtn onClick={onClickLeft}>
+                  <FiChevronLeft size="25" />
+                </LeftBtn>
+                <RightBtn onClick={onClickRight}>
+                  <FiChevronRight size="25" />
+                </RightBtn>
+              </>
+            )}
+          </TimListWrapper>
+        </PostList>
+      </TIMViewWrapper>
+    </>
   );
 };
 
@@ -304,6 +135,10 @@ const TimListWrapper = styled.ul`
     display: none;
   }
 `;
+
+const HeaderMargin = styled.div`
+  margin-top: 60px;
+`;
 const LeftBtn = styled.button`
   cursor: pointer;
   outline: 0;
@@ -330,4 +165,96 @@ const RightBtn = styled.button`
   width: 25px;
   height: 25px;
 `;
+
 export default TIMView;
+
+// const TIMView = ({
+//   user,
+//   tagName,
+//   tagColor,
+//   keywordName,
+//   keywordColor,
+//   postList,
+// }) => {
+//   const scrollRef = useRef();
+//   const [index, setIndex] = useState(0);
+//   // 스크롤값 가져와야 함.
+//   useEffect(() => {
+//     if (scrollRef.current) {
+//       scrollRef.current.children[index].scrollIntoView({
+//         behavior: 'smooth',
+//         inline: 'start',
+//       });
+//     }
+//   }, [index, scrollRef]);
+//   const onClickLeft = (e) => {
+//     if (index > 0) setIndex((prevIdx) => prevIdx - 1);
+//   };
+//   const onClickRight = (e) => {
+//     const childrenLength = scrollRef.current.children.length;
+//     if (index < childrenLength - 1) setIndex((prevIdx) => prevIdx + 1);
+//   };
+
+//   if (
+//     !user ||
+//     !postlist ||
+//     !tagName ||
+//     !tagColor ||
+//     !keywordName ||
+//     !keywordColor
+//   )
+//     return null;
+//   return (
+//     <>
+//       <HeaderMargin />
+//       <TIMViewWrapper>
+//         <ListStatus>
+//           <Mark tagColor={tagColor}>{tagName}</Mark>
+//           <Mark keywordColor={keywordColor}>{keywordName}</Mark>
+//         </ListStatus>
+//         <PostList>
+//           <TimListWrapper ref={scrollRef}>
+//             {postlist.map((post) => (
+//               <TIM key={post.id} post={post} />
+//             ))}
+//             <MovingBtn onClick={onClickLeft}>{`<`}</MovingBtn>
+//             <MovingBtn onClick={onClickRight} right>{`>`}</MovingBtn>
+//           </TimListWrapper>
+//         </PostList>
+//       </TIMViewWrapper>
+//     </>
+//   );
+// };
+
+// const MovingBtn = styled.button`
+//   cursor: pointer;
+//   outline: 0;
+//   position: absolute;
+//   top: 50%;
+//   transform: translate(0%, -50%);
+//   width: 60px;
+//   height: 120px;
+//   background-color: rgba(255, 255, 255, 0.3);
+//   border-radius: 8px;
+//   border: 2px solid #bebebe6e;
+//   color: #6e6e6e;
+//   ${({ right }) =>
+//     right
+//       ? css`
+//           right: 0;
+//         `
+//       : css`
+//           left: 0;
+//         `};
+//   &:hover {
+//     color: '#000000';
+//     background-color: rgba(255, 255, 255, 0.9);
+//   }
+//   &:active {
+//     color: '#ffffff';
+//     background-color: rgba(161, 161, 161, 0.9);
+//   }
+//   transition: 0.4s ease;
+//   font-family: Roboto;
+//   font-size: 42px;
+// `;
