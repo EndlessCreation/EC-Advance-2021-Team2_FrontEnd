@@ -15,7 +15,7 @@ export const Input = styled.input`
   line-height: 1.25rem;
   ::placeholder {
     font-family: Roboto;
-    font-size: 1.3vw;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 16px;
