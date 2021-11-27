@@ -13,6 +13,8 @@ const TIMViewContainer = ({ match, location }) => {
     deletePostSuccess: post.deletePostSuccess,
   }));
 
+  const reloaded = useSelector(({ reload }) => reload);
+
   const dispatch = useDispatch();
   const { tagId, keywordId } = match.params;
   const {
@@ -38,7 +40,15 @@ const TIMViewContainer = ({ match, location }) => {
 
   useEffect(() => {
     dispatch(getPostInKeyword(keywordId));
-  }, [dispatch, keywordId, tagId]);
+  }, [dispatch, keywordId]);
+
+  useEffect(() => {
+    if (reloaded) {
+      if (reloaded.tim === true) {
+        dispatch(getPostInKeyword(keywordId));
+      }
+    }
+  }, [reloaded]);
 
   // console.log(match, location);
 

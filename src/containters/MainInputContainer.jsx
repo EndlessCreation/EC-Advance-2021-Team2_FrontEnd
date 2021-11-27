@@ -6,11 +6,14 @@ import { createPost } from '../modules/post';
 import { reloadAction } from '../modules/reload';
 import theme from '../styles/theme';
 import { randomIndex } from '../lib/util/randomIndex';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 const MainInputContainer = () => {
   const { user } = useSelector(({ user }) => ({
     user: user.user,
   }));
+  const { pathname } = useLocation();
+
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const [tag, setTag] = useState('');
@@ -21,6 +24,8 @@ const MainInputContainer = () => {
   const colors = Object.keys(theme.component).filter(
     (color) => color !== 'gray' && color !== 'grey',
   );
+
+  console.log(pathname.split('/')[1]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -43,6 +48,7 @@ const MainInputContainer = () => {
 
       dispatch(createPost(formData));
       dispatch(reloadAction('timLog'));
+      dispatch(reloadAction(pathname.split('/')[1]));
 
       inputRef.current.value = '';
       setImage(null);

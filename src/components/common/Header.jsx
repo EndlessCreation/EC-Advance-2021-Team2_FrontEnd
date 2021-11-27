@@ -29,7 +29,7 @@ const Header = ({ user, onLogout, pathname }) => {
               <FaHome size="30" />
             </HeaderMenuButton>
           )}
-          <SearchContainer />
+          <SearchContainer pathname={pathname} />
           <NavWrapper>
             <HeaderMenuButton onClick={onLogout}>
               <Icon src={exitIconSrc} size={30} />

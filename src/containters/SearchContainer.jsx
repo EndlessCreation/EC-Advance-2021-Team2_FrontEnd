@@ -5,12 +5,11 @@ import _ from 'lodash';
 import Search from '../components/search/Search';
 import { useEffect } from 'react';
 
-const SearchContainer = (props) => {
+const SearchContainer = () => {
   // const [searchState, setSearchState] = useState();
   const [isOpenned, setIsOpenned] = useState();
   const [searchValue, setSearchValue] = useState();
   const [searchingData, setSearchingData] = useState();
-  const dispatch = useDispatch();
 
   const sendContent = async (Query) => {
     if (Query === 0) return;
