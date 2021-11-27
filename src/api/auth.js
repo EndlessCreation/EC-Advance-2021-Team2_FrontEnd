@@ -47,7 +47,7 @@ export const logout = async () => {
 export const check = async () => {
   const response = await axios({
     method: 'get',
-    url: '/api/users/get_user', // url 수정 예정
+    url: '/api/users/get_user',
   });
   return response.data;
 };
@@ -67,7 +67,7 @@ export const findId = async ({ name, email }) => {
 export const findPassword = async ({ account, email }) => {
   const response = await axios({
     method: 'post',
-    url: '/api/users/find/password', // url 수정 예정
+    url: '/api/users/find/password',
     data: {
       account,
       email,
@@ -92,7 +92,7 @@ export const sendEmail = async ({ account, email, phone_number }) => {
 export const updatePassword = async ({ id, password }) => {
   const response = await axios({
     method: 'post',
-    url: '/api/users/find/changepw', // url 수정 예정
+    url: '/api/users/find/changepw',
     data: {
       id,
       password,

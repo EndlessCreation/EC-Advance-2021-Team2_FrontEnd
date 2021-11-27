@@ -14,8 +14,13 @@ import MyPage from './pages/MyPage';
 import My404Page from './pages/My404Page';
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    padding: 0;
+    margin: 0;
+  }
   body {
     background-color: #fafcf9;
+    overflow: hidden;
   }
 `;
 

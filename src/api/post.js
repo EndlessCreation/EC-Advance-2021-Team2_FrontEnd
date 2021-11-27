@@ -42,7 +42,7 @@ export const favoritePost = async (post_id) => {
 export const getFavoritePost = async () => {
   const response = await axios({
     method: 'get',
-    url: '/api/postview/favorite/1',
+    url: '/api/postview/favorite/',
   });
   return response.data;
 };
@@ -77,7 +77,7 @@ export const getOnePostView = async (post_id) => {
 export const getBanner = async () => {
   const response = await axios({
     method: 'get',
-    url: '/banner',
+    url: '/api/banner',
   });
   return response.data;
 };

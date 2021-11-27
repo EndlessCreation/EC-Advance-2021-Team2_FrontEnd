@@ -2,12 +2,15 @@ import { createAction, handleActions } from 'redux-actions';
 import { createActionType, createRequestSaga } from '../lib/utils';
 import { takeLatest } from '@redux-saga/core/effects';
 import * as postAPI from '../api/post';
+import faker from '../../node_modules/faker/index';
+import shortid from 'shortid';
 
 const [CREATE_POST, CREATE_POST_SUCCESS, CREATE_POST_FAILURE] =
   createActionType('post/CREATE_POST');
 const [EDIT_POST, EDIT_POST_SUCCESS, EDIT_POST_FAILURE] =
   createActionType('post/EDIT_POST');
-const DELETE_POST = 'post/DELETE_POST';
+const [DELETE_POST, DELETE_POST_SUCCESS, DELETE_POST_FAILURE] =
+  createActionType('post/DELETE_POST');
 const [POSTVIEW, POSTVIEW_SUCCESS, POSTVIEW_FAILURE] =
   createActionType('post/POSTVIEW');
 
@@ -88,8 +91,323 @@ const initialState = {
   posts: null,
   postInKeyword: null,
   postInTag: null,
+  deletePostSuccess: null,
+  deletePostError: null,
 };
-
+// DUMMY DATA : 나중에 삭제할 예정입니다.
+// initialState.postInTag = {
+//   id: shortid.generate(),
+//   tag: faker.name.findName(),
+//   tag_color: 'orange',
+//   keyword: [
+//     {
+//       id: shortid.generate(),
+//       keyword_color: 'yellow',
+//       keyword_name: faker.name.findName(),
+//       post: [
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: faker.image.image(),
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//       ],
+//     },
+//     {
+//       id: shortid.generate(),
+//       keyword_color: 'yellow',
+//       keyword_name: faker.name.findName(),
+//       post: [
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//       ],
+//     },
+//     {
+//       id: shortid.generate(),
+//       keyword_color: 'yellow',
+//       keyword_name: faker.name.findName(),
+//       post: [
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//       ],
+//     },
+//     {
+//       id: shortid.generate(),
+//       keyword_color: 'yellow',
+//       keyword_name: faker.name.findName(),
+//       post: [
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//       ],
+//     },
+//     {
+//       id: shortid.generate(),
+//       keyword_color: 'yellow',
+//       keyword_name: faker.name.findName(),
+//       post: [
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//       ],
+//     },
+//     {
+//       id: shortid.generate(),
+//       keyword_color: 'yellow',
+//       keyword_name: faker.name.findName(),
+//       post: [
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//       ],
+//     },
+//     {
+//       id: shortid.generate(),
+//       keyword_color: 'yellow',
+//       keyword_name: faker.name.findName(),
+//       post: [
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//         {
+//           id: shortid.generate(),
+//           content: '로그 로그로그로ㄹ로',
+//           createAt: '2021-09-25T16:01:14.883Z',
+//           updateAt: '2021-09-25T16:33:13.331Z',
+//           isFavorite: false,
+//           user_id: 1,
+//           tag_id: 1,
+//           keyword_id: 7,
+//           image: null,
+//         },
+//       ],
+//     },
+//   ],
+// };
+// initialState.postInKeyword = {
+//   id: 2,
+//   keyword_name: 'key',
+//   keyword_color: 'yellow',
+//   createAt: '2021-11-20T06:49:04.697Z',
+//   updateAt: '2021-11-20T06:49:04.698Z',
+//   parent_tag_id: 2,
+//   post: [
+//     {
+//       id: 3,
+//       content: 'tagkey',
+//       createAt: '2021-11-20T06:49:04.719Z',
+//       updateAt: '2021-11-20T06:49:04.719Z',
+//       isFavorite: false,
+//       user_id: 2,
+//       tag_id: 2,
+//       keyword_id: 2,
+//       image: null,
+//       post_tag: {
+//         id: 2,
+//         tag: 'tag',
+//         tag_color: 'grey',
+//         createAt: '2021-11-20T06:49:04.685Z',
+//         updateAt: '2021-11-20T06:49:04.685Z',
+//         author_id: 2,
+//       },
+//       post_keyword: {
+//         id: 2,
+//         keyword_name: 'key',
+//         keyword_color: 'yellow',
+//         createAt: '2021-11-20T06:49:04.697Z',
+//         updateAt: '2021-11-20T06:49:04.698Z',
+//         parent_tag_id: 2,
+//       },
+//     },
+//   ],
+// };
 const post = handleActions(
   {
     [CREATE_POST_SUCCESS]: (state, { payload: formData }) => ({
@@ -107,6 +425,16 @@ const post = handleActions(
     [EDIT_POST_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
+    }),
+    [DELETE_POST_SUCCESS]: (state, { payload: success }) => ({
+      ...state,
+      deletePostSuccess: success,
+      deletePostError: null,
+    }),
+    [DELETE_POST_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      deletePostSuccess: null,
+      deletePostError: error,
     }),
     [POSTVIEW_SUCCESS]: (state, { payload: posts }) => ({
       ...state,
