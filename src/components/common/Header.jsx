@@ -25,9 +25,9 @@ const Header = ({ user, onLogout, pathname }) => {
               <AiOutlineUnorderedList size="30" />
             </HeaderMenuButton>
           ) : (
-            <StyledLink to="/">
+            <HeaderMenuButton onClick={() => history.push('/')}>
               <FaHome size="30" />
-            </StyledLink>
+            </HeaderMenuButton>
           )}
           <SearchContainer />
           <NavWrapper>
