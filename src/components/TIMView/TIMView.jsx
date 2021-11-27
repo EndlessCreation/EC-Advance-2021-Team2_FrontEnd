@@ -1,33 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdEdit } from 'react-icons/md';
-
+import { BsFillTrashFill, BsImages } from 'react-icons/bs';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import TIM from './TIM';
 // keyword 안에 있는 tim 나열
 // 선택한 tim 을 가장 앞에 두도록
 // 원형 스크롤로 구현할 예정
-const TIM = ({ post, onEdit }) => {
-  const { image, createAt, content } = post;
-  const slicedDate = createAt.toString().slice(0, 10);
-  return (
-    <TIMWrapper image={image ? image.path : null}>
-      <Whitemark>
-        <Date>{slicedDate}</Date>
-        <EdtiButton onClick={onEdit}>
-          <MdEdit />
-        </EdtiButton>
-        <Contents>{content}</Contents>
-      </Whitemark>
-    </TIMWrapper>
-  );
-};
 
 const TIMView = ({
   user,
+  postList,
   tagName,
   tagColor,
   keywordName,
   keywordColor,
-  postlist,
+  onEditPost,
+  onDeletePost,
 }) => {
   const scrollRef = useRef();
   const [index, setIndex] = useState(0);
@@ -36,7 +25,7 @@ const TIMView = ({
     if (scrollRef.current) {
       scrollRef.current.children[index].scrollIntoView({
         behavior: 'smooth',
-        inline: 'start',
+        inline: 'center',
       });
     }
   }, [index, scrollRef]);
@@ -48,93 +37,44 @@ const TIMView = ({
     if (index < childrenLength - 1) setIndex((prevIdx) => prevIdx + 1);
   };
 
-  if (
-    !user ||
-    !postlist ||
-    !tagName ||
-    !tagColor ||
-    !keywordName ||
-    !keywordColor
-  )
-    return null;
+  if (!user || !postList) return null;
   return (
     <>
-      <HeaderMargin />
       <TIMViewWrapper>
+        <HeaderMargin />
+
         <ListStatus>
           <Mark tagColor={tagColor}>{tagName}</Mark>
           <Mark keywordColor={keywordColor}>{keywordName}</Mark>
         </ListStatus>
         <PostList>
           <TimListWrapper ref={scrollRef}>
-            {postlist.map((post) => (
-              <TIM key={post.id} post={post} />
+            {postList.map((post) => (
+              <TIM
+                key={post.id}
+                post={post}
+                tagName={tagName}
+                keywordName={keywordName}
+                onDeletePost={onDeletePost}
+                onEditPost={onEditPost}
+              />
             ))}
-            <MovingBtn onClick={onClickLeft}>{`<`}</MovingBtn>
-            <MovingBtn onClick={onClickRight} right>{`>`}</MovingBtn>
+            {postList !== [] && (
+              <>
+                <LeftBtn onClick={onClickLeft}>
+                  <FiChevronLeft size="25" />
+                </LeftBtn>
+                <RightBtn onClick={onClickRight}>
+                  <FiChevronRight size="25" />
+                </RightBtn>
+              </>
+            )}
           </TimListWrapper>
         </PostList>
       </TIMViewWrapper>
     </>
   );
 };
-
-const TIMWrapper = styled.li`
-  flex-shrink: 0;
-  scroll-snap-align: start; /* latest (Chrome 69+) */
-  scroll-snap-coordinate: 0% 0%; /* older (Firefox/IE) */
-  -webkit-scroll-snap-coordinate: 0% 0%; /* older (Safari) */
-
-  position: relative;
-  width: 400px;
-  height: 400px;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  background-image: ${(props) => `url(${props.image})`};
-  background-color: ${({ theme }) => theme.bgColor[1]};
-  background-size: cover;
-  background-repeat: no-repeat;
-  overflow: hidden;
-  box-sizing: border-box;
-  & + & {
-    margin-left: 30px;
-  }
-`;
-
-const Whitemark = styled.div`
-  position: absolute;
-  border-radius: 20px;
-  background-color: rgba(200, 200, 200, 0.3);
-  margin: auto;
-  width: 100%;
-  height: 100%;
-  padding: 35px 40px;
-  overflow: hidden;
-  display: flex;
-  box-sizing: border-box;
-`;
-
-const Date = styled.div`
-  position: absolute;
-  font-size: 32px;
-  top: 35px;
-  left: 40px;
-`;
-
-const EdtiButton = styled.div`
-  position: absolute;
-  font-size: 32px;
-  top: 35px;
-  right: 40px;
-`;
-
-const Contents = styled.div`
-  font-size: 32px;
-  font-weight: bold;
-  text-align: center;
-  margin: auto;
-`;
 
 const TIMViewWrapper = styled.div`
   overflow: hidden;
@@ -155,7 +95,6 @@ const Mark = styled.button`
   height: 80px;
   display: flex;
   background-color: ${({ theme, tagColor, keywordColor }) => {
-    console.log(tagColor, keywordColor);
     if (tagColor != null) return theme.component[tagColor][1];
     if (keywordColor != null) return theme.component[keywordColor][2];
   }};
@@ -173,10 +112,12 @@ const Mark = styled.button`
 `;
 const PostList = styled.div`
   position: relative;
+  padding: 0 25px;
 `;
 const TimListWrapper = styled.ul`
   transition: 1s;
   padding: 50px 0;
+  box-sizing: border-box;
   display: flex;
   align-items: stretch;
   width: 100%;
@@ -194,43 +135,126 @@ const TimListWrapper = styled.ul`
     display: none;
   }
 `;
-const MovingBtn = styled.button`
+
+const HeaderMargin = styled.div`
+  margin-top: 60px;
+`;
+const LeftBtn = styled.button`
   cursor: pointer;
   outline: 0;
   position: absolute;
   top: 50%;
-  transform: translate(0%, -50%);
-  width: 60px;
-  height: 120px;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  border: 2px solid #bebebe6e;
-  color: #6e6e6e;
-  ${({ right }) =>
-    right
-      ? css`
-          right: 0;
-        `
-      : css`
-          left: 0;
-        `};
-  &:hover {
-    color: '#000000';
-    background-color: rgba(255, 255, 255, 0.9);
-  }
-  &:active {
-    color: '#ffffff';
-    background-color: rgba(161, 161, 161, 0.9);
-  }
-  transition: 0.4s ease;
-  font-family: Roboto;
-  font-size: 42px;
+  left: 30px;
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  width: 25px;
+  height: 25px;
 `;
-
-const HeaderMargin = styled.div`
-  position: relative;
-  width: 100%;
-  height: 60px;
+const RightBtn = styled.button`
+  cursor: pointer;
+  outline: 0;
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  width: 25px;
+  height: 25px;
 `;
 
 export default TIMView;
+
+// const TIMView = ({
+//   user,
+//   tagName,
+//   tagColor,
+//   keywordName,
+//   keywordColor,
+//   postList,
+// }) => {
+//   const scrollRef = useRef();
+//   const [index, setIndex] = useState(0);
+//   // 스크롤값 가져와야 함.
+//   useEffect(() => {
+//     if (scrollRef.current) {
+//       scrollRef.current.children[index].scrollIntoView({
+//         behavior: 'smooth',
+//         inline: 'start',
+//       });
+//     }
+//   }, [index, scrollRef]);
+//   const onClickLeft = (e) => {
+//     if (index > 0) setIndex((prevIdx) => prevIdx - 1);
+//   };
+//   const onClickRight = (e) => {
+//     const childrenLength = scrollRef.current.children.length;
+//     if (index < childrenLength - 1) setIndex((prevIdx) => prevIdx + 1);
+//   };
+
+//   if (
+//     !user ||
+//     !postlist ||
+//     !tagName ||
+//     !tagColor ||
+//     !keywordName ||
+//     !keywordColor
+//   )
+//     return null;
+//   return (
+//     <>
+//       <HeaderMargin />
+//       <TIMViewWrapper>
+//         <ListStatus>
+//           <Mark tagColor={tagColor}>{tagName}</Mark>
+//           <Mark keywordColor={keywordColor}>{keywordName}</Mark>
+//         </ListStatus>
+//         <PostList>
+//           <TimListWrapper ref={scrollRef}>
+//             {postlist.map((post) => (
+//               <TIM key={post.id} post={post} />
+//             ))}
+//             <MovingBtn onClick={onClickLeft}>{`<`}</MovingBtn>
+//             <MovingBtn onClick={onClickRight} right>{`>`}</MovingBtn>
+//           </TimListWrapper>
+//         </PostList>
+//       </TIMViewWrapper>
+//     </>
+//   );
+// };
+
+// const MovingBtn = styled.button`
+//   cursor: pointer;
+//   outline: 0;
+//   position: absolute;
+//   top: 50%;
+//   transform: translate(0%, -50%);
+//   width: 60px;
+//   height: 120px;
+//   background-color: rgba(255, 255, 255, 0.3);
+//   border-radius: 8px;
+//   border: 2px solid #bebebe6e;
+//   color: #6e6e6e;
+//   ${({ right }) =>
+//     right
+//       ? css`
+//           right: 0;
+//         `
+//       : css`
+//           left: 0;
+//         `};
+//   &:hover {
+//     color: '#000000';
+//     background-color: rgba(255, 255, 255, 0.9);
+//   }
+//   &:active {
+//     color: '#ffffff';
+//     background-color: rgba(161, 161, 161, 0.9);
+//   }
+//   transition: 0.4s ease;
+//   font-family: Roboto;
+//   font-size: 42px;
+// `;

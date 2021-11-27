@@ -1,6 +1,6 @@
 import axios from '../../node_modules/axios/index';
 
-// 태그만 받아옴
+// 유저의 전체 태그만 받아옴
 export const getTag = async () => {
   const response = await axios({
     method: 'get',
@@ -8,7 +8,7 @@ export const getTag = async () => {
   });
   return response.data;
 };
-// 태그와 키워드 같이 받아옴
+// 유저의 전체 태그와 키워드
 export const getTagKeyword = async () => {
   const response = await axios({
     method: 'get',
@@ -16,7 +16,7 @@ export const getTagKeyword = async () => {
   });
   return response.data;
 };
-// 특정 태그의 키워드만 받아옴
+// 특정 태그(tagId)에 있는 키워드만 받아옴
 export const getKeywordInTag = async (tagId) => {
   const response = await axios({
     method: 'get',

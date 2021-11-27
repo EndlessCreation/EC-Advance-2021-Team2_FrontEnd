@@ -28,7 +28,6 @@ const TIMLogContainer = ({ type }) => {
     dispatch(favoritePost(post_id));
     dispatch(reloadAction('timLog'));
   };
-
   useEffect(() => {
     // console.log('마운트 시 fetch');
     LogContainerfetch();
