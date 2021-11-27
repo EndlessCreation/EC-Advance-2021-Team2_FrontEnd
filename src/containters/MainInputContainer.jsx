@@ -25,7 +25,7 @@ const MainInputContainer = () => {
     (color) => color !== 'gray' && color !== 'grey',
   );
 
-  console.log(pathname.split('/')[1]);
+  // console.log(pathname.split('/')[1]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -46,6 +46,17 @@ const MainInputContainer = () => {
       formData.append('keyword', keyword);
       formData.append('keyword_color', keyword_color);
 
+      // console.log(formData);
+      /* key 확인하기 */
+      for (let key of formData.keys()) {
+        console.log(key);
+      }
+
+      /* value 확인하기 */
+      for (let value of formData.values()) {
+        console.log(value);
+      }
+
       dispatch(createPost(formData));
       dispatch(reloadAction('timLog'));
       dispatch(reloadAction(pathname.split('/')[1]));
@@ -64,7 +75,7 @@ const MainInputContainer = () => {
     }
   };
   const onKeyUp = (e) => {
-    console.log(tag, keyword);
+    // console.log(tag, keyword);
 
     const { value } = e.target;
     if (value !== '') {

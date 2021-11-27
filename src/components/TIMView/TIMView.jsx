@@ -54,7 +54,9 @@ const TIMView = ({
                 key={post.id}
                 post={post}
                 tagName={tagName}
+                tagColor={tagColor}
                 keywordName={keywordName}
+                keywordColor={keywordColor}
                 onDeletePost={onDeletePost}
                 onEditPost={onEditPost}
               />

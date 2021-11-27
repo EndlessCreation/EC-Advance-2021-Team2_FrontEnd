@@ -23,7 +23,7 @@ const HeaderContainer = () => {
     const userCheck = async () => {
       try {
         const a = await getUser();
-        console.log(a);
+        // console.log(a);
       } catch (e) {
         dispatch(initAuth());
         alert('로그인이 필요합니다');

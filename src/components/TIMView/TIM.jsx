@@ -3,18 +3,17 @@ import styled, { css } from 'styled-components';
 import { MdEdit } from 'react-icons/md';
 import { BsFillTrashFill, BsImages } from 'react-icons/bs';
 
-const TIM = ({ post, onDeletePost, onEditPost }) => {
-  const {
-    id,
-    content,
-    createAt,
-    image,
-    isFavorite,
-    tagName,
-    tagColor,
-    keywordName,
-    keywordColor,
-  } = post;
+const TIM = ({
+  post,
+  tagName,
+  tagColor,
+  keywordName,
+  keywordColor,
+  onDeletePost,
+  onEditPost,
+}) => {
+  const { id, content, createAt, image, isFavorite } = post;
+
   const slicedDate = createAt.toString().slice(0, 10);
   const [editMode, setEditMode] = useState(false);
   const initForm = {
@@ -31,7 +30,7 @@ const TIM = ({ post, onDeletePost, onEditPost }) => {
     if (editMode === true) {
       let result = window.confirm('수정하시겠습니까?');
       if (result) {
-        console.log(form);
+        console.log(post);
         const formData = new FormData();
         formData.append('file', form.image);
         formData.append('content', form.content);
@@ -40,6 +39,15 @@ const TIM = ({ post, onDeletePost, onEditPost }) => {
         formData.append('keyword', keywordName);
         formData.append('tag_color', tagColor);
         formData.append('keyword_color', keywordColor);
+
+        for (let key of formData.keys()) {
+          console.log(key);
+        }
+
+        /* value 확인하기 */
+        for (let value of formData.values()) {
+          console.log(value);
+        }
         onEditPost(formData);
       }
       setEditMode(false);
