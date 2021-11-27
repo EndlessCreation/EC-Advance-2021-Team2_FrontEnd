@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { MdEdit } from 'react-icons/md';
 
 // keyword 안에 있는 tim 나열
 // 선택한 tim 을 가장 앞에 두도록
 // 원형 스크롤로 구현할 예정
 const TIM = ({ post, onEdit }) => {
-  const { image, createAt, content, isFavorite } = post;
+  const { image, createAt, content } = post;
   const slicedDate = createAt.toString().slice(0, 10);
   return (
     <TIMWrapper image={image ? image.path : null}>
@@ -70,8 +70,8 @@ const TIMView = ({
             {postlist.map((post) => (
               <TIM key={post.id} post={post} />
             ))}
-            <LeftBtn onClick={onClickLeft}>왼쪽</LeftBtn>
-            <RightBtn onClick={onClickRight}>오른쪽</RightBtn>
+            <MovingBtn onClick={onClickLeft}>{`<`}</MovingBtn>
+            <MovingBtn onClick={onClickRight} right>{`>`}</MovingBtn>
           </TimListWrapper>
         </PostList>
       </TIMViewWrapper>
@@ -194,19 +194,37 @@ const TimListWrapper = styled.ul`
     display: none;
   }
 `;
-const LeftBtn = styled.button`
+const MovingBtn = styled.button`
   cursor: pointer;
   outline: 0;
   position: absolute;
   top: 50%;
-  left: 0;
-`;
-const RightBtn = styled.button`
-  cursor: pointer;
-  outline: 0;
-  position: absolute;
-  top: 50%;
-  right: 0;
+  transform: translate(0%, -50%);
+  width: 60px;
+  height: 120px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  border: 2px solid #bebebe6e;
+  color: #6e6e6e;
+  ${({ right }) =>
+    right
+      ? css`
+          right: 0;
+        `
+      : css`
+          left: 0;
+        `};
+  &:hover {
+    color: '#000000';
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  &:active {
+    color: '#ffffff';
+    background-color: rgba(161, 161, 161, 0.9);
+  }
+  transition: 0.4s ease;
+  font-family: Roboto;
+  font-size: 42px;
 `;
 
 const HeaderMargin = styled.div`
